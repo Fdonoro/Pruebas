@@ -1,367 +1,321 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="h-full bg-[#FAF7F2]">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Barre By Mich | Reserva de Clases & Gestión Boutique</title>
+  <title>Barre By Mich | Boutique Movement Studio</title>
   
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  
   <script>
     tailwind.config = {
       theme: {
         extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Cormorant Garamond"', 'serif']
+          },
           colors: {
             brand: {
               cream: '#FAF7F2',
-              sand: '#F3EDE2',
-              blush: '#F5E6E0',
-              rose: '#E8C5BC',
-              terracotta: '#C17C68',
-              terracottaDark: '#A86452',
-              charcoal: '#2D2826',
-              muted: '#7A726E',
-              border: '#E8E0D5',
-              card: '#FFFFFF'
+              sand: '#F3ECE3',
+              blush: '#EBDCD0',
+              terracotta: '#C47259',
+              'terracotta-dark': '#AA5E47',
+              charcoal: '#262220',
+              muted: '#78706B',
+              border: '#E8DFD7'
             }
-          },
-          fontFamily: {
-            serif: ['"Cormorant Garamond"', 'serif'],
-            sans: ['"Plus Jakarta Sans"', 'sans-serif']
           }
         }
       }
-    };
+    }
   </script>
+
   <style>
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background-color: #FAF7F2;
-      color: #2D2826;
-      -webkit-font-smoothing: antialiased;
-    }
-    .font-serif-title {
-      font-family: 'Cormorant Garamond', serif;
-    }
-    .scrollbar-thin::-webkit-scrollbar {
-      height: 6px;
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
       width: 6px;
+      height: 6px;
     }
-    .scrollbar-thin::-webkit-scrollbar-track {
-      background: #F3EDE2;
+    ::-webkit-scrollbar-track {
+      background: #FAF7F2;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #D8CCC4;
       border-radius: 9999px;
     }
-    .scrollbar-thin::-webkit-scrollbar-thumb {
-      background: #E8C5BC;
-      border-radius: 9999px;
+    ::-webkit-scrollbar-thumb:hover {
+      background: #C47259;
     }
-    .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-      background: #C17C68;
+
+    .fade-in {
+      animation: fadeIn 0.25s ease-out forwards;
     }
-    .modal-backdrop {
-      background-color: rgba(45, 40, 38, 0.55);
-      backdrop-filter: blur(4px);
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col bg-brand-cream text-brand-charcoal">
 
-  <header class="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-brand-border transition-all">
+<body class="min-h-full font-sans text-brand-charcoal bg-brand-cream flex flex-col antialiased selection:bg-brand-terracotta selection:text-white">
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none"></div>
+
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-brand-border shadow-xs">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-20">
         
-        <!-- Logo -->
-        <div class="flex items-center space-x-3 cursor-pointer select-none" onclick="app.setTab('schedule')">
-          <div class="w-11 h-11 rounded-full bg-brand-terracotta flex items-center justify-center text-white shadow-sm shadow-brand-terracotta/30">
-            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <!-- Brand Logo -->
+        <div class="flex items-center space-x-3 cursor-pointer" onclick="app.setTab('schedule')">
+          <div class="w-11 h-11 rounded-full bg-brand-terracotta flex items-center justify-center text-white shadow-sm">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 2a4 4 0 0 0-4 4c0 2 2 3.5 4 6 2-2.5 4-4 4-6a4 4 0 0 0-4-4z"/>
               <path d="M7 16c2 1 3 2 5 2s3-1 5-2"/>
               <path d="M4 21c3-1 5-2 8-2s5 1 8 2"/>
             </svg>
           </div>
           <div>
-            <span class="block text-2xl font-serif-title font-semibold tracking-wider text-brand-charcoal uppercase leading-none">Barre By Mich</span>
-            <span class="text-[10px] tracking-widest text-brand-terracotta uppercase font-medium">Boutique Movement Studio</span>
+            <span class="block text-2xl font-serif font-bold tracking-wider text-brand-charcoal uppercase leading-none">Barre By Mich</span>
+            <span class="text-[11px] tracking-widest text-brand-terracotta uppercase font-semibold">Boutique Movement Studio</span>
           </div>
         </div>
 
         <!-- Navigation Tabs -->
-        <nav class="hidden md:flex items-center space-x-1 bg-brand-sand/60 p-1.5 rounded-full border border-brand-border/60">
-          <button id="nav-btn-schedule" onclick="app.setTab('schedule')" class="px-5 py-2 text-xs font-semibold rounded-full transition-all bg-white text-brand-charcoal shadow-xs">
-            Horario & Clases
+        <nav class="hidden md:flex items-center space-x-1" id="nav-tabs">
+          <button onclick="app.setTab('schedule')" id="tab-btn-schedule" class="nav-tab px-4 py-2 rounded-xl text-sm font-semibold transition-all text-brand-terracotta bg-brand-sand">
+            Calendario de Clases
           </button>
-          <button id="nav-btn-my-bookings" onclick="app.setTab('my-bookings')" class="px-5 py-2 text-xs font-semibold rounded-full transition-all text-brand-muted hover:text-brand-charcoal">
+          <button onclick="app.setTab('my-bookings')" id="tab-btn-my-bookings" class="nav-tab hidden px-4 py-2 rounded-xl text-sm font-semibold transition-all text-brand-muted hover:text-brand-charcoal hover:bg-brand-sand/60">
             Mis Reservas (<span id="user-booking-count">0</span>)
           </button>
-          <button id="nav-btn-admin" onclick="app.setTab('admin')" class="hidden px-5 py-2 text-xs font-semibold rounded-full transition-all text-brand-muted hover:text-brand-charcoal">
-            Panel Estudio ⚡
+          <button onclick="app.setTab('admin')" id="tab-btn-admin" class="nav-tab hidden px-4 py-2 rounded-xl text-sm font-semibold transition-all text-brand-muted hover:text-brand-charcoal hover:bg-brand-sand/60">
+            Gestión Estudio
+          </button>
+          <button onclick="app.setTab('admin-users')" id="tab-btn-admin-users" class="nav-tab hidden px-4 py-2 rounded-xl text-sm font-semibold transition-all text-brand-muted hover:text-brand-charcoal hover:bg-brand-sand/60">
+            Alumnos & Créditos
           </button>
         </nav>
 
-        <!-- User Controls / Auth Box -->
-        <div id="auth-header-container" class="flex items-center space-x-3">
-          <!-- Populated dynamically via JS -->
+        <div class="flex items-center space-x-3">
+          <!-- User Credit Balance Badge (Visible when logged in) -->
+          <div id="user-credit-badge" class="hidden items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-sand border border-brand-blush text-brand-charcoal text-xs font-semibold">
+            <span class="text-brand-terracotta">✨</span>
+            <span id="header-user-credits">0</span>
+            <span class="text-brand-muted font-normal">créditos</span>
+          </div>
+
+          <!-- Auth Actions -->
+          <div id="auth-guest-section" class="flex items-center space-x-2">
+            <!-- Quick Demo Switchers for Easy Testing -->
+            <div class="hidden sm:flex items-center bg-brand-sand/80 p-1 rounded-xl border border-brand-border text-xs gap-1">
+              <span class="text-brand-muted px-1.5 font-medium">Demo:</span>
+              <button onclick="app.quickLogin('Admin')" class="px-2 py-1 bg-white hover:bg-brand-blush rounded-lg font-medium transition text-brand-charcoal shadow-xs">Admin</button>
+              <button onclick="app.quickLogin('user')" class="px-2 py-1 bg-white hover:bg-brand-blush rounded-lg font-medium transition text-brand-charcoal shadow-xs">Alumno</button>
+            </div>
+
+            <button onclick="app.openAuthModal('login')" class="px-4 py-2 text-sm font-semibold rounded-xl text-brand-charcoal bg-brand-sand hover:bg-brand-blush transition">
+              Iniciar Sesión
+            </button>
+            <button onclick="app.openAuthModal('register')" class="px-4 py-2 text-sm font-semibold rounded-xl bg-brand-terracotta text-white hover:bg-brand-terracotta-dark shadow-sm transition">
+              Registrarse
+            </button>
+          </div>
+
+          <div id="auth-logged-section" class="hidden items-center space-x-3">
+            <div class="text-right hidden sm:block">
+              <span id="active-username" class="block text-sm font-bold text-brand-charcoal leading-tight">Usuario</span>
+              <span id="active-user-role" class="block text-[11px] text-brand-terracotta uppercase tracking-wider font-semibold">Alumno</span>
+            </div>
+            <button onclick="app.logout()" class="px-3.5 py-1.5 text-xs font-semibold rounded-xl border border-brand-border text-brand-muted hover:text-brand-charcoal hover:border-brand-muted transition">
+              Cerrar Sesión
+            </button>
+          </div>
         </div>
 
       </div>
-    </div>
 
-    <!-- Mobile Sub-navigation Bar -->
-    <div class="md:hidden flex items-center justify-around border-t border-brand-border/70 bg-brand-sand/40 px-2 py-2 text-xs font-medium">
-      <button onclick="app.setTab('schedule')" id="mobile-nav-schedule" class="px-3 py-1.5 rounded-full bg-white shadow-xs font-semibold text-brand-charcoal">
-        Horario
-      </button>
-      <button onclick="app.setTab('my-bookings')" id="mobile-nav-my-bookings" class="px-3 py-1.5 rounded-full text-brand-muted">
-        Mis Reservas (<span id="mobile-booking-count">0</span>)
-      </button>
-      <button onclick="app.setTab('admin')" id="mobile-nav-admin" class="hidden px-3 py-1.5 rounded-full text-brand-muted">
-        Admin
-      </button>
+      <!-- Mobile Navigation Row -->
+      <div class="flex md:hidden items-center justify-around py-2.5 border-t border-brand-border text-xs font-semibold overflow-x-auto gap-2" id="mobile-nav-tabs">
+        <button onclick="app.setTab('schedule')" class="mobile-nav-tab py-1 px-3 rounded-lg bg-brand-sand text-brand-terracotta" data-target="schedule">Calendario</button>
+        <button onclick="app.setTab('my-bookings')" class="mobile-nav-tab hidden py-1 px-3 rounded-lg text-brand-muted" data-target="my-bookings">Mis Reservas</button>
+        <button onclick="app.setTab('admin')" class="mobile-nav-tab hidden py-1 px-3 rounded-lg text-brand-muted" data-target="admin">Estudio</button>
+        <button onclick="app.setTab('admin-users')" class="mobile-nav-tab hidden py-1 px-3 rounded-lg text-brand-muted" data-target="admin-users">Alumnos</button>
+      </div>
+
+      <!-- Dedicated Mobile Quick Demo Bar (Visible on mobile screens) -->
+      <div class="flex sm:hidden items-center justify-between py-2 border-t border-brand-border bg-brand-sand/60 -mx-4 px-4 text-xs">
+        <span class="text-[11px] font-bold text-brand-muted uppercase tracking-wider flex items-center gap-1">
+          <span>⚡</span> Demo rápida:
+        </span>
+        <div class="flex items-center gap-2">
+          <button onclick="app.quickLogin('Admin')" class="px-3 py-1.5 bg-white active:scale-95 hover:bg-brand-blush rounded-xl font-bold transition text-brand-charcoal text-xs shadow-xs border border-brand-border flex items-center gap-1.5">
+            <span>👑</span> Admin
+          </button>
+          <button onclick="app.quickLogin('user')" class="px-3 py-1.5 bg-white active:scale-95 hover:bg-brand-blush rounded-xl font-bold transition text-brand-charcoal text-xs shadow-xs border border-brand-border flex items-center gap-1.5">
+            <span>🧘‍♀️</span> Alumno
+          </button>
+        </div>
+      </div>
+
     </div>
   </header>
 
-  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
 
-    <!-- TAB 1: SCHEDULE & BOOKINGS VIEW -->
-    <section id="tab-schedule" class="space-y-6">
+    <!-- TAB 1: SCHEDULE VIEW -->
+    <section id="view-schedule" class="space-y-8">
       
-      <!-- Studio Intro Hero Banner -->
-      <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-brand-sand via-brand-blush to-brand-cream border border-brand-border p-6 sm:p-10 shadow-xs">
+      <!-- Studio Welcome Banner -->
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-brand-sand via-brand-blush/80 to-brand-sand border border-brand-border p-6 sm:p-10 shadow-xs">
         <div class="max-w-2xl space-y-3">
-          <span class="inline-flex items-center gap-1.5 text-xs uppercase font-semibold tracking-widest text-brand-terracotta">
-            <span class="w-2 h-2 rounded-full bg-brand-terracotta animate-pulse"></span>
-            Barre By Mich • Precisión & Fluidez
-          </span>
-          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif-title font-medium text-brand-charcoal leading-tight">
-            Esculpe, conecta y encuentra tu balance en la barra.
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/80 border border-brand-border text-xs font-semibold text-brand-terracotta tracking-wider uppercase">
+            <span>✨</span> Barre By Mich • Experiencia Boutique
+          </div>
+          <h1 class="text-3xl sm:text-5xl font-serif font-bold text-brand-charcoal leading-tight">
+            Fuerza, elegancia y armonía en cada barra.
           </h1>
           <p class="text-sm sm:text-base text-brand-muted leading-relaxed">
-            Fusionamos la disciplina del ballet clásico, la fuerza del pilates y la precisión del yoga funcional. Reserva tu sesión y transforma tu energía.
+            Fusionamos la precisión del ballet, la estabilidad del pilates y la energía del movimiento consciente. Reserva tu plaza en un clic y disfruta de tu práctica.
           </p>
         </div>
       </div>
 
-      <div class="bg-white rounded-2xl p-4 sm:p-5 border border-brand-border shadow-xs space-y-4">
+      <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 pb-2 border-b border-brand-border">
         
-        <!-- Controls Bar -->
-        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-3 border-b border-brand-border/60">
-          
-          <!-- Month/Date Label & Full Calendar Button -->
-          <div class="flex items-center space-x-3">
-            <div>
-              <span id="current-month-label" class="block text-xs uppercase tracking-wider font-semibold text-brand-terracotta">Calendario</span>
-              <h2 id="current-selected-date-title" class="text-xl sm:text-2xl font-serif-title font-semibold text-brand-charcoal">Semana en Curso</h2>
-            </div>
-            <button onclick="app.openCalendarModal()" class="inline-flex items-center space-x-1.5 px-3 py-1.5 text-xs font-medium rounded-full bg-brand-sand hover:bg-brand-rose/40 text-brand-charcoal transition-all">
-              <svg class="w-3.5 h-3.5 text-brand-terracotta" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <rect x="3" y="4" width="18" height="18" rx="2" stroke-width="2"/>
-                <line x1="16" y1="2" x2="16" y2="6" stroke-width="2"/>
-                <line x1="8" y1="2" x2="8" y2="6" stroke-width="2"/>
-                <line x1="3" y1="10" x2="21" y2="10" stroke-width="2"/>
-              </svg>
-              <span>Elegir Día</span>
-            </button>
-          </div>
-
-          <!-- Filters & Admin Class Creator -->
-          <div class="flex flex-wrap items-center gap-2.5">
-            <!-- Filter by Instructor -->
-            <select id="filter-instructor" onchange="app.applyFilters()" class="text-xs rounded-xl border border-brand-border bg-brand-cream/60 px-3 py-2 text-brand-charcoal focus:ring-1 focus:ring-brand-terracotta focus:outline-none">
-              <option value="all">Todas las instructoras</option>
-            </select>
-
-            <!-- Filter by Intensity/Type -->
-            <select id="filter-type" onchange="app.applyFilters()" class="text-xs rounded-xl border border-brand-border bg-brand-cream/60 px-3 py-2 text-brand-charcoal focus:ring-1 focus:ring-brand-terracotta focus:outline-none">
-              <option value="all">Todas las disciplinas</option>
-              <option value="Barre Sculpt">Barre Sculpt</option>
-              <option value="Barre Flow">Barre Flow</option>
-              <option value="Barre Classic">Barre Classic</option>
-              <option value="Power Barre">Power Barre</option>
-              <option value="Stretch & Restore">Stretch & Restore</option>
-            </select>
-
-            <!-- Admin Add Class Button -->
-            <button id="admin-add-class-btn" onclick="app.openClassModal()" class="hidden inline-flex items-center space-x-1.5 px-4 py-2 text-xs font-semibold rounded-xl bg-brand-terracotta hover:bg-brand-terracottaDark text-white shadow-xs transition-all">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <line x1="12" y1="5" x2="12" y2="19" stroke-width="2" stroke-linecap="round"/>
-                <line x1="5" y1="12" x2="19" y2="12" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-              <span>+ Nueva Sesión</span>
-            </button>
-          </div>
-
+        <!-- Day Selector Strip -->
+        <div class="flex items-center space-x-2 overflow-x-auto pb-1" id="date-strip-container">
+          <!-- Populated by JavaScript -->
         </div>
 
-        <!-- 7-Day Date Carousel Strip -->
-        <div id="date-strip-container" class="flex items-center space-x-2 overflow-x-auto pb-2 scrollbar-thin">
-          <!-- Filled by JS -->
+        <!-- Filter and Admin Add Class Button -->
+        <div class="flex items-center space-x-3 self-end md:self-auto">
+          <input type="date" id="calendar-date-picker" onchange="app.onDatePickerChange(this.value)" class="text-xs bg-white border border-brand-border rounded-xl px-3 py-2 text-brand-charcoal focus:outline-brand-terracotta">
+          <button id="admin-add-class-btn" onclick="app.openClassModal()" class="hidden items-center space-x-2 px-4 py-2 text-sm font-semibold rounded-xl bg-brand-terracotta text-white hover:bg-brand-terracotta-dark shadow-xs transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"/></svg>
+            <span>Crear Clase</span>
+          </button>
         </div>
-
       </div>
 
       <div>
         <div class="flex items-center justify-between mb-4">
-          <div class="flex items-center space-x-2">
-            <h3 class="text-lg font-serif-title font-semibold text-brand-charcoal">Sesiones Disponibles</h3>
-            <span id="classes-count-badge" class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-brand-sand text-brand-muted">0 sesiones</span>
-          </div>
-          <div class="text-xs text-brand-muted">
-            Los créditos se reembolsan automáticamente al cancelar con anticipación.
-          </div>
+          <h2 class="text-xl font-serif font-bold text-brand-charcoal" id="schedule-selected-date-title">Clases Programadas</h2>
+          <span id="classes-count-badge" class="text-xs font-semibold text-brand-muted">0 sesiones disponibles</span>
         </div>
 
-        <!-- Classes Grid Container -->
-        <div id="classes-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          <!-- Class cards injected dynamically -->
+        <!-- Grid of Classes -->
+        <div id="classes-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Populated by JavaScript -->
         </div>
 
-        <!-- Empty State -->
-        <div id="no-classes-state" class="hidden text-center py-16 bg-white rounded-2xl border border-brand-border p-6">
-          <div class="w-16 h-16 rounded-full bg-brand-sand flex items-center justify-center mx-auto text-brand-terracotta mb-3">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-            </svg>
+        <!-- Empty State Message -->
+        <div id="empty-schedule-state" class="hidden text-center py-16 px-4 bg-white rounded-3xl border border-dashed border-brand-border">
+          <div class="w-14 h-14 mx-auto rounded-full bg-brand-sand flex items-center justify-center text-brand-terracotta mb-3">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
           </div>
-          <h4 class="text-xl font-serif-title font-medium text-brand-charcoal">No hay clases programadas para este filtro o fecha</h4>
-          <p class="text-xs text-brand-muted max-w-sm mx-auto mt-1">
-            Prueba seleccionando otro día en la barra superior o restableciendo los filtros de profesora y tipo.
-          </p>
+          <h3 class="text-lg font-serif font-bold text-brand-charcoal">No hay clases programadas para esta fecha</h3>
+          <p class="text-sm text-brand-muted mt-1 max-w-md mx-auto">Selecciona otro día en el calendario superior o consulta con el estudio para nuevas aperturas.</p>
         </div>
       </div>
 
     </section>
 
-    <section id="tab-my-bookings" class="hidden space-y-6">
-      <div class="bg-white rounded-2xl p-6 border border-brand-border shadow-xs">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-brand-border/60 gap-3">
-          <div>
-            <span class="text-xs uppercase tracking-wider font-semibold text-brand-terracotta">Tu Itinerario</span>
-            <h2 class="text-2xl font-serif-title font-semibold text-brand-charcoal">Mis Reservas Activas</h2>
-          </div>
-          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-sand text-xs text-brand-charcoal">
-            <span>Saldo Disponible:</span>
-            <span id="my-bookings-credit-badge" class="font-bold text-brand-terracotta">✨ 5 Créditos</span>
-          </div>
-        </div>
-
-        <!-- Bookings list -->
-        <div id="my-bookings-container" class="mt-6 space-y-4">
-          <!-- Populated by JS -->
-        </div>
-
-        <!-- Empty Bookings State -->
-        <div id="empty-my-bookings" class="hidden text-center py-16">
-          <div class="w-14 h-14 rounded-full bg-brand-blush flex items-center justify-center mx-auto text-brand-terracotta mb-3">
-            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-          </div>
-          <h3 class="text-xl font-serif-title font-medium text-brand-charcoal">Aún no tienes clases reservadas</h3>
-          <p class="text-xs text-brand-muted max-w-md mx-auto mt-1 mb-5">
-            Explora nuestro horario semanal, elige la sesión que mejor se adapte a ti y reserva tu lugar en la barra con tus créditos.
-          </p>
-          <button onclick="app.setTab('schedule')" class="px-5 py-2.5 rounded-full bg-brand-terracotta hover:bg-brand-terracottaDark text-white text-xs font-semibold shadow-xs transition-all">
-            Ver Horario de Clases
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <section id="tab-admin" class="hidden space-y-6">
-      
-      <!-- Studio KPI Overview -->
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="bg-white rounded-2xl p-4 border border-brand-border shadow-xs">
-          <span class="text-[11px] font-semibold uppercase tracking-wider text-brand-muted">Total Clases</span>
-          <p id="kpi-total-classes" class="text-2xl font-serif-title font-semibold text-brand-charcoal mt-1">0</p>
-          <span class="text-[10px] text-brand-terracotta">En calendario activo</span>
-        </div>
-        <div class="bg-white rounded-2xl p-4 border border-brand-border shadow-xs">
-          <span class="text-[11px] font-semibold uppercase tracking-wider text-brand-muted">Reservas Totales</span>
-          <p id="kpi-total-reservations" class="text-2xl font-serif-title font-semibold text-brand-charcoal mt-1">0</p>
-          <span class="text-[10px] text-emerald-600">Alumnos inscritos</span>
-        </div>
-        <div class="bg-white rounded-2xl p-4 border border-brand-border shadow-xs">
-          <span class="text-[11px] font-semibold uppercase tracking-wider text-brand-muted">Usuarios Registrados</span>
-          <p id="kpi-total-users" class="text-2xl font-serif-title font-semibold text-brand-charcoal mt-1">0</p>
-          <span class="text-[10px] text-brand-terracotta">Clientes en base de datos</span>
-        </div>
-        <div class="bg-white rounded-2xl p-4 border border-brand-border shadow-xs">
-          <span class="text-[11px] font-semibold uppercase tracking-wider text-brand-muted">Créditos Circulantes</span>
-          <p id="kpi-total-credits" class="text-2xl font-serif-title font-semibold text-brand-charcoal mt-1">0</p>
-          <span class="text-[10px] text-amber-700">Saldo global disponible</span>
-        </div>
-      </div>
-
-      <!-- Admin Tabs: Registered Users & Instructor Roster -->
-      <div class="bg-white rounded-2xl p-6 border border-brand-border shadow-xs space-y-6">
-        
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-brand-border gap-4">
-          <div>
-            <span class="text-xs uppercase tracking-wider font-semibold text-brand-terracotta">Control Boutique</span>
-            <h2 class="text-2xl font-serif-title font-semibold text-brand-charcoal">Gestión de Usuarios & Saldo</h2>
-          </div>
-          <div class="flex items-center space-x-2">
-            <button onclick="app.openClassModal()" class="px-4 py-2 rounded-xl bg-brand-terracotta hover:bg-brand-terracottaDark text-white text-xs font-semibold shadow-xs">
-              + Nueva Sesión
-            </button>
-            <button onclick="app.setTab('schedule')" class="px-4 py-2 rounded-xl bg-brand-sand hover:bg-brand-rose/40 text-brand-charcoal text-xs font-medium">
-              Ver en Horario
-            </button>
-          </div>
-        </div>
-
-        <!-- Users Table with Recharge Credits button -->
+    <section id="view-my-bookings" class="hidden space-y-6">
+      <div class="flex items-center justify-between pb-4 border-b border-brand-border">
         <div>
-          <div class="flex items-center justify-between mb-3">
-            <h3 class="text-base font-serif-title font-semibold text-brand-charcoal">Alumnos y Credenciales Registradas</h3>
-            <span class="text-xs text-brand-muted">Puedes inyectar o ajustar créditos a cada cliente en tiempo real.</span>
-          </div>
-
-          <div class="overflow-x-auto rounded-xl border border-brand-border">
-            <table class="w-full text-left text-xs">
-              <thead class="bg-brand-sand/60 text-brand-charcoal uppercase tracking-wider text-[10px] font-semibold border-b border-brand-border">
-                <tr>
-                  <th class="py-3 px-4">Usuario</th>
-                  <th class="py-3 px-4">Rol</th>
-                  <th class="py-3 px-4">Saldo Actual</th>
-                  <th class="py-3 px-4">Reservas Activas</th>
-                  <th class="py-3 px-4 text-right">Acción de Crédito</th>
-                </tr>
-              </thead>
-              <tbody id="admin-users-table-body" class="divide-y divide-brand-border/60">
-                <!-- Injected via JS -->
-              </tbody>
-            </table>
-          </div>
+          <h2 class="text-2xl font-serif font-bold text-brand-charcoal">Mis Clases Reservadas</h2>
+          <p class="text-sm text-brand-muted">Gestiona tus reservas, cambia de horario o cancela con reembolso automático de créditos.</p>
         </div>
-
-        <!-- Instructor Team Management Section -->
-        <div class="pt-6 border-t border-brand-border">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
-            <div>
-              <h3 class="text-base font-serif-title font-semibold text-brand-charcoal">Plantilla de Instructoras de Barre</h3>
-              <p class="text-xs text-brand-muted">Añade o retira profesoras del desplegable de creación de clases.</p>
-            </div>
-            
-            <div class="flex items-center space-x-2">
-              <input type="text" id="new-instructor-input" placeholder="Nombre de nueva instructora..." class="text-xs rounded-xl border border-brand-border px-3 py-2 bg-brand-cream/60 text-brand-charcoal focus:ring-1 focus:ring-brand-terracotta focus:outline-none w-56">
-              <button onclick="app.handleAddInstructorFromAdmin()" class="px-3.5 py-2 rounded-xl bg-brand-charcoal hover:bg-black text-white text-xs font-semibold">
-                + Agregar
-              </button>
-            </div>
-          </div>
-
-          <div id="instructors-pill-list" class="flex flex-wrap gap-2">
-            <!-- Populated via JS -->
-          </div>
-        </div>
-
+        <button onclick="app.setTab('schedule')" class="text-xs font-semibold px-3.5 py-2 rounded-xl bg-brand-sand text-brand-terracotta hover:bg-brand-blush transition">
+          + Reservar otra sesión
+        </button>
       </div>
 
+      <div id="my-bookings-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Populated by JavaScript -->
+      </div>
+
+      <div id="empty-bookings-state" class="hidden text-center py-16 px-4 bg-white rounded-3xl border border-dashed border-brand-border">
+        <p class="text-base font-medium text-brand-charcoal">Aún no tienes clases reservadas</p>
+        <p class="text-xs text-brand-muted mt-1 mb-4">Explora el calendario y selecciona tu sesión ideal en Barre By Mich.</p>
+        <button onclick="app.setTab('schedule')" class="px-5 py-2.5 rounded-xl bg-brand-terracotta text-white text-xs font-semibold hover:bg-brand-terracotta-dark transition">
+          Ver Clases Disponibles
+        </button>
+      </div>
+    </section>
+
+    <section id="view-admin" class="hidden space-y-6">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-4 border-b border-brand-border gap-4">
+        <div>
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-brand-sand text-xs font-semibold text-brand-terracotta uppercase tracking-wider mb-1">
+            Panel de Administración
+          </div>
+          <h2 class="text-2xl font-serif font-bold text-brand-charcoal">Control General de Clases</h2>
+        </div>
+        <button onclick="app.openClassModal()" class="px-4 py-2.5 rounded-xl bg-brand-terracotta text-white font-semibold text-sm hover:bg-brand-terracotta-dark shadow-sm transition flex items-center space-x-2">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"/></svg>
+          <span>Nueva Clase</span>
+        </button>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-brand-border shadow-xs overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-brand-sand/70 text-xs font-semibold text-brand-muted uppercase tracking-wider border-b border-brand-border">
+              <tr>
+                <th class="py-3.5 px-4">Fecha / Hora</th>
+                <th class="py-3.5 px-4">Clase</th>
+                <th class="py-3.5 px-4">Instructora</th>
+                <th class="py-3.5 px-4">Coste</th>
+                <th class="py-3.5 px-4">Ocupación</th>
+                <th class="py-3.5 px-4 text-right">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="admin-classes-tbody" class="divide-y divide-brand-border">
+              <!-- Populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-admin-users" class="hidden space-y-6">
+      <div class="flex items-center justify-between pb-4 border-b border-brand-border">
+        <div>
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-brand-sand text-xs font-semibold text-brand-terracotta uppercase tracking-wider mb-1">
+            Panel de Administración
+          </div>
+          <h2 class="text-2xl font-serif font-bold text-brand-charcoal">Gestión de Alumnos y Créditos</h2>
+          <p class="text-xs text-brand-muted mt-0.5">Recarga créditos a cualquier alumno registrado en Barre By Mich.</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-brand-border shadow-xs overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-brand-sand/70 text-xs font-semibold text-brand-muted uppercase tracking-wider border-b border-brand-border">
+              <tr>
+                <th class="py-3.5 px-4">Usuario</th>
+                <th class="py-3.5 px-4">Rol</th>
+                <th class="py-3.5 px-4">Saldo Actual</th>
+                <th class="py-3.5 px-4 text-right">Recargar Créditos</th>
+              </tr>
+            </thead>
+            <tbody id="admin-users-tbody" class="divide-y divide-brand-border">
+              <!-- Populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
     </section>
 
   </main>
@@ -369,929 +323,607 @@
   <footer class="bg-white border-t border-brand-border mt-auto py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-brand-muted gap-4">
       <div class="flex items-center space-x-2">
-        <span class="font-serif-title text-base font-semibold text-brand-charcoal">Barre By Mich</span>
+        <span class="font-serif text-base font-bold text-brand-charcoal">Barre By Mich</span>
         <span>•</span>
-        <span>Calle de la Danza 14, Estudio Central</span>
+        <span>Estudio Boutique de Movimiento Consciente</span>
       </div>
       <div>
-        <span>Desarrollado para gestión boutique de movimiento • Barre By Mich</span>
+        <span>Acceso Admin: Usuario <b>Admin</b> / Clave <b>Admin</b> | Alumno demo: <b>user</b> / <b>user</b></span>
       </div>
     </div>
   </footer>
 
   <!-- ============================================== -->
-  <!-- MODAL: AUTHENTICATION (LOGIN / REGISTRATION)   -->
+  <!-- MODALS SECTION                                 -->
   <!-- ============================================== -->
-  <div id="modal-auth" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-backdrop">
-    <div class="bg-white rounded-2xl max-w-md w-full p-6 sm:p-8 shadow-xl border border-brand-border relative">
-      <button onclick="app.closeModal('modal-auth')" class="absolute top-4 right-4 text-brand-muted hover:text-brand-charcoal">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
+
+  <div id="modal-auth" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-brand-border relative fade-in">
+      <button onclick="app.closeModal('modal-auth')" class="absolute top-5 right-5 text-brand-muted hover:text-brand-charcoal">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
 
       <div class="text-center mb-6">
-        <span class="text-xs uppercase tracking-widest text-brand-terracotta font-semibold">Tu Espacio de Bienestar • Barre By Mich</span>
-        <h3 id="auth-modal-title" class="text-2xl font-serif-title font-semibold text-brand-charcoal mt-1">Iniciar Sesión</h3>
+        <span class="text-xs uppercase tracking-widest text-brand-terracotta font-semibold">Barre By Mich</span>
+        <h3 id="auth-modal-title" class="text-2xl font-serif font-bold text-brand-charcoal mt-1">Iniciar Sesión</h3>
       </div>
 
-      <!-- Auth Tabs: Login vs Register -->
-      <div class="flex border-b border-brand-border mb-6">
-        <button id="auth-tab-btn-login" onclick="app.setAuthMode('login')" class="w-1/2 pb-2 text-xs font-semibold border-b-2 border-brand-terracotta text-brand-charcoal">
-          Acceso Clientes / Admin
+      <!-- Auth Mode Tabs -->
+      <div class="flex bg-brand-sand p-1 rounded-xl mb-6">
+        <button id="btn-auth-tab-login" onclick="app.switchAuthMode('login')" class="flex-1 py-1.5 text-xs font-semibold rounded-lg bg-white shadow-xs text-brand-charcoal">
+          Ingresar
         </button>
-        <button id="auth-tab-btn-register" onclick="app.setAuthMode('register')" class="w-1/2 pb-2 text-xs font-semibold border-b-2 border-transparent text-brand-muted hover:text-brand-charcoal">
-          Crear Nueva Cuenta
+        <button id="btn-auth-tab-register" onclick="app.switchAuthMode('register')" class="flex-1 py-1.5 text-xs font-semibold rounded-lg text-brand-muted hover:text-brand-charcoal">
+          Crear Cuenta
         </button>
       </div>
 
+      <!-- Quick Demo Shortcuts in Auth Modal (Especially convenient for mobile taps) -->
+      <div class="mb-5 p-3 rounded-2xl bg-brand-sand/60 border border-brand-border text-center space-y-2">
+        <span class="text-[11px] font-bold text-brand-muted uppercase tracking-wider block">Acceso Rápido de Prueba</span>
+        <div class="grid grid-cols-2 gap-2">
+          <button type="button" onclick="app.quickLogin('Admin'); app.closeModal('modal-auth');" class="py-2 px-3 rounded-xl bg-white hover:bg-brand-blush active:scale-95 border border-brand-border text-xs font-bold text-brand-charcoal shadow-xs transition flex items-center justify-center gap-1.5">
+            <span>👑</span> Entrar Admin
+          </button>
+          <button type="button" onclick="app.quickLogin('user'); app.closeModal('modal-auth');" class="py-2 px-3 rounded-xl bg-white hover:bg-brand-blush active:scale-95 border border-brand-border text-xs font-bold text-brand-charcoal shadow-xs transition flex items-center justify-center gap-1.5">
+            <span>🧘‍♀️</span> Entrar Alumno
+          </button>
+        </div>
+      </div>
+
+      <!-- Auth Form -->
       <form id="auth-form" onsubmit="app.handleAuthSubmit(event)" class="space-y-4">
         <div>
-          <label class="block text-xs font-semibold text-brand-charcoal mb-1">Nombre de Usuario</label>
-          <input type="text" id="auth-username" required placeholder="Ejemplo: user o Admin" class="w-full text-xs rounded-xl border border-brand-border bg-brand-cream/40 px-3.5 py-2.5 text-brand-charcoal focus:ring-1 focus:ring-brand-terracotta focus:outline-none">
+          <label class="block text-xs font-semibold text-brand-charcoal uppercase tracking-wider mb-1.5">Usuario</label>
+          <input type="text" id="auth-username" required placeholder="Tu nombre de usuario" class="w-full px-4 py-2.5 rounded-xl border border-brand-border bg-brand-cream/50 text-brand-charcoal text-sm focus:outline-brand-terracotta">
         </div>
-
         <div>
-          <label class="block text-xs font-semibold text-brand-charcoal mb-1">Contraseña</label>
-          <input type="password" id="auth-password" required placeholder="Tu contraseña..." class="w-full text-xs rounded-xl border border-brand-border bg-brand-cream/40 px-3.5 py-2.5 text-brand-charcoal focus:ring-1 focus:ring-brand-terracotta focus:outline-none">
+          <label class="block text-xs font-semibold text-brand-charcoal uppercase tracking-wider mb-1.5">Contraseña</label>
+          <input type="password" id="auth-password" required placeholder="Tu contraseña" class="w-full px-4 py-2.5 rounded-xl border border-brand-border bg-brand-cream/50 text-brand-charcoal text-sm focus:outline-brand-terracotta">
         </div>
 
-        <p id="auth-hint-text" class="text-[11px] text-brand-muted">
-          Por defecto: <span class="font-mono text-brand-charcoal font-semibold">Admin / Admin</span> para gestión, o <span class="font-mono text-brand-charcoal font-semibold">user / user</span> para alumno con 5 créditos.
-        </p>
+        <div id="auth-register-note" class="hidden text-xs text-brand-muted bg-brand-sand/50 p-3 rounded-xl border border-brand-border">
+          ✨ ¡Al registrarte recibirás automáticamente <b>5 créditos de bienvenida</b> para reservar tus clases!
+        </div>
 
-        <button type="submit" id="auth-submit-btn" class="w-full py-2.5 rounded-xl bg-brand-terracotta hover:bg-brand-terracottaDark text-white text-xs font-semibold shadow-xs transition-all mt-2">
-          Entrar a Barre By Mich
+        <button type="submit" id="auth-submit-btn" class="w-full py-3 rounded-xl bg-brand-terracotta text-white font-semibold text-sm hover:bg-brand-terracotta-dark shadow-sm transition mt-2">
+          Acceder
         </button>
       </form>
     </div>
   </div>
 
-  <!-- ============================================== -->
-  <!-- MODAL: ADMIN CREATE / EDIT CLASS               -->
-  <!-- ============================================== -->
-  <div id="modal-class-form" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-backdrop">
-    <div class="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-7 shadow-xl border border-brand-border relative max-h-[90vh] overflow-y-auto">
-      <button onclick="app.closeModal('modal-class-form')" class="absolute top-4 right-4 text-brand-muted hover:text-brand-charcoal">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
+  <div id="modal-class" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-brand-border relative max-h-[90vh] overflow-y-auto fade-in">
+      <button onclick="app.closeModal('modal-class')" class="absolute top-5 right-5 text-brand-muted hover:text-brand-charcoal">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
 
       <div class="mb-5">
-        <span class="text-xs uppercase tracking-wider font-semibold text-brand-terracotta">Administración Barre</span>
-        <h3 id="class-modal-title" class="text-2xl font-serif-title font-semibold text-brand-charcoal">Programar Sesión</h3>
+        <span class="text-xs uppercase tracking-widest text-brand-terracotta font-semibold">Gestión de Calendario</span>
+        <h3 id="class-modal-title" class="text-2xl font-serif font-bold text-brand-charcoal mt-1">Crear Nueva Clase</h3>
       </div>
 
-      <form id="class-form" onsubmit="app.handleClassFormSubmit(event)" class="space-y-4">
+      <form id="class-form" onsubmit="app.handleClassSubmit(event)" class="space-y-4">
         <input type="hidden" id="edit-class-id">
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-xs font-semibold text-brand-charcoal mb-1">Nombre de la Clase</label>
-            <input type="text" id="edit-title" required placeholder="Ej: Barre Sculpt & Tone" class="w-full text-xs rounded-xl border border-brand-border bg-brand-cream/40 px-3 py-2 text-brand-charcoal focus:ring-1 focus:ring-brand-terracotta focus:outline-none">
-          </div>
+        <div>
+          <label class="block text-xs font-semibold text-brand-charcoal uppercase tracking-wider mb-1">Nombre de la Clase</label>
+          <input type="text" id="edit-title" required placeholder="Ej: Barre Classic, Barre Flow, Barre Sculpt..." class="w-full px-3.5 py-2 rounded-xl border border-brand-border text-sm">
+        </div>
 
+        <!-- Instructor Select with Add New Option -->
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="block text-xs font-semibold text-brand-charcoal uppercase tracking-wider">Instructora / Profesor</label>
+            <button type="button" onclick="app.toggleNewInstructorInput()" class="text-[11px] text-brand-terracotta hover:underline font-semibold">
+              + Añadir nuevo/a
+            </button>
+          </div>
+          
+          <select id="edit-instructor" required class="w-full px-3.5 py-2 rounded-xl border border-brand-border text-sm bg-white">
+            <!-- Populated dynamically -->
+          </select>
+
+          <!-- Inline Quick Add Instructor Input -->
+          <div id="new-instructor-box" class="hidden mt-2 flex gap-2">
+            <input type="text" id="new-instructor-name" placeholder="Nombre de la nueva instructora" class="flex-1 px-3 py-1.5 text-xs rounded-lg border border-brand-border">
+            <button type="button" onclick="app.saveNewInstructor()" class="px-3 py-1.5 bg-brand-terracotta text-white text-xs font-semibold rounded-lg hover:bg-brand-terracotta-dark">Guardar</button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block text-xs font-semibold text-brand-charcoal mb-1">Modalidad / Estilo</label>
-            <select id="edit-type" required class="w-full text-xs rounded-xl border border-brand-border bg-brand-cream/40 px-3 py-2 text-brand-charcoal focus:ring-1 focus:ring-brand-terracotta focus:outline-none">
-              <option value="Barre Sculpt">Barre Sculpt</option>
-              <option value="Barre Flow">Barre Flow</option>
-              <option value="Barre Classic">Barre Classic</option>
-              <option value="Power Barre">Power Barre</option>
-              <option value="Stretch & Restore">Stretch & Restore</option>
+            <label class="block text-xs font-semibold text-brand-charcoal uppercase tracking-wider mb-1">Fecha</label>
+            <input type="date" id="edit-date" required class="w-full px-3.5 py-2 rounded-xl border border-brand-border text-sm">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-brand-charcoal uppercase tracking-wider mb-1">Hora</label>
+            <input type="time" id="edit-time" required class="w-full px-3.5 py-2 rounded-xl border border-brand-border text-sm">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-brand-charcoal uppercase tracking-wider mb-1">Duración (minutos)</label>
+            <input type="number" id="edit-duration" value="50" min="15" max="180" required class="w-full px-3.5 py-2 rounded-xl border border-brand-border text-sm">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-brand-charcoal uppercase tracking-wider mb-1">Nivel</label>
+            <select id="edit-level" class="w-full px-3.5 py-2 rounded-xl border border-brand-border text-sm bg-white">
+              <option value="Todos los niveles">Todos los niveles</option>
+              <option value="Iniciación">Iniciación</option>
+              <option value="Intermedio / Avanzado">Intermedio / Avanzado</option>
+              <option value="Barre Power">Barre Power</option>
             </select>
           </div>
         </div>
 
-        <!-- Instructor Select Dropdown with quick add toggle -->
-        <div>
-          <div class="flex items-center justify-between mb-1">
-            <label class="block text-xs font-semibold text-brand-charcoal">Instructora Responsable</label>
-            <button type="button" onclick="app.toggleQuickAddInstructor()" class="text-[11px] text-brand-terracotta font-semibold hover:underline">
-              + Añadir nueva/o
-            </button>
-          </div>
-          <select id="edit-instructor" required class="w-full text-xs rounded-xl border border-brand-border bg-brand-cream/40 px-3 py-2 text-brand-charcoal focus:ring-1 focus:ring-brand-terracotta focus:outline-none">
-            <!-- Dynamically populated from instructor roster -->
-          </select>
-
-          <!-- Quick inline instructor creator -->
-          <div id="quick-add-instructor-box" class="hidden mt-2 p-2.5 rounded-xl bg-brand-sand/50 border border-brand-border flex items-center gap-2">
-            <input type="text" id="quick-instructor-name" placeholder="Nombre completo de la profesora..." class="flex-grow text-xs rounded-lg border border-brand-border px-2.5 py-1.5 bg-white text-brand-charcoal">
-            <button type="button" onclick="app.handleSaveQuickInstructor()" class="px-3 py-1.5 rounded-lg bg-brand-terracotta text-white text-xs font-semibold">
-              Guardar
-            </button>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block text-xs font-semibold text-brand-charcoal mb-1">Fecha</label>
-            <input type="date" id="edit-date" required class="w-full text-xs rounded-xl border border-brand-border bg-brand-cream/40 px-3 py-2 text-brand-charcoal focus:ring-1 focus:ring-brand-terracotta focus:outline-none">
+            <label class="block text-xs font-semibold text-brand-charcoal uppercase tracking-wider mb-1">Plazas Máximas</label>
+            <input type="number" id="edit-capacity" value="12" min="1" max="50" required class="w-full px-3.5 py-2 rounded-xl border border-brand-border text-sm">
           </div>
-
           <div>
-            <label class="block text-xs font-semibold text-brand-charcoal mb-1">Hora de Inicio</label>
-            <input type="time" id="edit-time" required class="w-full text-xs rounded-xl border border-brand-border bg-brand-cream/40 px-3 py-2 text-brand-charcoal focus:ring-1 focus:ring-brand-terracotta focus:outline-none">
-          </div>
-        </div>
-
-        <div class="grid grid-cols-3 gap-3">
-          <div>
-            <label class="block text-xs font-semibold text-brand-charcoal mb-1">Duración (min)</label>
-            <input type="number" id="edit-duration" min="30" max="120" step="5" value="50" required class="w-full text-xs rounded-xl border border-brand-border bg-brand-cream/40 px-3 py-2 text-brand-charcoal focus:ring-1 focus:ring-brand-terracotta focus:outline-none">
-          </div>
-
-          <div>
-            <label class="block text-xs font-semibold text-brand-charcoal mb-1">Capacidad Máx.</label>
-            <input type="number" id="edit-capacity" min="1" max="50" value="12" required class="w-full text-xs rounded-xl border border-brand-border bg-brand-cream/40 px-3 py-2 text-brand-charcoal focus:ring-1 focus:ring-brand-terracotta focus:outline-none">
-          </div>
-
-          <div>
-            <label class="block text-xs font-semibold text-brand-charcoal mb-1">Coste (Créditos)</label>
-            <input type="number" id="edit-credits" min="1" max="10" value="1" required class="w-full text-xs rounded-xl border border-brand-border bg-brand-cream/40 px-3 py-2 text-brand-charcoal focus:ring-1 focus:ring-brand-terracotta focus:outline-none font-semibold text-brand-terracotta">
+            <label class="block text-xs font-semibold text-brand-charcoal uppercase tracking-wider mb-1">Coste en Créditos</label>
+            <input type="number" id="edit-cost" value="1" min="1" max="10" required class="w-full px-3.5 py-2 rounded-xl border border-brand-border text-sm">
           </div>
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-brand-charcoal mb-1">Sala / Estudio</label>
-          <select id="edit-room" class="w-full text-xs rounded-xl border border-brand-border bg-brand-cream/40 px-3 py-2 text-brand-charcoal focus:ring-1 focus:ring-brand-terracotta focus:outline-none">
-            <option value="Sala Principal Barre">Sala Principal Barre</option>
-            <option value="Estudio Zen Light">Estudio Zen Light</option>
-            <option value="Sala Privada Boutique">Sala Privada Boutique</option>
-          </select>
+          <label class="block text-xs font-semibold text-brand-charcoal uppercase tracking-wider mb-1">Sala</label>
+          <input type="text" id="edit-room" value="Sala Principal - Barra 1" class="w-full px-3.5 py-2 rounded-xl border border-brand-border text-sm">
         </div>
 
-        <div class="flex items-center justify-end space-x-3 pt-4 border-t border-brand-border">
-          <button type="button" onclick="app.closeModal('modal-class-form')" class="px-4 py-2 rounded-xl text-xs font-medium text-brand-muted hover:text-brand-charcoal">
+        <div class="pt-2 flex justify-end space-x-2">
+          <button type="button" onclick="app.closeModal('modal-class')" class="px-4 py-2.5 rounded-xl border border-brand-border text-sm font-semibold text-brand-muted hover:text-brand-charcoal">
             Cancelar
           </button>
-          <button type="submit" class="px-5 py-2 rounded-xl bg-brand-terracotta hover:bg-brand-terracottaDark text-white text-xs font-semibold shadow-xs">
-            Guardar Sesión
+          <button type="submit" class="px-5 py-2.5 rounded-xl bg-brand-terracotta text-white text-sm font-semibold hover:bg-brand-terracotta-dark transition">
+            Guardar Clase
           </button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- ============================================== -->
-  <!-- MODAL: RECHARGE CREDITS (ADMIN ONLY)           -->
-  <!-- ============================================== -->
-  <div id="modal-recharge" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-backdrop">
-    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-xl border border-brand-border relative">
-      <button onclick="app.closeModal('modal-recharge')" class="absolute top-4 right-4 text-brand-muted hover:text-brand-charcoal">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
+  <div id="modal-modify-booking" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-brand-border relative fade-in">
+      <button onclick="app.closeModal('modal-modify-booking')" class="absolute top-5 right-5 text-brand-muted hover:text-brand-charcoal">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
 
-      <div class="text-center mb-5">
-        <div class="w-12 h-12 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center mx-auto mb-2 text-xl">
-          ✨
-        </div>
-        <h3 class="text-xl font-serif-title font-semibold text-brand-charcoal">Recargar Créditos</h3>
-        <p class="text-xs text-brand-muted mt-1">Usuario: <span id="recharge-user-target" class="font-bold text-brand-charcoal"></span></p>
+      <div class="mb-4">
+        <span class="text-xs uppercase tracking-widest text-brand-terracotta font-semibold">Modificar Reserva</span>
+        <h3 class="text-2xl font-serif font-bold text-brand-charcoal mt-1">Elegir Otra Clase</h3>
+        <p class="text-xs text-brand-muted mt-1" id="modify-current-class-info"></p>
       </div>
 
       <div class="space-y-4">
         <div>
-          <label class="block text-xs font-semibold text-brand-charcoal mb-2">Atajos Rápidos</label>
+          <label class="block text-xs font-semibold text-brand-charcoal uppercase tracking-wider mb-1.5">Selecciona el nuevo horario disponible:</label>
+          <select id="modify-target-class" class="w-full px-3.5 py-2.5 rounded-xl border border-brand-border text-sm bg-white">
+            <!-- Populated dynamically -->
+          </select>
+        </div>
+
+        <div class="text-xs text-brand-muted bg-brand-sand/50 p-3 rounded-xl border border-brand-border">
+          ℹ️ Tu plaza actual quedará liberada y se transferirá tu reserva a la clase elegida calculando la diferencia de créditos si la hubiera.
+        </div>
+
+        <div class="flex justify-end space-x-2 pt-2">
+          <button onclick="app.closeModal('modal-modify-booking')" class="px-4 py-2 rounded-xl border border-brand-border text-xs font-semibold text-brand-muted hover:text-brand-charcoal">
+            Cancelar
+          </button>
+          <button onclick="app.confirmModifyBooking()" class="px-4 py-2 rounded-xl bg-brand-terracotta text-white text-xs font-semibold hover:bg-brand-terracotta-dark">
+            Confirmar Reubicación
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal-recharge" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-brand-border relative fade-in">
+      <button onclick="app.closeModal('modal-recharge')" class="absolute top-5 right-5 text-brand-muted hover:text-brand-charcoal">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <div class="mb-4">
+        <span class="text-xs uppercase tracking-widest text-brand-terracotta font-semibold">Créditos de Estudio</span>
+        <h3 class="text-xl font-serif font-bold text-brand-charcoal mt-1">Recargar Saldo</h3>
+        <p class="text-xs text-brand-muted mt-1">Usuario: <b id="recharge-target-username" class="text-brand-charcoal"></b></p>
+      </div>
+
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-brand-charcoal uppercase tracking-wider mb-2">Atajos rápidos:</label>
           <div class="grid grid-cols-4 gap-2">
-            <button onclick="app.quickAddRecharge(1)" class="py-2 text-xs font-semibold rounded-xl bg-brand-sand hover:bg-brand-rose/40 text-brand-charcoal border border-brand-border">+1</button>
-            <button onclick="app.quickAddRecharge(3)" class="py-2 text-xs font-semibold rounded-xl bg-brand-sand hover:bg-brand-rose/40 text-brand-charcoal border border-brand-border">+3</button>
-            <button onclick="app.quickAddRecharge(5)" class="py-2 text-xs font-semibold rounded-xl bg-brand-sand hover:bg-brand-rose/40 text-brand-charcoal border border-brand-border">+5</button>
-            <button onclick="app.quickAddRecharge(10)" class="py-2 text-xs font-semibold rounded-xl bg-brand-sand hover:bg-brand-rose/40 text-brand-charcoal border border-brand-border">+10</button>
+            <button onclick="app.setRechargeAmount(1)" class="py-1.5 rounded-lg border border-brand-border text-xs font-semibold hover:bg-brand-sand text-brand-charcoal">+1</button>
+            <button onclick="app.setRechargeAmount(3)" class="py-1.5 rounded-lg border border-brand-border text-xs font-semibold hover:bg-brand-sand text-brand-charcoal">+3</button>
+            <button onclick="app.setRechargeAmount(5)" class="py-1.5 rounded-lg border border-brand-border text-xs font-semibold hover:bg-brand-sand text-brand-charcoal">+5</button>
+            <button onclick="app.setRechargeAmount(10)" class="py-1.5 rounded-lg border border-brand-border text-xs font-semibold hover:bg-brand-sand text-brand-charcoal">+10</button>
           </div>
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-brand-charcoal mb-1">Cantidad a ingresar</label>
-          <input type="number" id="recharge-amount-input" min="1" max="100" value="5" class="w-full text-center text-lg font-bold rounded-xl border border-brand-border bg-brand-cream/50 px-3 py-2 text-brand-terracotta focus:ring-1 focus:ring-brand-terracotta focus:outline-none">
+          <label class="block text-xs font-semibold text-brand-charcoal uppercase tracking-wider mb-1">Cantidad de créditos a sumar:</label>
+          <input type="number" id="recharge-amount-input" value="5" min="1" max="100" class="w-full px-3.5 py-2 rounded-xl border border-brand-border text-sm">
         </div>
 
-        <button onclick="app.confirmRechargeSubmit()" class="w-full py-2.5 rounded-xl bg-brand-terracotta hover:bg-brand-terracottaDark text-white text-xs font-semibold shadow-xs transition-all">
-          Añadir Créditos al Alumno
+        <button onclick="app.executeRecharge()" class="w-full py-2.5 rounded-xl bg-brand-terracotta text-white text-xs font-semibold hover:bg-brand-terracotta-dark transition">
+          Aplicar Recarga
         </button>
       </div>
     </div>
   </div>
 
-  <!-- ============================================== -->
-  <!-- MODAL: CHANGE / RELOCATE CLASS                 -->
-  <!-- ============================================== -->
-  <div id="modal-change-class" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-backdrop">
-    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-brand-border relative max-h-[90vh] overflow-y-auto">
-      <button onclick="app.closeModal('modal-change-class')" class="absolute top-4 right-4 text-brand-muted hover:text-brand-charcoal">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
-      </button>
-
-      <div class="mb-4">
-        <span class="text-xs uppercase tracking-wider font-semibold text-brand-terracotta">Flexibilidad Barre By Mich</span>
-        <h3 class="text-xl font-serif-title font-semibold text-brand-charcoal">Reubicar Mi Sesión</h3>
-        <p class="text-xs text-brand-muted mt-1" id="change-class-subtitle">Selecciona otra clase disponible para mover tu plaza sin perder tus créditos.</p>
+  <div id="modal-confirm" class="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs hidden items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-brand-border relative fade-in text-center">
+      <div class="w-12 h-12 mx-auto rounded-full bg-brand-sand flex items-center justify-center text-brand-terracotta mb-3">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
       </div>
-
-      <div id="change-class-options" class="space-y-2.5 my-4">
-        <!-- Populated via JS -->
-      </div>
-
-      <div class="pt-3 border-t border-brand-border flex justify-end">
-        <button onclick="app.closeModal('modal-change-class')" class="px-4 py-2 rounded-xl text-xs font-medium text-brand-muted hover:text-brand-charcoal">
-          Cerrar
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ============================================== -->
-  <!-- MODAL: VIEW CLASS ATTENDEES (ADMIN ONLY)       -->
-  <!-- ============================================== -->
-  <div id="modal-attendees" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-backdrop">
-    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-brand-border relative max-h-[90vh] overflow-y-auto">
-      <button onclick="app.closeModal('modal-attendees')" class="absolute top-4 right-4 text-brand-muted hover:text-brand-charcoal">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
-      </button>
-
-      <div class="mb-4">
-        <span class="text-xs uppercase tracking-wider font-semibold text-brand-terracotta">Lista de Asistencia</span>
-        <h3 id="attendees-modal-title" class="text-xl font-serif-title font-semibold text-brand-charcoal">Alumnos Inscritos</h3>
-        <p id="attendees-modal-sub" class="text-xs text-brand-muted"></p>
-      </div>
-
-      <!-- Add manual student input for admin -->
-      <div class="mb-4 p-3 rounded-xl bg-brand-sand/50 border border-brand-border space-y-2">
-        <label class="block text-[11px] font-semibold text-brand-charcoal">Inscribir alumno manualmente:</label>
-        <div class="flex items-center gap-2">
-          <select id="manual-student-select" class="flex-grow text-xs rounded-lg border border-brand-border bg-white px-2.5 py-1.5 text-brand-charcoal">
-            <!-- Populated via JS -->
-          </select>
-          <button onclick="app.handleManualEnroll()" class="px-3 py-1.5 rounded-lg bg-brand-terracotta text-white text-xs font-semibold">
-            Inscribir
-          </button>
-        </div>
-      </div>
-
-      <div id="attendees-list-container" class="space-y-2 divide-y divide-brand-border/60">
-        <!-- Injected via JS -->
-      </div>
-    </div>
-  </div>
-
-  <!-- ============================================== -->
-  <!-- MODAL: DATE PICKER / MONTH VIEW                -->
-  <!-- ============================================== -->
-  <div id="modal-calendar-picker" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-backdrop">
-    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-xl border border-brand-border relative">
-      <button onclick="app.closeModal('modal-calendar-picker')" class="absolute top-4 right-4 text-brand-muted hover:text-brand-charcoal">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
-      </button>
-
-      <div class="text-center mb-4">
-        <h3 class="text-xl font-serif-title font-semibold text-brand-charcoal">Explorar Calendario</h3>
-        <p class="text-xs text-brand-muted">Selecciona cualquier fecha para ver y reservar clases</p>
-      </div>
-
-      <div class="space-y-3">
-        <input type="date" id="calendar-jump-date-input" class="w-full text-center text-sm font-semibold rounded-xl border border-brand-border bg-brand-cream/50 px-3 py-2.5 text-brand-charcoal">
-        <button onclick="app.applyCalendarJump()" class="w-full py-2.5 rounded-xl bg-brand-terracotta hover:bg-brand-terracottaDark text-white text-xs font-semibold shadow-xs">
-          Ir al Día Seleccionado
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ============================================== -->
-  <!-- MODAL: CUSTOM CONFIRMATION DIALOG              -->
-  <!-- ============================================== -->
-  <div id="modal-confirm" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-backdrop">
-    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-xl border border-brand-border relative text-center">
-      <div id="confirm-icon-box" class="w-12 h-12 rounded-full bg-brand-sand flex items-center justify-center mx-auto mb-3 text-brand-terracotta">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
-        </svg>
-      </div>
-      <h3 id="confirm-title" class="text-xl font-serif-title font-semibold text-brand-charcoal">¿Estás seguro/a?</h3>
-      <p id="confirm-message" class="text-xs text-brand-muted mt-2 leading-relaxed"></p>
-
-      <div class="flex items-center justify-center space-x-3 mt-6">
-        <button id="confirm-cancel-btn" onclick="app.closeModal('modal-confirm')" class="px-4 py-2 rounded-xl text-xs font-medium text-brand-muted hover:text-brand-charcoal bg-brand-sand/60">
+      <h3 id="confirm-modal-title" class="text-lg font-serif font-bold text-brand-charcoal">Confirmar Acción</h3>
+      <p id="confirm-modal-message" class="text-xs text-brand-muted mt-2 mb-5 leading-relaxed"></p>
+      
+      <div class="flex justify-center space-x-2">
+        <button id="confirm-modal-cancel" class="px-4 py-2 rounded-xl border border-brand-border text-xs font-semibold text-brand-muted hover:text-brand-charcoal">
           Cancelar
         </button>
-        <button id="confirm-accept-btn" class="px-5 py-2 rounded-xl bg-brand-terracotta hover:bg-brand-terracottaDark text-white text-xs font-semibold shadow-xs">
+        <button id="confirm-modal-ok" class="px-4 py-2 rounded-xl bg-brand-terracotta text-white text-xs font-semibold hover:bg-brand-terracotta-dark">
           Confirmar
         </button>
       </div>
     </div>
   </div>
 
-  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col space-y-2 pointer-events-none"></div>
-
+  <!-- ============================================== -->
+  <!-- JAVASCRIPT LOGIC & STATE ENGINE                -->
+  <!-- ============================================== -->
   <script>
-    /* Barre By Mich - Clean Single File Core */
     const STORAGE_KEYS = {
-      USERS: 'bbm_studio_users',
-      CLASSES: 'bbm_studio_classes',
-      CURRENT_USER: 'bbm_studio_active_user',
-      INSTRUCTORS: 'bbm_studio_instructors'
+      USERS: 'bbm_v2_users',
+      CLASSES: 'bbm_v2_classes',
+      CURRENT_USER: 'bbm_v2_current_user',
+      INSTRUCTORS: 'bbm_v2_instructors'
     };
 
-    /* Date format utility YYYY-MM-DD */
-    function formatDateIso(dateObj) {
-      const year = dateObj.getFullYear();
-      const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-      const day = String(dateObj.getDate()).padStart(2, '0');
-      return `${year}-${month}-${day}`;
+    /* Helper: Format date string YYYY-MM-DD */
+    function formatDateISO(date) {
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, '0');
+      const d = String(date.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
     }
 
-    /* Core Application Controller */
+    /* Helper: Format human date string */
+    function formatHumanDate(dateStr) {
+      const [year, month, day] = dateStr.split('-').map(Number);
+      const d = new Date(year, month - 1, day);
+      const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+      const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+      return `${days[d.getDay()]}, ${d.getDate()} ${months[d.getMonth()]}`;
+    }
+
     const app = {
+      currentUser: null,
       users: [],
       classes: [],
       instructors: [],
-      currentUser: null,
+      selectedDate: formatDateISO(new Date()),
       activeTab: 'schedule',
-      selectedDate: formatDateIso(new Date()),
-      confirmCallback: null,
-      authMode: 'login',
-      rechargeTargetUser: null,
-      changeClassSourceId: null,
+      pendingModifyBookingId: null,
 
       init() {
-        try {
-          // Backward compatibility check
-          const storedUsers = localStorage.getItem(STORAGE_KEYS.USERS) || localStorage.getItem('bg_studio_users');
-          const storedClasses = localStorage.getItem(STORAGE_KEYS.CLASSES) || localStorage.getItem('bg_studio_classes');
-          const storedCurrentUser = localStorage.getItem(STORAGE_KEYS.CURRENT_USER) || localStorage.getItem('bg_studio_active_user');
+        this.loadStorage();
+        this.setupDateStrip();
+        this.renderAll();
+      },
 
-          if (!storedUsers || !storedClasses) {
-            this.seedInitialData();
-          } else {
-            this.users = JSON.parse(storedUsers);
-            this.classes = JSON.parse(storedClasses);
-            if (storedCurrentUser) {
-              this.currentUser = JSON.parse(storedCurrentUser);
-            }
-          }
+      loadStorage() {
+        // Users
+        const storedUsers = localStorage.getItem(STORAGE_KEYS.USERS);
+        if (storedUsers) {
+          this.users = JSON.parse(storedUsers);
+        } else {
+          this.users = [
+            { username: 'Admin', password: 'Admin', role: 'admin', credits: 99 },
+            { username: 'user', password: 'user', role: 'user', credits: 5 }
+          ];
+          this.saveUsers();
+        }
 
-          // Instructors list
-          const storedInstructors = localStorage.getItem(STORAGE_KEYS.INSTRUCTORS) || localStorage.getItem('bg_studio_instructors');
-          if (storedInstructors) {
-            this.instructors = JSON.parse(storedInstructors);
-          } else {
-            this.instructors = ['Mich (Directora)', 'Valeria Montes', 'Elena Soler', 'Camila Rossi', 'Sofía Mendoza'];
-            this.saveInstructors();
-          }
+        // Instructors
+        const storedInstructors = localStorage.getItem(STORAGE_KEYS.INSTRUCTORS);
+        if (storedInstructors) {
+          this.instructors = JSON.parse(storedInstructors);
+        } else {
+          this.instructors = ['Mich (Directora)', 'Valeria Montes', 'Elena Soler', 'Camila Rossi', 'Sofía Mendoza'];
+          this.saveInstructors();
+        }
 
-          // If no logged in user, start as regular user by default
-          if (!this.currentUser) {
-            this.currentUser = this.users.find(u => u.username === 'user') || null;
-          }
+        // Classes
+        const storedClasses = localStorage.getItem(STORAGE_KEYS.CLASSES);
+        if (storedClasses) {
+          this.classes = JSON.parse(storedClasses);
+        } else {
+          this.seedClasses();
+        }
 
-          this.updateAuthUI();
-          this.populateInstructorSelects();
-          this.renderDateStrip();
-          this.renderClasses();
-          this.updateKPIs();
-        } catch (err) {
-          console.error("Initialization error:", err);
-          this.seedInitialData();
+        // Active Session
+        const storedActive = localStorage.getItem(STORAGE_KEYS.CURRENT_USER);
+        if (storedActive) {
+          const found = this.users.find(u => u.username === storedActive);
+          if (found) this.currentUser = found;
         }
       },
 
-      seedInitialData() {
-        this.users = [
-          { username: 'Admin', password: 'Admin', role: 'admin', credits: 99 },
-          { username: 'user', password: 'user', role: 'user', credits: 5 },
-          { username: 'clara', password: 'user', role: 'user', credits: 3 },
-          { username: 'lucia', password: 'user', role: 'user', credits: 4 }
-        ];
-
-        this.instructors = ['Mich (Directora)', 'Valeria Montes', 'Elena Soler', 'Camila Rossi', 'Sofía Mendoza'];
-
+      seedClasses() {
         const today = new Date();
-        const d0 = formatDateIso(today);
-        const d1 = formatDateIso(new Date(Date.now() + 86400000));
-        const d2 = formatDateIso(new Date(Date.now() + 86400000 * 2));
-        const d3 = formatDateIso(new Date(Date.now() + 86400000 * 3));
+        const d0 = formatDateISO(today);
+        const t1 = new Date(today); t1.setDate(t1.getDate() + 1); const d1 = formatDateISO(t1);
+        const t2 = new Date(today); t2.setDate(t2.getDate() + 2); const d2 = formatDateISO(t2);
 
         this.classes = [
           {
-            id: 'cls_' + Date.now() + '_1',
-            title: 'Barre Sculpt & Core',
-            type: 'Barre Sculpt',
+            id: 'c1',
+            title: 'Barre Signature',
             instructor: 'Mich (Directora)',
             date: d0,
-            time: '08:30',
-            duration: 50,
-            capacity: 12,
-            creditsCost: 1,
-            room: 'Sala Principal Barre',
-            students: ['user', 'clara']
-          },
-          {
-            id: 'cls_' + Date.now() + '_2',
-            title: 'Barre Flow & Alignment',
-            type: 'Barre Flow',
-            instructor: 'Valeria Montes',
-            date: d0,
-            time: '10:00',
-            duration: 50,
-            capacity: 10,
-            creditsCost: 1,
-            room: 'Estudio Zen Light',
-            students: ['lucia']
-          },
-          {
-            id: 'cls_' + Date.now() + '_3',
-            title: 'Power Barre Intensive',
-            type: 'Power Barre',
-            instructor: 'Elena Soler',
-            date: d0,
-            time: '18:30',
-            duration: 55,
-            capacity: 14,
-            creditsCost: 2,
-            room: 'Sala Principal Barre',
-            students: []
-          },
-          {
-            id: 'cls_' + Date.now() + '_4',
-            title: 'Barre Classic Elegance',
-            type: 'Barre Classic',
-            instructor: 'Mich (Directora)',
-            date: d1,
             time: '09:00',
             duration: 50,
-            capacity: 12,
-            creditsCost: 1,
-            room: 'Sala Principal Barre',
-            students: ['user']
+            level: 'Todos los niveles',
+            room: 'Sala Barra Principal',
+            capacity: 10,
+            cost: 1,
+            attendees: ['user']
           },
           {
-            id: 'cls_' + Date.now() + '_5',
-            title: 'Stretch & Restore Sound',
-            type: 'Stretch & Restore',
+            id: 'c2',
+            title: 'Barre Sculpt & Core',
+            instructor: 'Valeria Montes',
+            date: d0,
+            time: '18:30',
+            duration: 50,
+            level: 'Intermedio / Avanzado',
+            room: 'Sala Barra Principal',
+            capacity: 12,
+            cost: 1,
+            attendees: []
+          },
+          {
+            id: 'c3',
+            title: 'Barre Flow & Stretch',
+            instructor: 'Elena Soler',
+            date: d0,
+            time: '19:45',
+            duration: 50,
+            level: 'Iniciación',
+            room: 'Sala Espejos',
+            capacity: 10,
+            cost: 1,
+            attendees: []
+          },
+          {
+            id: 'c4',
+            title: 'Power Barre Masterclass',
+            instructor: 'Mich (Directora)',
+            date: d1,
+            time: '10:00',
+            duration: 55,
+            level: 'Barre Power',
+            room: 'Sala Barra Principal',
+            capacity: 12,
+            cost: 2,
+            attendees: []
+          },
+          {
+            id: 'c5',
+            title: 'Barre Classic',
             instructor: 'Camila Rossi',
             date: d1,
             time: '19:00',
             duration: 50,
-            capacity: 12,
-            creditsCost: 1,
-            room: 'Estudio Zen Light',
-            students: []
+            level: 'Todos los niveles',
+            room: 'Sala Barra Principal',
+            capacity: 10,
+            cost: 1,
+            attendees: []
           },
           {
-            id: 'cls_' + Date.now() + '_6',
-            title: 'Barre Cardio Boost',
-            type: 'Barre Sculpt',
+            id: 'c6',
+            title: 'Sunrise Barre',
             instructor: 'Sofía Mendoza',
             date: d2,
-            time: '08:00',
+            time: '08:30',
             duration: 45,
-            capacity: 10,
-            creditsCost: 1,
-            room: 'Sala Principal Barre',
-            students: []
-          },
-          {
-            id: 'cls_' + Date.now() + '_7',
-            title: 'Master Barre Focus',
-            type: 'Power Barre',
-            instructor: 'Mich (Directora)',
-            date: d3,
-            time: '11:00',
-            duration: 60,
+            level: 'Iniciación',
+            room: 'Sala Espejos',
             capacity: 8,
-            creditsCost: 2,
-            room: 'Sala Privada Boutique',
-            students: ['clara']
+            cost: 1,
+            attendees: []
           }
         ];
-
-        this.currentUser = this.users[1]; // default 'user'
-        this.saveAll();
+        this.saveClasses();
       },
 
-      saveAll() {
-        try {
-          localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(this.users));
-          localStorage.setItem(STORAGE_KEYS.CLASSES, JSON.stringify(this.classes));
-          localStorage.setItem(STORAGE_KEYS.INSTRUCTORS, JSON.stringify(this.instructors));
-          if (this.currentUser) {
-            localStorage.setItem(STORAGE_KEYS.CURRENT_USER, JSON.stringify(this.currentUser));
-          } else {
-            localStorage.removeItem(STORAGE_KEYS.CURRENT_USER);
-          }
-        } catch (e) {
-          console.error("Storage save failed:", e);
-        }
+      saveUsers() {
+        localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(this.users));
       },
-
+      saveClasses() {
+        localStorage.setItem(STORAGE_KEYS.CLASSES, JSON.stringify(this.classes));
+      },
       saveInstructors() {
         localStorage.setItem(STORAGE_KEYS.INSTRUCTORS, JSON.stringify(this.instructors));
-        this.populateInstructorSelects();
       },
-
-      setAuthMode(mode) {
-        this.authMode = mode;
-        const loginBtn = document.getElementById('auth-tab-btn-login');
-        const regBtn = document.getElementById('auth-tab-btn-register');
-        const submitBtn = document.getElementById('auth-submit-btn');
-        const title = document.getElementById('auth-modal-title');
-        const hint = document.getElementById('auth-hint-text');
-
-        if (mode === 'login') {
-          loginBtn.className = 'w-1/2 pb-2 text-xs font-semibold border-b-2 border-brand-terracotta text-brand-charcoal';
-          regBtn.className = 'w-1/2 pb-2 text-xs font-semibold border-b-2 border-transparent text-brand-muted hover:text-brand-charcoal';
-          submitBtn.textContent = 'Entrar a Barre By Mich';
-          title.textContent = 'Iniciar Sesión';
-          hint.classList.remove('hidden');
-        } else {
-          regBtn.className = 'w-1/2 pb-2 text-xs font-semibold border-b-2 border-brand-terracotta text-brand-charcoal';
-          loginBtn.className = 'w-1/2 pb-2 text-xs font-semibold border-b-2 border-transparent text-brand-muted hover:text-brand-charcoal';
-          submitBtn.textContent = 'Crear Cuenta y Recibir 5 Créditos';
-          title.textContent = 'Nuevo Registro';
-          hint.classList.add('hidden');
-        }
-      },
-
-      handleAuthSubmit(event) {
-        event.preventDefault();
-        const username = document.getElementById('auth-username').value.trim();
-        const password = document.getElementById('auth-password').value.trim();
-
-        if (!username || !password) {
-          this.showToast('Por favor completa todos los campos', 'error');
-          return;
-        }
-
-        if (this.authMode === 'login') {
-          const user = this.users.find(u => u.username.toLowerCase() === username.toLowerCase() && u.password === password);
-          if (!user) {
-            this.showToast('Credenciales incorrectas. Verifica usuario y contraseña.', 'error');
-            return;
-          }
-          this.currentUser = user;
-          this.saveAll();
-          this.closeModal('modal-auth');
-          this.updateAuthUI();
-          this.showToast(`¡Bienvenida/o de nuevo, ${user.username}!`, 'success');
-          this.renderClasses();
-          this.renderMyBookings();
-        } else {
-          // Register
-          const existing = this.users.find(u => u.username.toLowerCase() === username.toLowerCase());
-          if (existing) {
-            this.showToast('Ese nombre de usuario ya está registrado', 'error');
-            return;
-          }
-          const newUser = {
-            username: username,
-            password: password,
-            role: username.toLowerCase() === 'admin' ? 'admin' : 'user',
-            credits: 5 // Welcome credits
-          };
-          this.users.push(newUser);
-          this.currentUser = newUser;
-          this.saveAll();
-          this.closeModal('modal-auth');
-          this.updateAuthUI();
-          this.showToast('¡Bienvenida/o a Barre By Mich! Tienes 5 créditos de bienvenida.', 'success');
-          this.renderClasses();
-        }
-
-        document.getElementById('auth-form').reset();
-      },
-
-      logout() {
-        this.currentUser = null;
-        localStorage.removeItem(STORAGE_KEYS.CURRENT_USER);
-        this.updateAuthUI();
-        this.setTab('schedule');
-        this.renderClasses();
-        this.showToast('Sesión finalizada', 'info');
-      },
-
-      quickLogin(type) {
-        if (type === 'admin') {
-          let adm = this.users.find(u => u.username === 'Admin');
-          if (!adm) {
-            adm = { username: 'Admin', password: 'Admin', role: 'admin', credits: 99 };
-            this.users.push(adm);
-          }
-          this.currentUser = adm;
-        } else {
-          let usr = this.users.find(u => u.username === 'user');
-          if (!usr) {
-            usr = { username: 'user', password: 'user', role: 'user', credits: 5 };
-            this.users.push(usr);
-          }
-          this.currentUser = usr;
-        }
-        this.saveAll();
-        this.updateAuthUI();
-        this.renderClasses();
-        this.renderMyBookings();
-        this.showToast(`Conectado en modo ${this.currentUser.role === 'admin' ? 'Administrador' : 'Alumno'}`, 'success');
-      },
-
-      updateAuthUI() {
-        const container = document.getElementById('auth-header-container');
-        const adminNav = document.getElementById('nav-btn-admin');
-        const mobileAdminNav = document.getElementById('mobile-nav-admin');
-        const adminAddClassBtn = document.getElementById('admin-add-class-btn');
-
+      saveSession() {
         if (this.currentUser) {
-          const isAdmin = this.currentUser.role === 'admin';
-          if (isAdmin) {
-            adminNav.classList.remove('hidden');
-            mobileAdminNav.classList.remove('hidden');
-            adminAddClassBtn.classList.remove('hidden');
-          } else {
-            adminNav.classList.add('hidden');
-            mobileAdminNav.classList.add('hidden');
-            adminAddClassBtn.classList.add('hidden');
-            if (this.activeTab === 'admin') this.setTab('schedule');
-          }
-
-          // Balance badge
-          const creditLabel = isAdmin ? 'Admin' : `✨ ${this.currentUser.credits || 0} créditos`;
-
-          container.innerHTML = `
-            <div class="flex items-center space-x-2">
-              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${isAdmin ? 'bg-amber-100 text-amber-900 border border-amber-300' : 'bg-brand-sand text-brand-charcoal border border-brand-border'}">
-                ${creditLabel}
-              </span>
-              <div class="hidden sm:flex flex-col text-right">
-                <span class="text-xs font-semibold text-brand-charcoal">${this.currentUser.username}</span>
-                <span class="text-[10px] text-brand-muted uppercase">${this.currentUser.role}</span>
-              </div>
-              <button onclick="app.logout()" title="Cerrar sesión" class="p-2 rounded-xl text-brand-muted hover:text-brand-charcoal hover:bg-brand-sand transition-all">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-                </svg>
-              </button>
-            </div>
-          `;
+          localStorage.setItem(STORAGE_KEYS.CURRENT_USER, this.currentUser.username);
         } else {
-          adminNav.classList.add('hidden');
-          mobileAdminNav.classList.add('hidden');
-          adminAddClassBtn.classList.add('hidden');
-
-          container.innerHTML = `
-            <div class="flex items-center space-x-2">
-              <button onclick="app.quickLogin('user')" class="hidden sm:inline-block px-2.5 py-1.5 text-[11px] font-medium rounded-lg bg-brand-sand text-brand-charcoal hover:bg-brand-rose/40">
-                Demo Alumno
-              </button>
-              <button onclick="app.quickLogin('admin')" class="hidden sm:inline-block px-2.5 py-1.5 text-[11px] font-semibold rounded-lg bg-amber-100 text-amber-900 hover:bg-amber-200">
-                Demo Admin
-              </button>
-              <button onclick="app.openAuthModal('login')" class="px-4 py-2 text-xs font-semibold rounded-full bg-brand-terracotta text-white hover:bg-brand-terracottaDark shadow-xs transition-all">
-                Acceso
-              </button>
-            </div>
-          `;
-        }
-
-        this.updateUserBookingCounter();
-      },
-
-      updateUserBookingCounter() {
-        let count = 0;
-        if (this.currentUser) {
-          count = this.classes.filter(c => c.students && c.students.includes(this.currentUser.username)).length;
-        }
-        document.getElementById('user-booking-count').textContent = count;
-        document.getElementById('mobile-booking-count').textContent = count;
-
-        const creditBadge = document.getElementById('my-bookings-credit-badge');
-        if (creditBadge) {
-          creditBadge.textContent = this.currentUser ? `✨ ${this.currentUser.credits || 0} Créditos` : 'Inicia Sesión';
+          localStorage.removeItem(STORAGE_KEYS.CURRENT_USER);
         }
       },
 
       setTab(tab) {
         this.activeTab = tab;
-        const tabs = ['schedule', 'my-bookings', 'admin'];
-        tabs.forEach(t => {
-          const el = document.getElementById(`tab-${t}`);
-          const btn = document.getElementById(`nav-btn-${t}`);
-          const mobBtn = document.getElementById(`mobile-nav-${t}`);
-
-          if (t === tab) {
-            el.classList.remove('hidden');
-            if (btn) {
-              btn.className = 'px-5 py-2 text-xs font-semibold rounded-full transition-all bg-white text-brand-charcoal shadow-xs';
-            }
-            if (mobBtn) {
-              mobBtn.className = 'px-3 py-1.5 rounded-full bg-white shadow-xs font-semibold text-brand-charcoal';
-            }
-          } else {
-            el.classList.add('hidden');
-            if (btn) {
-              btn.className = 'px-5 py-2 text-xs font-semibold rounded-full transition-all text-brand-muted hover:text-brand-charcoal';
-            }
-            if (mobBtn) {
-              mobBtn.className = 'px-3 py-1.5 rounded-full text-brand-muted';
+        ['schedule', 'my-bookings', 'admin', 'admin-users'].forEach(t => {
+          const el = document.getElementById(`view-${t}`);
+          const navBtn = document.getElementById(`tab-btn-${t}`);
+          if (el) el.classList.toggle('hidden', t !== tab);
+          if (navBtn) {
+            if (t === tab) {
+              navBtn.classList.add('text-brand-terracotta', 'bg-brand-sand');
+              navBtn.classList.remove('text-brand-muted');
+            } else {
+              navBtn.classList.remove('text-brand-terracotta', 'bg-brand-sand');
+              navBtn.classList.add('text-brand-muted');
             }
           }
         });
 
-        if (tab === 'schedule') this.renderClasses();
-        if (tab === 'my-bookings') this.renderMyBookings();
-        if (tab === 'admin') this.renderAdminDashboard();
-      },
-
-      populateInstructorSelects() {
-        const filterSelect = document.getElementById('filter-instructor');
-        const editSelect = document.getElementById('edit-instructor');
-        const listContainer = document.getElementById('instructors-pill-list');
-
-        // Preserve current values if any
-        const currentFilter = filterSelect ? filterSelect.value : 'all';
-        const currentEdit = editSelect ? editSelect.value : '';
-
-        // Filter select
-        if (filterSelect) {
-          filterSelect.innerHTML = '<option value="all">Todas las instructoras</option>';
-          this.instructors.forEach(inst => {
-            const opt = document.createElement('option');
-            opt.value = inst;
-            opt.textContent = inst;
-            filterSelect.appendChild(opt);
-          });
-          filterSelect.value = currentFilter;
-        }
-
-        // Modal edit select
-        if (editSelect) {
-          editSelect.innerHTML = '';
-          this.instructors.forEach(inst => {
-            const opt = document.createElement('option');
-            opt.value = inst;
-            opt.textContent = inst;
-            editSelect.appendChild(opt);
-          });
-          if (currentEdit && this.instructors.includes(currentEdit)) {
-            editSelect.value = currentEdit;
+        // Mobile nav styles
+        document.querySelectorAll('.mobile-nav-tab').forEach(btn => {
+          const target = btn.getAttribute('data-target');
+          if (target === tab) {
+            btn.classList.add('bg-brand-sand', 'text-brand-terracotta');
+            btn.classList.remove('text-brand-muted');
+          } else {
+            btn.classList.remove('bg-brand-sand', 'text-brand-terracotta');
+            btn.classList.add('text-brand-muted');
           }
-        }
+        });
 
-        // Pill list in admin section
-        if (listContainer) {
-          listContainer.innerHTML = '';
-          this.instructors.forEach((inst, idx) => {
-            const pill = document.createElement('div');
-            pill.className = 'inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-brand-sand border border-brand-border text-xs text-brand-charcoal';
-            pill.innerHTML = `
-              <span class="w-2 h-2 rounded-full bg-brand-terracotta"></span>
-              <span class="font-medium">${inst}</span>
-              ${this.instructors.length > 1 ? `
-                <button onclick="app.removeInstructor('${inst}')" class="text-brand-muted hover:text-red-600 ml-1">
-                  &times;
-                </button>
-              ` : ''}
-            `;
-            listContainer.appendChild(pill);
-          });
-        }
+        this.renderAll();
       },
 
-      handleAddInstructorFromAdmin() {
-        const input = document.getElementById('new-instructor-input');
-        const name = input.value.trim();
-        if (!name) return;
-        if (this.instructors.includes(name)) {
-          this.showToast('Esta instructora ya existe en la plantilla', 'info');
-          return;
-        }
-        this.instructors.push(name);
-        this.saveInstructors();
-        input.value = '';
-        this.showToast(`Instructora "${name}" incorporada con éxito`, 'success');
-      },
-
-      removeInstructor(name) {
-        if (this.instructors.length <= 1) {
-          this.showToast('Debe haber al menos una instructora en el estudio', 'error');
-          return;
-        }
-        this.showConfirm(
-          'Eliminar instructora',
-          `¿Deseas retirar a ${name} de la plantilla activa? Las clases existentes conservarán su registro.`,
-          () => {
-            this.instructors = this.instructors.filter(i => i !== name);
-            this.saveInstructors();
-            this.showToast(`Instructora eliminada`, 'info');
-          }
-        );
-      },
-
-      toggleQuickAddInstructor() {
-        const box = document.getElementById('quick-add-instructor-box');
-        box.classList.toggle('hidden');
-      },
-
-      handleSaveQuickInstructor() {
-        const input = document.getElementById('quick-instructor-name');
-        const name = input.value.trim();
-        if (!name) return;
-        if (!this.instructors.includes(name)) {
-          this.instructors.push(name);
-          this.saveInstructors();
-          document.getElementById('edit-instructor').value = name;
-        }
-        input.value = '';
-        document.getElementById('quick-add-instructor-box').classList.add('hidden');
-        this.showToast(`Instructora ${name} agregada`, 'success');
-      },
-
-      renderDateStrip() {
+      setupDateStrip() {
         const container = document.getElementById('date-strip-container');
         if (!container) return;
         container.innerHTML = '';
 
         const days = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
-        const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+        const today = new Date();
 
-        // Show 14 days starting from selected date or today
-        const start = new Date(this.selectedDate + 'T00:00:00');
-        const stripStart = new Date(start);
-        stripStart.setDate(stripStart.getDate() - 1); // include day before for perspective
-
-        for (let i = 0; i < 10; i++) {
-          const current = new Date(stripStart);
-          current.setDate(current.getDate() + i);
-          const dateStr = formatDateIso(current);
-          const isSelected = dateStr === this.selectedDate;
-
-          const dayName = days[current.getDay()];
-          const dayNum = current.getDate();
-          const monthName = months[current.getMonth()];
-
-          // Count classes for badge
-          const count = this.classes.filter(c => c.date === dateStr).length;
+        for (let i = 0; i < 7; i++) {
+          const d = new Date(today);
+          d.setDate(today.getDate() + i);
+          const iso = formatDateISO(d);
+          const isSelected = iso === this.selectedDate;
 
           const btn = document.createElement('button');
-          btn.type = 'button';
+          btn.className = `flex flex-col items-center justify-center min-w-[62px] py-2 px-3 rounded-2xl border transition text-center ${
+            isSelected
+              ? 'bg-brand-terracotta text-white border-brand-terracotta shadow-xs font-semibold'
+              : 'bg-white text-brand-charcoal border-brand-border hover:bg-brand-sand/60'
+          }`;
           btn.onclick = () => {
-            this.selectedDate = dateStr;
-            this.renderDateStrip();
+            this.selectedDate = iso;
+            const picker = document.getElementById('calendar-date-picker');
+            if (picker) picker.value = iso;
+            this.setupDateStrip();
             this.renderClasses();
           };
 
-          btn.className = `flex-shrink-0 flex flex-col items-center justify-center w-16 py-3 px-2 rounded-2xl border transition-all ${
-            isSelected 
-              ? 'bg-brand-charcoal text-white border-brand-charcoal shadow-sm' 
-              : 'bg-white hover:bg-brand-sand/50 text-brand-charcoal border-brand-border'
-          }`;
-
           btn.innerHTML = `
-            <span class="text-[10px] uppercase font-semibold ${isSelected ? 'text-brand-rose' : 'text-brand-muted'}">${dayName}</span>
-            <span class="text-xl font-serif-title font-bold leading-tight my-0.5">${dayNum}</span>
-            <span class="text-[9px] ${isSelected ? 'text-gray-300' : 'text-brand-muted'}">${monthName}</span>
-            ${count > 0 ? `
-              <span class="mt-1 w-1.5 h-1.5 rounded-full ${isSelected ? 'bg-brand-rose' : 'bg-brand-terracotta'}"></span>
-            ` : `<span class="mt-1 w-1.5 h-1.5"></span>`}
+            <span class="text-[10px] uppercase font-bold tracking-wider opacity-80">${i === 0 ? 'Hoy' : days[d.getDay()]}</span>
+            <span class="text-base font-bold">${d.getDate()}</span>
           `;
-
           container.appendChild(btn);
         }
 
-        // Title text
-        const curr = new Date(this.selectedDate + 'T00:00:00');
-        document.getElementById('current-selected-date-title').textContent = `${days[curr.getDay()]}, ${curr.getDate()} de ${months[curr.getMonth()]}`;
+        const picker = document.getElementById('calendar-date-picker');
+        if (picker) picker.value = this.selectedDate;
+      },
+
+      onDatePickerChange(val) {
+        if (!val) return;
+        this.selectedDate = val;
+        this.setupDateStrip();
+        this.renderClasses();
+      },
+
+      renderAll() {
+        this.updateAuthUI();
+        this.renderClasses();
+        this.renderMyBookings();
+        this.renderAdminClasses();
+        this.renderAdminUsers();
+      },
+
+      updateAuthUI() {
+        const guestSec = document.getElementById('auth-guest-section');
+        const loggedSec = document.getElementById('auth-logged-section');
+        const creditBadge = document.getElementById('user-credit-badge');
+        const headerCredits = document.getElementById('header-user-credits');
+        const activeName = document.getElementById('active-username');
+        const activeRole = document.getElementById('active-user-role');
+        const bookingTab = document.getElementById('tab-btn-my-bookings');
+        const adminTab = document.getElementById('tab-btn-admin');
+        const adminUsersTab = document.getElementById('tab-btn-admin-users');
+        const adminAddBtn = document.getElementById('admin-add-class-btn');
+
+        // Mobile buttons
+        const mobBookings = document.querySelector('.mobile-nav-tab[data-target="my-bookings"]');
+        const mobAdmin = document.querySelector('.mobile-nav-tab[data-target="admin"]');
+        const mobAdminUsers = document.querySelector('.mobile-nav-tab[data-target="admin-users"]');
+
+        if (this.currentUser) {
+          guestSec.classList.add('hidden');
+          loggedSec.classList.remove('hidden');
+          activeName.textContent = this.currentUser.username;
+          activeRole.textContent = this.currentUser.role === 'admin' ? 'Administrador' : 'Alumno';
+
+          // Credits
+          creditBadge.classList.remove('hidden');
+          creditBadge.classList.add('flex');
+          headerCredits.textContent = this.currentUser.credits ?? 0;
+
+          // My Bookings count
+          const myCount = this.classes.filter(c => c.attendees && c.attendees.includes(this.currentUser.username)).length;
+          document.getElementById('user-booking-count').textContent = myCount;
+          bookingTab.classList.remove('hidden');
+          if (mobBookings) mobBookings.classList.remove('hidden');
+
+          if (this.currentUser.role === 'admin') {
+            adminTab.classList.remove('hidden');
+            adminUsersTab.classList.remove('hidden');
+            adminAddBtn.classList.remove('hidden');
+            adminAddBtn.classList.add('flex');
+            if (mobAdmin) mobAdmin.classList.remove('hidden');
+            if (mobAdminUsers) mobAdminUsers.classList.remove('hidden');
+          } else {
+            adminTab.classList.add('hidden');
+            adminUsersTab.classList.add('hidden');
+            adminAddBtn.classList.add('hidden');
+            if (mobAdmin) mobAdmin.classList.add('hidden');
+            if (mobAdminUsers) mobAdminUsers.classList.add('hidden');
+          }
+        } else {
+          guestSec.classList.remove('hidden');
+          loggedSec.classList.add('hidden');
+          creditBadge.classList.add('hidden');
+          bookingTab.classList.add('hidden');
+          adminTab.classList.add('hidden');
+          adminUsersTab.classList.add('hidden');
+          adminAddBtn.classList.add('hidden');
+          if (mobBookings) mobBookings.classList.add('hidden');
+          if (mobAdmin) mobAdmin.classList.add('hidden');
+          if (mobAdminUsers) mobAdminUsers.classList.add('hidden');
+        }
       },
 
       renderClasses() {
         const grid = document.getElementById('classes-grid');
-        const emptyState = document.getElementById('no-classes-state');
-        const badge = document.getElementById('classes-count-badge');
-        if (!grid) return;
+        const emptyState = document.getElementById('empty-schedule-state');
+        const countBadge = document.getElementById('classes-count-badge');
+        const titleEl = document.getElementById('schedule-selected-date-title');
 
-        const instructorFilter = document.getElementById('filter-instructor')?.value || 'all';
-        const typeFilter = document.getElementById('filter-type')?.value || 'all';
-
-        let filtered = this.classes.filter(c => c.date === this.selectedDate);
-
-        if (instructorFilter !== 'all') {
-          filtered = filtered.filter(c => c.instructor === instructorFilter);
-        }
-        if (typeFilter !== 'all') {
-          filtered = filtered.filter(c => c.type === typeFilter);
+        if (titleEl) {
+          titleEl.textContent = `Clases del ${formatHumanDate(this.selectedDate)}`;
         }
 
-        // Sort by time
-        filtered.sort((a, b) => a.time.localeCompare(b.time));
-
-        badge.textContent = `${filtered.length} ${filtered.length === 1 ? 'sesión' : 'sesiones'}`;
+        const filtered = this.classes.filter(c => c.date === this.selectedDate);
+        if (countBadge) countBadge.textContent = `${filtered.length} sesiones disponibles`;
 
         if (filtered.length === 0) {
           grid.innerHTML = '';
@@ -1300,148 +932,100 @@
         }
 
         emptyState.classList.add('hidden');
-        grid.innerHTML = '';
+        grid.innerHTML = filtered.map(c => {
+          const bookedCount = (c.attendees || []).length;
+          const spotsLeft = c.capacity - bookedCount;
+          const isFull = spotsLeft <= 0;
+          const isUserBooked = this.currentUser && (c.attendees || []).includes(this.currentUser.username);
+          const userCredits = this.currentUser ? (this.currentUser.credits || 0) : 0;
+          const hasEnoughCredits = userCredits >= (c.cost || 1);
 
-        const currentUser = this.currentUser;
-        const isAdmin = currentUser && currentUser.role === 'admin';
+          let actionButton = '';
 
-        filtered.forEach(cls => {
-          const bookedCount = cls.students ? cls.students.length : 0;
-          const isFull = bookedCount >= cls.capacity;
-          const isBooked = currentUser && cls.students && cls.students.includes(currentUser.username);
-          const percent = Math.min(100, Math.round((bookedCount / cls.capacity) * 100));
-
-          const card = document.createElement('div');
-          card.className = 'group relative flex flex-col justify-between bg-white rounded-2xl p-5 border border-brand-border shadow-xs hover:shadow-md transition-all';
-
-          // Card markup
-          card.innerHTML = `
-            <div>
-              <!-- Header & Tag -->
-              <div class="flex items-center justify-between gap-2 mb-2">
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-semibold tracking-wide uppercase bg-brand-sand text-brand-charcoal">
-                  ${cls.type}
+          if (!this.currentUser) {
+            actionButton = `
+              <button onclick="app.openAuthModal('login')" class="w-full py-2.5 rounded-xl bg-brand-sand text-brand-charcoal text-xs font-semibold hover:bg-brand-blush transition">
+                Inicia sesión para reservar
+              </button>
+            `;
+          } else if (isUserBooked) {
+            actionButton = `
+              <div class="flex items-center space-x-2">
+                <span class="flex-1 py-2 px-3 rounded-xl bg-emerald-50 text-emerald-800 text-xs font-semibold text-center border border-emerald-200">
+                  ✓ Reservada
                 </span>
-                <span class="inline-flex items-center text-xs font-bold text-brand-terracotta">
-                  ✨ ${cls.creditsCost || 1} ${(cls.creditsCost || 1) === 1 ? 'crédito' : 'créditos'}
-                </span>
+                <button onclick="app.openModifyBooking('${c.id}')" title="Cambiar a otra clase" class="px-3 py-2 rounded-xl bg-brand-sand hover:bg-brand-blush text-brand-charcoal text-xs font-semibold">
+                  Cambiar
+                </button>
+                <button onclick="app.cancelBooking('${c.id}')" title="Cancelar plaza y reembolsar créditos" class="px-3 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-semibold">
+                  Cancelar
+                </button>
               </div>
-
-              <!-- Title & Instructor -->
-              <h4 class="text-xl font-serif-title font-semibold text-brand-charcoal group-hover:text-brand-terracotta transition-colors">
-                ${cls.title}
-              </h4>
-              <p class="text-xs text-brand-muted mt-0.5">
-                Con <span class="font-medium text-brand-charcoal">${cls.instructor}</span>
-              </p>
-
-              <!-- Time, Duration & Room -->
-              <div class="mt-4 pt-3 border-t border-brand-border/60 flex items-center justify-between text-xs text-brand-charcoal">
-                <div class="flex items-center space-x-1.5">
-                  <svg class="w-4 h-4 text-brand-terracotta" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="10" stroke-width="1.8"/>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 6v6l4 2"/>
-                  </svg>
-                  <span class="font-semibold">${cls.time}</span>
-                  <span class="text-brand-muted">(${cls.duration} min)</span>
-                </div>
-                <div class="text-[11px] text-brand-muted truncate max-w-[130px]">
-                  📍 ${cls.room}
-                </div>
-              </div>
-
-              <!-- Capacity Bar -->
-              <div class="mt-4">
-                <div class="flex items-center justify-between text-[11px] mb-1">
-                  <span class="text-brand-muted">Ocupación de barra:</span>
-                  <span class="font-semibold ${isFull ? 'text-red-600' : 'text-brand-charcoal'}">
-                    ${bookedCount} / ${cls.capacity} plazas
-                  </span>
-                </div>
-                <div class="w-full h-1.5 bg-brand-sand rounded-full overflow-hidden">
-                  <div class="h-full rounded-full transition-all ${isFull ? 'bg-red-500' : 'bg-brand-terracotta'}" style="width: ${percent}%"></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Card Actions -->
-            <div class="mt-5 pt-4 border-t border-brand-border/60 space-y-2">
-              ${this.renderCardButtons(cls, isBooked, isFull, isAdmin)}
-            </div>
-          `;
-
-          grid.appendChild(card);
-        });
-      },
-
-      renderCardButtons(cls, isBooked, isFull, isAdmin) {
-        let studentBtn = '';
-
-        if (!this.currentUser) {
-          studentBtn = `
-            <button onclick="app.openAuthModal('login')" class="w-full py-2.5 rounded-xl bg-brand-sand hover:bg-brand-rose/40 text-brand-charcoal text-xs font-semibold transition-all">
-              Inicia Sesión para Reservar
-            </button>
-          `;
-        } else if (isAdmin) {
-          // Admin viewing
-          studentBtn = `
-            <div class="flex items-center space-x-1.5">
-              <button onclick="app.openAttendeesModal('${cls.id}')" class="flex-1 py-2 rounded-xl bg-brand-sand hover:bg-brand-rose/40 text-brand-charcoal text-xs font-medium transition-all">
-                Alumnos (${cls.students ? cls.students.length : 0})
+            `;
+          } else if (isFull) {
+            actionButton = `
+              <button disabled class="w-full py-2.5 rounded-xl bg-gray-100 text-gray-400 text-xs font-semibold cursor-not-allowed">
+                Clase Completa
               </button>
-              <button onclick="app.openClassModal('${cls.id}')" class="p-2 rounded-xl border border-brand-border hover:bg-brand-sand text-brand-muted hover:text-brand-charcoal transition-all" title="Editar">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-                </svg>
-              </button>
-              <button onclick="app.deleteClass('${cls.id}')" class="p-2 rounded-xl border border-red-200 hover:bg-red-50 text-red-500 transition-all" title="Eliminar clase">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                </svg>
-              </button>
-            </div>
-          `;
-        } else if (isBooked) {
-          studentBtn = `
-            <div class="flex items-center space-x-2">
-              <span class="flex-1 py-2 text-center rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-semibold flex items-center justify-center space-x-1">
-                <span>✓ Reservada</span>
-              </span>
-              <button onclick="app.cancelBooking('${cls.id}')" class="px-3 py-2 rounded-xl text-xs font-medium text-red-600 hover:bg-red-50 border border-red-200" title="Cancelar plaza">
-                Cancelar
-              </button>
-            </div>
-          `;
-        } else if (isFull) {
-          studentBtn = `
-            <button disabled class="w-full py-2.5 rounded-xl bg-gray-100 text-gray-400 text-xs font-semibold cursor-not-allowed">
-              Plazas Agotadas
-            </button>
-          `;
-        } else {
-          // Normal booking button
-          const userCredits = this.currentUser.credits || 0;
-          const cost = cls.creditsCost || 1;
-          const hasCredits = userCredits >= cost;
-
-          if (hasCredits) {
-            studentBtn = `
-              <button onclick="app.bookClass('${cls.id}')" class="w-full py-2.5 rounded-xl bg-brand-terracotta hover:bg-brand-terracottaDark text-white text-xs font-semibold shadow-xs transition-all flex items-center justify-center space-x-1.5">
-                <span>Reservar Clase</span>
-                <span class="text-white/80">(${cost} ${cost === 1 ? 'crédito' : 'créditos'})</span>
+            `;
+          } else if (!hasEnoughCredits) {
+            actionButton = `
+              <button onclick="app.showToast('No tienes suficientes créditos. Pide al admin una recarga.', 'error')" class="w-full py-2.5 rounded-xl bg-brand-sand/60 text-brand-muted text-xs font-semibold border border-dashed border-brand-border">
+                Saldo insuficiente (${c.cost} crédito${c.cost > 1 ? 's' : ''})
               </button>
             `;
           } else {
-            studentBtn = `
-              <button onclick="app.showToast('Saldo insuficiente. Solicita una recarga al administrador.', 'error')" class="w-full py-2.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs font-semibold transition-all">
-                Requiere ${cost} créditos (Tienes ${userCredits})
+            actionButton = `
+              <button onclick="app.bookClass('${c.id}')" class="w-full py-2.5 rounded-xl bg-brand-terracotta text-white text-xs font-semibold hover:bg-brand-terracotta-dark shadow-sm transition flex items-center justify-center space-x-1.5">
+                <span>Reservar Clase</span>
+                <span class="opacity-80">(${c.cost} crédito${c.cost > 1 ? 's' : ''})</span>
               </button>
             `;
           }
-        }
 
-        return studentBtn;
+          return `
+            <div class="bg-white rounded-3xl p-5 border border-brand-border hover:shadow-md transition-all flex flex-col justify-between space-y-4">
+              <div>
+                <div class="flex items-start justify-between gap-2 mb-2">
+                  <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-brand-sand text-brand-charcoal">
+                    ${c.level || 'Todos los niveles'}
+                  </span>
+                  <span class="text-xs font-semibold text-brand-terracotta flex items-center gap-1 bg-brand-sand/70 px-2 py-0.5 rounded-md">
+                    <span>✨</span> ${c.cost} crédito${c.cost > 1 ? 's' : ''}
+                  </span>
+                </div>
+
+                <h3 class="text-xl font-serif font-bold text-brand-charcoal">${c.title}</h3>
+                
+                <div class="mt-2 space-y-1.5 text-xs text-brand-muted">
+                  <div class="flex items-center space-x-2">
+                    <span class="font-medium text-brand-charcoal">Instructora:</span>
+                    <span class="text-brand-terracotta font-semibold">${c.instructor}</span>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <span>⏰ ${c.time} (${c.duration} min)</span>
+                    <span>•</span>
+                    <span>📍 ${c.room || 'Estudio Central'}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Capacity Indicator -->
+              <div class="pt-2 border-t border-brand-border">
+                <div class="flex justify-between items-center text-xs mb-1.5">
+                  <span class="text-brand-muted font-medium">Plazas disponibles:</span>
+                  <span class="font-bold ${isFull ? 'text-rose-600' : 'text-brand-charcoal'}">${spotsLeft} de ${c.capacity}</span>
+                </div>
+                <div class="w-full bg-brand-sand rounded-full h-1.5 overflow-hidden">
+                  <div class="bg-brand-terracotta h-1.5 rounded-full transition-all" style="width: ${(bookedCount / c.capacity) * 100}%"></div>
+                </div>
+              </div>
+
+              <!-- Action Button -->
+              <div>${actionButton}</div>
+            </div>
+          `;
+        }).join('');
       },
 
       bookClass(classId) {
@@ -1453,550 +1037,551 @@
         const cls = this.classes.find(c => c.id === classId);
         if (!cls) return;
 
-        if (!cls.students) cls.students = [];
-
-        if (cls.students.includes(this.currentUser.username)) {
-          this.showToast('Ya tienes una plaza reservada en esta sesión', 'info');
+        if (!cls.attendees) cls.attendees = [];
+        if (cls.attendees.includes(this.currentUser.username)) {
+          this.showToast('Ya estás inscrita/o en esta clase.', 'info');
           return;
         }
 
-        if (cls.students.length >= cls.capacity) {
-          this.showToast('Lo sentimos, esta clase acaba de completarse', 'error');
+        if (cls.attendees.length >= cls.capacity) {
+          this.showToast('Lo sentimos, esta clase ya está completa.', 'error');
           return;
         }
 
-        const cost = cls.creditsCost || 1;
-        const user = this.users.find(u => u.username === this.currentUser.username);
-
-        if (!user || user.credits < cost) {
-          this.showToast(`Saldo insuficiente. Esta clase cuesta ${cost} créditos.`, 'error');
+        const cost = cls.cost || 1;
+        if ((this.currentUser.credits || 0) < cost) {
+          this.showToast(`Saldo insuficiente. Necesitas ${cost} crédito(s).`, 'error');
           return;
         }
 
         // Deduct credits & enroll
-        user.credits -= cost;
-        cls.students.push(user.username);
-        this.currentUser.credits = user.credits;
+        this.currentUser.credits -= cost;
+        cls.attendees.push(this.currentUser.username);
 
-        this.saveAll();
-        this.updateAuthUI();
-        this.renderClasses();
-        this.renderMyBookings();
-        this.showToast(`¡Plaza confirmada en "${cls.title}"! Se descontó ${cost} crédito.`, 'success');
+        // Update in users list
+        const idx = this.users.findIndex(u => u.username === this.currentUser.username);
+        if (idx !== -1) this.users[idx].credits = this.currentUser.credits;
+
+        this.saveUsers();
+        this.saveClasses();
+        this.saveSession();
+
+        this.showToast(`¡Reserva confirmada! Se descontaron ${cost} crédito(s).`, 'success');
+        this.renderAll();
       },
 
       cancelBooking(classId) {
         if (!this.currentUser) return;
 
         const cls = this.classes.find(c => c.id === classId);
-        if (!cls || !cls.students) return;
+        if (!cls || !cls.attendees || !cls.attendees.includes(this.currentUser.username)) return;
 
-        this.showConfirm(
-          'Cancelar Reserva',
-          `¿Deseas cancelar tu reserva para "${cls.title}"? Se te reembolsará(n) de inmediato ${cls.creditsCost || 1} crédito(s).`,
+        this.openConfirmModal(
+          '¿Cancelar Reserva?',
+          `Al cancelar la clase "${cls.title}", se te reembolsarán automáticamente los ${cls.cost || 1} crédito(s).`,
           () => {
-            cls.students = cls.students.filter(s => s !== this.currentUser.username);
-            
-            // Refund credit
-            const refund = cls.creditsCost || 1;
-            const user = this.users.find(u => u.username === this.currentUser.username);
-            if (user) {
-              user.credits = (user.credits || 0) + refund;
-              this.currentUser.credits = user.credits;
-            }
+            // Remove attendee
+            cls.attendees = cls.attendees.filter(u => u !== this.currentUser.username);
+            const refund = cls.cost || 1;
+            this.currentUser.credits = (this.currentUser.credits || 0) + refund;
 
-            this.saveAll();
-            this.updateAuthUI();
-            this.renderClasses();
-            this.renderMyBookings();
-            this.showToast(`Reserva cancelada y ${refund} crédito(s) reembolsado(s).`, 'info');
+            const idx = this.users.findIndex(u => u.username === this.currentUser.username);
+            if (idx !== -1) this.users[idx].credits = this.currentUser.credits;
+
+            this.saveUsers();
+            this.saveClasses();
+            this.saveSession();
+
+            this.showToast(`Reserva cancelada. Te hemos devuelto ${refund} crédito(s).`, 'info');
+            this.renderAll();
           }
         );
       },
 
-      renderMyBookings() {
-        const container = document.getElementById('my-bookings-container');
-        const emptyState = document.getElementById('empty-my-bookings');
-        if (!container) return;
+      openModifyBooking(currentClassId) {
+        if (!this.currentUser) return;
+        const currentCls = this.classes.find(c => c.id === currentClassId);
+        if (!currentCls) return;
 
-        if (!this.currentUser) {
-          container.innerHTML = `
-            <div class="text-center py-10">
-              <p class="text-xs text-brand-muted mb-3">Inicia sesión para gestionar tus reservas activas.</p>
-              <button onclick="app.openAuthModal('login')" class="px-5 py-2 rounded-full bg-brand-terracotta text-white text-xs font-semibold">Iniciar Sesión</button>
-            </div>
-          `;
-          emptyState.classList.add('hidden');
-          return;
-        }
-
-        const myClasses = this.classes.filter(c => c.students && c.students.includes(this.currentUser.username));
-
-        // Sort by date and time
-        myClasses.sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
-
-        if (myClasses.length === 0) {
-          container.innerHTML = '';
-          emptyState.classList.remove('hidden');
-          return;
-        }
-
-        emptyState.classList.add('hidden');
-        container.innerHTML = '';
-
-        myClasses.forEach(cls => {
-          const item = document.createElement('div');
-          item.className = 'flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl border border-brand-border bg-brand-cream/30 hover:bg-white transition-all gap-4';
-
-          item.innerHTML = `
-            <div class="flex items-start space-x-3">
-              <div class="w-10 h-10 rounded-xl bg-brand-sand flex flex-col items-center justify-center text-brand-charcoal flex-shrink-0">
-                <span class="text-[10px] font-bold uppercase leading-none">${cls.date.split('-')[1]}/${cls.date.split('-')[2]}</span>
-                <span class="text-xs font-semibold mt-0.5">${cls.time}</span>
-              </div>
-              <div>
-                <div class="flex items-center space-x-2">
-                  <span class="text-xs font-semibold text-brand-charcoal">${cls.title}</span>
-                  <span class="text-[10px] px-2 py-0.5 rounded-full bg-brand-blush text-brand-terracotta font-medium">${cls.type}</span>
-                </div>
-                <p class="text-[11px] text-brand-muted mt-0.5">
-                  Instructora: <span class="text-brand-charcoal">${cls.instructor}</span> • Sala: ${cls.room}
-                </p>
-                <span class="text-[10px] text-amber-700 font-semibold mt-1 inline-block">
-                  ✨ Coste: ${cls.creditsCost || 1} crédito
-                </span>
-              </div>
-            </div>
-
-            <!-- Modificar & Cancelar -->
-            <div class="flex items-center space-x-2 self-end sm:self-center">
-              <button onclick="app.openChangeClassModal('${cls.id}')" class="px-3 py-1.5 rounded-xl border border-brand-border bg-white hover:bg-brand-sand text-xs font-medium text-brand-charcoal transition-all">
-                Reubicar Clase
-              </button>
-              <button onclick="app.cancelBooking('${cls.id}')" class="px-3 py-1.5 rounded-xl text-xs font-medium text-red-600 hover:bg-red-50 border border-red-200 transition-all">
-                Cancelar
-              </button>
-            </div>
-          `;
-
-          container.appendChild(item);
-        });
-      },
-
-      openChangeClassModal(currentClassId) {
-        this.changeClassSourceId = currentClassId;
-        const currentClass = this.classes.find(c => c.id === currentClassId);
-        if (!currentClass) return;
-
-        document.getElementById('change-class-subtitle').textContent = `Mover tu plaza de "${currentClass.title}" (${currentClass.date} - ${currentClass.time}) a otra sesión.`;
-
-        const optionsContainer = document.getElementById('change-class-options');
-        optionsContainer.innerHTML = '';
+        this.pendingModifyBookingId = currentClassId;
+        const infoEl = document.getElementById('modify-current-class-info');
+        infoEl.textContent = `Actual: ${currentCls.title} (${currentCls.date} a las ${currentCls.time}) - Coste: ${currentCls.cost || 1} créd.`;
 
         // Available alternative classes
-        const alternatives = this.classes.filter(c => 
-          c.id !== currentClassId && 
-          (!c.students || !c.students.includes(this.currentUser.username)) &&
-          (!c.students || c.students.length < c.capacity)
-        );
+        const select = document.getElementById('modify-target-class');
+        select.innerHTML = '';
+
+        const alternatives = this.classes.filter(c => {
+          const isNotSame = c.id !== currentClassId;
+          const notAlreadyBooked = !(c.attendees || []).includes(this.currentUser.username);
+          const hasSpots = (c.capacity - (c.attendees || []).length) > 0;
+          return isNotSame && notAlreadyBooked && hasSpots;
+        });
 
         if (alternatives.length === 0) {
-          optionsContainer.innerHTML = `
-            <div class="p-4 text-center text-xs text-brand-muted">
-              No hay otras clases con plazas libres disponibles en este momento.
-            </div>
-          `;
+          select.innerHTML = '<option value="">No hay otras clases con plazas libres</option>';
         } else {
           alternatives.forEach(alt => {
-            const costDiff = (alt.creditsCost || 1) - (currentClass.creditsCost || 1);
-            let diffLabel = '';
-            if (costDiff > 0) diffLabel = `(+${costDiff} crédito req.)`;
-            else if (costDiff < 0) diffLabel = `(${costDiff} reembolso)`;
-            else diffLabel = `(mismo coste)`;
-
-            const row = document.createElement('div');
-            row.className = 'flex items-center justify-between p-3 rounded-xl border border-brand-border hover:border-brand-terracotta bg-brand-cream/30 transition-all';
-            row.innerHTML = `
-              <div>
-                <div class="text-xs font-semibold text-brand-charcoal">${alt.title}</div>
-                <div class="text-[11px] text-brand-muted">
-                  ${alt.date} • ${alt.time} (${alt.duration} min) • Prof: ${alt.instructor}
-                </div>
-                <span class="text-[10px] text-brand-terracotta font-medium">${diffLabel}</span>
-              </div>
-              <button onclick="app.confirmChangeClass('${alt.id}')" class="px-3 py-1.5 rounded-lg bg-brand-terracotta text-white text-xs font-semibold hover:bg-brand-terracottaDark">
-                Seleccionar
-              </button>
-            `;
-            optionsContainer.appendChild(row);
+            const opt = document.createElement('option');
+            opt.value = alt.id;
+            opt.textContent = `${alt.date} • ${alt.time} - ${alt.title} (${alt.instructor}) [${alt.cost || 1} créd.]`;
+            select.appendChild(opt);
           });
         }
 
-        this.openModal('modal-change-class');
+        this.openModal('modal-modify-booking');
       },
 
-      confirmChangeClass(newClassId) {
-        const oldClass = this.classes.find(c => c.id === this.changeClassSourceId);
-        const newClass = this.classes.find(c => c.id === newClassId);
-        if (!oldClass || !newClass || !this.currentUser) return;
-
-        const user = this.users.find(u => u.username === this.currentUser.username);
-        const diff = (newClass.creditsCost || 1) - (oldClass.creditsCost || 1);
-
-        if (diff > 0 && user.credits < diff) {
-          this.showToast(`Necesitas ${diff} crédito adicional para esta clase`, 'error');
+      confirmModifyBooking() {
+        const targetId = document.getElementById('modify-target-class').value;
+        if (!targetId) {
+          this.showToast('Selecciona una clase válida para reubicarte.', 'error');
           return;
         }
 
-        // Adjust credit difference
-        user.credits -= diff;
-        this.currentUser.credits = user.credits;
+        const oldCls = this.classes.find(c => c.id === this.pendingModifyBookingId);
+        const newCls = this.classes.find(c => c.id === targetId);
 
-        // Swap bookings
-        oldClass.students = oldClass.students.filter(s => s !== this.currentUser.username);
-        if (!newClass.students) newClass.students = [];
-        newClass.students.push(this.currentUser.username);
+        if (!oldCls || !newCls) return;
 
-        this.saveAll();
-        this.closeModal('modal-change-class');
-        this.updateAuthUI();
-        this.renderClasses();
-        this.renderMyBookings();
-        this.showToast(`Tu clase ha sido reubicada a "${newClass.title}" con éxito.`, 'success');
+        const oldCost = oldCls.cost || 1;
+        const newCost = newCls.cost || 1;
+        const diff = newCost - oldCost; // If positive, user pays diff; if negative, user gets refund
+
+        if (diff > 0 && (this.currentUser.credits || 0) < diff) {
+          this.showToast(`Necesitas ${diff} crédito(s) adicional(es) para cambiar a esta clase.`, 'error');
+          return;
+        }
+
+        // Apply transfer
+        oldCls.attendees = (oldCls.attendees || []).filter(u => u !== this.currentUser.username);
+        if (!newCls.attendees) newCls.attendees = [];
+        newCls.attendees.push(this.currentUser.username);
+
+        this.currentUser.credits = (this.currentUser.credits || 0) - diff;
+        const idx = this.users.findIndex(u => u.username === this.currentUser.username);
+        if (idx !== -1) this.users[idx].credits = this.currentUser.credits;
+
+        this.saveUsers();
+        this.saveClasses();
+        this.saveSession();
+
+        this.closeModal('modal-modify-booking');
+        this.showToast(`¡Reserva reubicada con éxito a "${newCls.title}"!`, 'success');
+        this.renderAll();
       },
 
-      renderAdminDashboard() {
-        if (!this.currentUser || this.currentUser.role !== 'admin') return;
+      renderMyBookings() {
+        const list = document.getElementById('my-bookings-list');
+        const empty = document.getElementById('empty-bookings-state');
+        if (!this.currentUser) return;
 
-        this.updateKPIs();
-        this.populateInstructorSelects();
+        const booked = this.classes.filter(c => (c.attendees || []).includes(this.currentUser.username));
 
-        const tableBody = document.getElementById('admin-users-table-body');
-        if (!tableBody) return;
-        tableBody.innerHTML = '';
+        if (booked.length === 0) {
+          list.innerHTML = '';
+          empty.classList.remove('hidden');
+          return;
+        }
 
-        this.users.forEach(usr => {
-          const userBookings = this.classes.filter(c => c.students && c.students.includes(usr.username)).length;
-          const tr = document.createElement('tr');
-          tr.className = 'hover:bg-brand-sand/30 transition-all';
+        empty.classList.add('hidden');
+        list.innerHTML = booked.map(c => `
+          <div class="bg-white rounded-2xl p-5 border border-brand-border flex items-center justify-between shadow-xs">
+            <div class="space-y-1">
+              <span class="text-xs font-semibold px-2 py-0.5 rounded bg-brand-sand text-brand-terracotta">${c.date} • ${c.time}</span>
+              <h4 class="text-lg font-serif font-bold text-brand-charcoal">${c.title}</h4>
+              <p class="text-xs text-brand-muted">Instructora: ${c.instructor} • ${c.room} • Coste: ${c.cost || 1} crédito(s)</p>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-2">
+              <button onclick="app.openModifyBooking('${c.id}')" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-brand-sand hover:bg-brand-blush text-brand-charcoal">
+                Cambiar
+              </button>
+              <button onclick="app.cancelBooking('${c.id}')" class="px-3 py-1.5 text-xs font-semibold rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700">
+                Cancelar
+              </button>
+            </div>
+          </div>
+        `).join('');
+      },
 
-          tr.innerHTML = `
-            <td class="py-3 px-4 font-semibold text-brand-charcoal">${usr.username}</td>
-            <td class="py-3 px-4">
-              <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold ${usr.role === 'admin' ? 'bg-amber-100 text-amber-800' : 'bg-brand-sand text-brand-charcoal'}">
-                ${usr.role}
-              </span>
-            </td>
-            <td class="py-3 px-4 font-bold text-brand-terracotta">
-              ✨ ${usr.credits !== undefined ? usr.credits : 0}
-            </td>
-            <td class="py-3 px-4 text-brand-muted">${userBookings} clases</td>
+      renderAdminClasses() {
+        const tbody = document.getElementById('admin-classes-tbody');
+        if (!tbody) return;
+
+        if (this.classes.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="6" class="text-center py-6 text-brand-muted text-xs">No hay clases registradas.</td></tr>';
+          return;
+        }
+
+        tbody.innerHTML = this.classes.map(c => {
+          const booked = (c.attendees || []).length;
+          return `
+            <tr class="hover:bg-brand-sand/30 transition">
+              <td class="py-3 px-4 font-medium text-xs">${c.date} <br><span class="text-brand-terracotta">${c.time}</span></td>
+              <td class="py-3 px-4 font-semibold text-brand-charcoal">${c.title} <span class="block text-[11px] font-normal text-brand-muted">${c.level}</span></td>
+              <td class="py-3 px-4 text-xs font-medium text-brand-charcoal">${c.instructor}</td>
+              <td class="py-3 px-4 text-xs font-semibold text-brand-terracotta">✨ ${c.cost || 1} créd.</td>
+              <td class="py-3 px-4 text-xs font-medium">${booked} / ${c.capacity} plazas</td>
+              <td class="py-3 px-4 text-right space-x-1">
+                <button onclick="app.openClassModal('${c.id}')" class="px-2.5 py-1 text-xs font-semibold rounded-lg bg-brand-sand hover:bg-brand-blush text-brand-charcoal">
+                  Editar
+                </button>
+                <button onclick="app.deleteClass('${c.id}')" class="px-2.5 py-1 text-xs font-semibold rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700">
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      },
+
+      renderAdminUsers() {
+        const tbody = document.getElementById('admin-users-tbody');
+        if (!tbody) return;
+
+        tbody.innerHTML = this.users.map(u => `
+          <tr class="hover:bg-brand-sand/30 transition">
+            <td class="py-3 px-4 font-semibold text-brand-charcoal text-xs">${u.username}</td>
+            <td class="py-3 px-4 text-xs"><span class="px-2 py-0.5 rounded-full ${u.role === 'admin' ? 'bg-amber-100 text-amber-800' : 'bg-brand-sand text-brand-charcoal'} font-medium text-[11px]">${u.role}</span></td>
+            <td class="py-3 px-4 text-xs font-bold text-brand-terracotta">✨ ${u.credits ?? 0} créditos</td>
             <td class="py-3 px-4 text-right">
-              <button onclick="app.openRechargeModal('${usr.username}')" class="px-2.5 py-1 text-xs font-semibold rounded-lg bg-brand-terracotta text-white hover:bg-brand-terracottaDark transition-all">
+              <button onclick="app.openRechargeModal('${u.username}')" class="px-3 py-1 text-xs font-semibold rounded-lg bg-brand-terracotta text-white hover:bg-brand-terracotta-dark transition">
                 + Recargar
               </button>
             </td>
-          `;
-
-          tableBody.appendChild(tr);
-        });
-      },
-
-      updateKPIs() {
-        const totalClasses = this.classes.length;
-        let totalReservations = 0;
-        this.classes.forEach(c => {
-          if (c.students) totalReservations += c.students.length;
-        });
-        const totalUsers = this.users.length;
-        let totalCredits = 0;
-        this.users.forEach(u => {
-          totalCredits += (u.credits || 0);
-        });
-
-        const kpiClasses = document.getElementById('kpi-total-classes');
-        const kpiRes = document.getElementById('kpi-total-reservations');
-        const kpiUsers = document.getElementById('kpi-total-users');
-        const kpiCredits = document.getElementById('kpi-total-credits');
-
-        if (kpiClasses) kpiClasses.textContent = totalClasses;
-        if (kpiRes) kpiRes.textContent = totalReservations;
-        if (kpiUsers) kpiUsers.textContent = totalUsers;
-        if (kpiCredits) kpiCredits.textContent = totalCredits;
-      },
-
-      openRechargeModal(username) {
-        this.rechargeTargetUser = username;
-        document.getElementById('recharge-user-target').textContent = username;
-        document.getElementById('recharge-amount-input').value = 5;
-        this.openModal('modal-recharge');
-      },
-
-      quickAddRecharge(amt) {
-        document.getElementById('recharge-amount-input').value = amt;
-      },
-
-      confirmRechargeSubmit() {
-        const amt = parseInt(document.getElementById('recharge-amount-input').value, 10);
-        if (isNaN(amt) || amt <= 0) {
-          this.showToast('Por favor introduce una cantidad válida', 'error');
-          return;
-        }
-
-        const user = this.users.find(u => u.username === this.rechargeTargetUser);
-        if (!user) return;
-
-        user.credits = (user.credits || 0) + amt;
-
-        if (this.currentUser && this.currentUser.username === user.username) {
-          this.currentUser.credits = user.credits;
-        }
-
-        this.saveAll();
-        this.closeModal('modal-recharge');
-        this.updateAuthUI();
-        this.renderAdminDashboard();
-        this.showToast(`Se han añadido +${amt} créditos a ${user.username}`, 'success');
+          </tr>
+        `).join('');
       },
 
       openClassModal(classId = null) {
-        this.populateInstructorSelects();
+        this.populateInstructorsSelect();
+        const modalTitle = document.getElementById('class-modal-title');
         const form = document.getElementById('class-form');
         form.reset();
 
-        document.getElementById('quick-add-instructor-box').classList.add('hidden');
+        document.getElementById('new-instructor-box').classList.add('hidden');
 
         if (classId) {
-          const cls = this.classes.find(c => c.id === classId);
-          if (!cls) return;
-          document.getElementById('class-modal-title').textContent = 'Editar Sesión';
-          document.getElementById('edit-class-id').value = cls.id;
-          document.getElementById('edit-title').value = cls.title;
-          document.getElementById('edit-type').value = cls.type;
-          document.getElementById('edit-instructor').value = cls.instructor;
-          document.getElementById('edit-date').value = cls.date;
-          document.getElementById('edit-time').value = cls.time;
-          document.getElementById('edit-duration').value = cls.duration;
-          document.getElementById('edit-capacity').value = cls.capacity;
-          document.getElementById('edit-credits').value = cls.creditsCost || 1;
-          document.getElementById('edit-room').value = cls.room;
+          const c = this.classes.find(x => x.id === classId);
+          if (!c) return;
+          modalTitle.textContent = 'Editar Clase';
+          document.getElementById('edit-class-id').value = c.id;
+          document.getElementById('edit-title').value = c.title;
+          document.getElementById('edit-instructor').value = c.instructor;
+          document.getElementById('edit-date').value = c.date;
+          document.getElementById('edit-time').value = c.time;
+          document.getElementById('edit-duration').value = c.duration;
+          document.getElementById('edit-level').value = c.level;
+          document.getElementById('edit-capacity').value = c.capacity;
+          document.getElementById('edit-cost').value = c.cost || 1;
+          document.getElementById('edit-room').value = c.room || 'Sala Principal';
         } else {
-          document.getElementById('class-modal-title').textContent = 'Programar Nueva Sesión';
+          modalTitle.textContent = 'Crear Nueva Clase';
           document.getElementById('edit-class-id').value = '';
           document.getElementById('edit-date').value = this.selectedDate;
-          document.getElementById('edit-time').value = '09:00';
-          document.getElementById('edit-duration').value = 50;
-          document.getElementById('edit-capacity').value = 12;
-          document.getElementById('edit-credits').value = 1;
+          document.getElementById('edit-time').value = '10:00';
+          document.getElementById('edit-duration').value = '50';
+          document.getElementById('edit-capacity').value = '12';
+          document.getElementById('edit-cost').value = '1';
+          document.getElementById('edit-room').value = 'Sala Barra Principal';
         }
 
-        this.openModal('modal-class-form');
+        this.openModal('modal-class');
       },
 
-      handleClassFormSubmit(event) {
-        event.preventDefault();
+      populateInstructorsSelect(selectedInstructor = null) {
+        const select = document.getElementById('edit-instructor');
+        select.innerHTML = '';
+        this.instructors.forEach(inst => {
+          const opt = document.createElement('option');
+          opt.value = inst;
+          opt.textContent = inst;
+          if (selectedInstructor && inst === selectedInstructor) {
+            opt.selected = true;
+          }
+          select.appendChild(opt);
+        });
+      },
+
+      toggleNewInstructorInput() {
+        const box = document.getElementById('new-instructor-box');
+        box.classList.toggle('hidden');
+        if (!box.classList.contains('hidden')) {
+          document.getElementById('new-instructor-name').focus();
+        }
+      },
+
+      saveNewInstructor() {
+        const input = document.getElementById('new-instructor-name');
+        const name = input.value.trim();
+        if (!name) return;
+
+        if (!this.instructors.includes(name)) {
+          this.instructors.push(name);
+          this.saveInstructors();
+          this.populateInstructorsSelect(name);
+          this.showToast(`Instructora "${name}" añadida.`, 'success');
+        } else {
+          this.populateInstructorsSelect(name);
+        }
+
+        input.value = '';
+        document.getElementById('new-instructor-box').classList.add('hidden');
+      },
+
+      handleClassSubmit(e) {
+        e.preventDefault();
         const id = document.getElementById('edit-class-id').value;
         const title = document.getElementById('edit-title').value.trim();
-        const type = document.getElementById('edit-type').value;
         const instructor = document.getElementById('edit-instructor').value;
         const date = document.getElementById('edit-date').value;
         const time = document.getElementById('edit-time').value;
-        const duration = parseInt(document.getElementById('edit-duration').value, 10);
-        const capacity = parseInt(document.getElementById('edit-capacity').value, 10);
-        const creditsCost = parseInt(document.getElementById('edit-credits').value, 10) || 1;
-        const room = document.getElementById('edit-room').value;
+        const duration = parseInt(document.getElementById('edit-duration').value, 10) || 50;
+        const level = document.getElementById('edit-level').value;
+        const capacity = parseInt(document.getElementById('edit-capacity').value, 10) || 12;
+        const cost = parseInt(document.getElementById('edit-cost').value, 10) || 1;
+        const room = document.getElementById('edit-room').value.trim();
 
         if (id) {
           // Edit existing class
           const cls = this.classes.find(c => c.id === id);
           if (cls) {
             cls.title = title;
-            cls.type = type;
             cls.instructor = instructor;
             cls.date = date;
             cls.time = time;
             cls.duration = duration;
+            cls.level = level;
             cls.capacity = capacity;
-            cls.creditsCost = creditsCost;
+            cls.cost = cost;
             cls.room = room;
-            this.showToast('Sesión actualizada correctamente', 'success');
+            this.showToast('Clase actualizada con éxito.', 'success');
           }
         } else {
           // Create new class
-          const newClass = {
-            id: 'cls_' + Date.now(),
+          const newCls = {
+            id: 'c_' + Date.now(),
             title,
-            type,
             instructor,
             date,
             time,
             duration,
+            level,
             capacity,
-            creditsCost,
+            cost,
             room,
-            students: []
+            attendees: []
           };
-          this.classes.push(newClass);
-          this.showToast('Nueva sesión de Barre añadida al horario', 'success');
+          this.classes.push(newCls);
+          this.showToast('Nueva clase creada con éxito.', 'success');
         }
 
-        this.saveAll();
-        this.closeModal('modal-class-form');
-        this.renderDateStrip();
-        this.renderClasses();
-        this.updateKPIs();
+        this.saveClasses();
+        this.closeModal('modal-class');
+        this.renderAll();
       },
 
       deleteClass(classId) {
         const cls = this.classes.find(c => c.id === classId);
         if (!cls) return;
 
-        this.showConfirm(
-          'Eliminar Clase',
-          `¿Seguro/a que deseas eliminar permanentemente "${cls.title}"? Si hay alumnos inscritos se les reembolsará su crédito automáticamente.`,
+        this.openConfirmModal(
+          '¿Eliminar Clase?',
+          `Se eliminará permanentemente la sesión "${cls.title}". Si había alumnos inscritos, se les reembolsarán sus créditos automáticamente.`,
           () => {
-            // Refund enrolled students
-            if (cls.students && cls.students.length > 0) {
-              const refund = cls.creditsCost || 1;
-              cls.students.forEach(studentUsername => {
-                const u = this.users.find(usr => usr.username === studentUsername);
-                if (u) u.credits = (u.credits || 0) + refund;
+            // Refund enrolled attendees
+            if (cls.attendees && cls.attendees.length > 0) {
+              const refundAmount = cls.cost || 1;
+              cls.attendees.forEach(studentUsername => {
+                const student = this.users.find(u => u.username === studentUsername);
+                if (student) {
+                  student.credits = (student.credits || 0) + refundAmount;
+                }
               });
+              if (this.currentUser) {
+                const refreshed = this.users.find(u => u.username === this.currentUser.username);
+                if (refreshed) this.currentUser.credits = refreshed.credits;
+              }
+              this.saveUsers();
             }
 
             this.classes = this.classes.filter(c => c.id !== classId);
-            this.saveAll();
-            this.updateAuthUI();
-            this.renderClasses();
-            this.updateKPIs();
-            this.showToast('Clase eliminada del horario', 'info');
+            this.saveClasses();
+            this.showToast('Clase eliminada del sistema.', 'info');
+            this.renderAll();
           }
         );
       },
 
-      openAttendeesModal(classId) {
-        const cls = this.classes.find(c => c.id === classId);
-        if (!cls) return;
+      openRechargeModal(username) {
+        document.getElementById('recharge-target-username').textContent = username;
+        document.getElementById('recharge-amount-input').value = '5';
+        this.openModal('modal-recharge');
+      },
 
-        document.getElementById('attendees-modal-sub').textContent = `${cls.title} • ${cls.date} - ${cls.time}`;
-        
-        // Manual student select dropdown
-        const select = document.getElementById('manual-student-select');
-        select.innerHTML = '';
-        this.users.filter(u => u.role !== 'admin' && (!cls.students || !cls.students.includes(u.username))).forEach(u => {
-          const opt = document.createElement('option');
-          opt.value = u.username;
-          opt.textContent = `${u.username} (Saldo: ${u.credits || 0} cr)`;
-          select.appendChild(opt);
-        });
+      setRechargeAmount(amt) {
+        document.getElementById('recharge-amount-input').value = amt;
+      },
 
-        // Store class ID on select element for reference
-        select.dataset.classId = classId;
+      executeRecharge() {
+        const username = document.getElementById('recharge-target-username').textContent;
+        const amt = parseInt(document.getElementById('recharge-amount-input').value, 10);
 
-        const container = document.getElementById('attendees-list-container');
-        container.innerHTML = '';
-
-        if (!cls.students || cls.students.length === 0) {
-          container.innerHTML = '<div class="py-6 text-center text-xs text-brand-muted">No hay alumnos inscritos en esta clase aún.</div>';
-        } else {
-          cls.students.forEach(st => {
-            const row = document.createElement('div');
-            row.className = 'flex items-center justify-between py-2 text-xs';
-            row.innerHTML = `
-              <div class="flex items-center space-x-2">
-                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                <span class="font-semibold text-brand-charcoal">${st}</span>
-              </div>
-              <button onclick="app.removeAttendee('${classId}', '${st}')" class="text-[11px] text-red-500 hover:text-red-700">
-                Retirar & Reembolsar
-              </button>
-            `;
-            container.appendChild(row);
-          });
+        if (!amt || amt <= 0) {
+          this.showToast('Por favor, indica una cantidad válida de créditos.', 'error');
+          return;
         }
 
-        this.openModal('modal-attendees');
-      },
+        const target = this.users.find(u => u.username === username);
+        if (!target) return;
 
-      handleManualEnroll() {
-        const select = document.getElementById('manual-student-select');
-        const username = select.value;
-        const classId = select.dataset.classId;
-        if (!username || !classId) return;
-
-        const cls = this.classes.find(c => c.id === classId);
-        if (!cls) return;
-
-        if (!cls.students) cls.students = [];
-        cls.students.push(username);
-
-        this.saveAll();
-        this.openAttendeesModal(classId);
-        this.renderClasses();
-        this.showToast(`Alumno ${username} inscrito manualmente`, 'success');
-      },
-
-      removeAttendee(classId, username) {
-        const cls = this.classes.find(c => c.id === classId);
-        if (!cls || !cls.students) return;
-
-        cls.students = cls.students.filter(s => s !== username);
-
-        // Refund credits
-        const u = this.users.find(usr => usr.username === username);
-        if (u) {
-          u.credits = (u.credits || 0) + (cls.creditsCost || 1);
+        target.credits = (target.credits || 0) + amt;
+        if (this.currentUser && this.currentUser.username === username) {
+          this.currentUser.credits = target.credits;
         }
 
-        this.saveAll();
-        this.openAttendeesModal(classId);
-        this.renderClasses();
-        this.showToast(`Alumno retirado y crédito devuelto`, 'info');
-      },
-
-      openCalendarModal() {
-        document.getElementById('calendar-jump-date-input').value = this.selectedDate;
-        this.openModal('modal-calendar-picker');
-      },
-
-      applyCalendarJump() {
-        const val = document.getElementById('calendar-jump-date-input').value;
-        if (!val) return;
-        this.selectedDate = val;
-        this.closeModal('modal-calendar-picker');
-        this.renderDateStrip();
-        this.renderClasses();
-      },
-
-      applyFilters() {
-        this.renderClasses();
-      },
-
-      openModal(modalId) {
-        const m = document.getElementById(modalId);
-        if (m) m.classList.remove('hidden');
-      },
-
-      closeModal(modalId) {
-        const m = document.getElementById(modalId);
-        if (m) m.classList.add('hidden');
+        this.saveUsers();
+        this.saveSession();
+        this.closeModal('modal-recharge');
+        this.showToast(`Se han añadido +${amt} créditos a ${username}.`, 'success');
+        this.renderAll();
       },
 
       openAuthModal(mode = 'login') {
-        this.setAuthMode(mode);
+        this.switchAuthMode(mode);
         this.openModal('modal-auth');
       },
 
-      showConfirm(title, message, onConfirm) {
-        document.getElementById('confirm-title').textContent = title;
-        document.getElementById('confirm-message').textContent = message;
-        
-        const acceptBtn = document.getElementById('confirm-accept-btn');
-        acceptBtn.onclick = () => {
+      switchAuthMode(mode) {
+        const title = document.getElementById('auth-modal-title');
+        const submitBtn = document.getElementById('auth-submit-btn');
+        const tabLogin = document.getElementById('btn-auth-tab-login');
+        const tabRegister = document.getElementById('btn-auth-tab-register');
+        const registerNote = document.getElementById('auth-register-note');
+
+        if (mode === 'login') {
+          title.textContent = 'Iniciar Sesión';
+          submitBtn.textContent = 'Acceder';
+          registerNote.classList.add('hidden');
+
+          tabLogin.className = 'flex-1 py-1.5 text-xs font-semibold rounded-lg bg-white shadow-xs text-brand-charcoal';
+          tabRegister.className = 'flex-1 py-1.5 text-xs font-semibold rounded-lg text-brand-muted hover:text-brand-charcoal';
+          document.getElementById('auth-form').setAttribute('data-mode', 'login');
+        } else {
+          title.textContent = 'Crear Cuenta';
+          submitBtn.textContent = 'Completar Registro';
+          registerNote.classList.remove('hidden');
+
+          tabRegister.className = 'flex-1 py-1.5 text-xs font-semibold rounded-lg bg-white shadow-xs text-brand-charcoal';
+          tabLogin.className = 'flex-1 py-1.5 text-xs font-semibold rounded-lg text-brand-muted hover:text-brand-charcoal';
+          document.getElementById('auth-form').setAttribute('data-mode', 'register');
+        }
+      },
+
+      handleAuthSubmit(e) {
+        e.preventDefault();
+        const mode = document.getElementById('auth-form').getAttribute('data-mode') || 'login';
+        const userVal = document.getElementById('auth-username').value.trim();
+        const passVal = document.getElementById('auth-password').value.trim();
+
+        if (!userVal || !passVal) {
+          this.showToast('Por favor completa todos los campos.', 'error');
+          return;
+        }
+
+        if (mode === 'login') {
+          const match = this.users.find(u => u.username.toLowerCase() === userVal.toLowerCase() && u.password === passVal);
+          if (!match) {
+            this.showToast('Usuario o contraseña incorrectos.', 'error');
+            return;
+          }
+
+          this.currentUser = match;
+          this.saveSession();
+          this.closeModal('modal-auth');
+          this.showToast(`¡Bienvenida/o de nuevo, ${this.currentUser.username}!`, 'success');
+          this.renderAll();
+        } else {
+          // Register
+          const exists = this.users.some(u => u.username.toLowerCase() === userVal.toLowerCase());
+          if (exists) {
+            this.showToast('Este nombre de usuario ya está en uso.', 'error');
+            return;
+          }
+
+          const newUser = {
+            username: userVal,
+            password: passVal,
+            role: 'user',
+            credits: 5 // Welcome bonus
+          };
+
+          this.users.push(newUser);
+          this.currentUser = newUser;
+          this.saveUsers();
+          this.saveSession();
+
+          this.closeModal('modal-auth');
+          this.showToast('¡Registro completado! Tienes 5 créditos de bienvenida.', 'success');
+          this.renderAll();
+        }
+
+        document.getElementById('auth-form').reset();
+      },
+
+      quickLogin(type) {
+        const match = this.users.find(u => u.username.toLowerCase() === type.toLowerCase());
+        if (match) {
+          this.currentUser = match;
+          this.saveSession();
+          this.showToast(`Conectado como ${match.username} (${match.role}).`, 'success');
+          this.renderAll();
+        }
+      },
+
+      logout() {
+        this.currentUser = null;
+        this.saveSession();
+        this.setTab('schedule');
+        this.showToast('Sesión cerrada correctamente.', 'info');
+        this.renderAll();
+      },
+
+      openModal(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.classList.remove('hidden');
+          el.classList.add('flex');
+        }
+      },
+
+      closeModal(id) {
+        const el = document.getElementById(id);
+        if (el) {
+          el.classList.add('hidden');
+          el.classList.remove('flex');
+        }
+      },
+
+      openConfirmModal(title, msg, onConfirm) {
+        document.getElementById('confirm-modal-title').textContent = title;
+        document.getElementById('confirm-modal-message').textContent = msg;
+
+        const okBtn = document.getElementById('confirm-modal-ok');
+        const cancelBtn = document.getElementById('confirm-modal-cancel');
+
+        const cleanup = () => {
           this.closeModal('modal-confirm');
-          if (onConfirm) onConfirm();
+          okBtn.onclick = null;
+          cancelBtn.onclick = null;
         };
 
+        okBtn.onclick = () => {
+          cleanup();
+          onConfirm();
+        };
+
+        cancelBtn.onclick = cleanup;
         this.openModal('modal-confirm');
       },
 
@@ -2005,36 +1590,29 @@
         if (!container) return;
 
         const toast = document.createElement('div');
-        toast.className = `pointer-events-auto flex items-center space-x-2 px-4 py-3 rounded-2xl text-xs font-semibold shadow-lg transition-all transform translate-y-2 opacity-0 duration-200 ${
-          type === 'success' ? 'bg-emerald-800 text-white' :
-          type === 'error' ? 'bg-red-800 text-white' :
-          'bg-brand-charcoal text-white'
+        toast.className = `p-4 rounded-2xl shadow-lg border text-xs font-semibold flex items-center space-x-2 pointer-events-auto fade-in transition-all ${
+          type === 'success'
+            ? 'bg-emerald-50 text-emerald-900 border-emerald-200'
+            : type === 'error'
+            ? 'bg-rose-50 text-rose-900 border-rose-200'
+            : 'bg-white text-brand-charcoal border-brand-border'
         }`;
 
-        let icon = 'ℹ️';
-        if (type === 'success') icon = '✓';
-        if (type === 'error') icon = '⚠️';
-
-        toast.innerHTML = `<span>${icon}</span><span>${message}</span>`;
+        const icon = type === 'success' ? '✓' : type === 'error' ? '✕' : 'ℹ';
+        toast.innerHTML = `<span class="text-sm font-bold">${icon}</span><span>${message}</span>`;
         container.appendChild(toast);
 
-        // Animate entrance
-        requestAnimationFrame(() => {
-          toast.classList.remove('translate-y-2', 'opacity-0');
-        });
-
         setTimeout(() => {
-          toast.classList.add('translate-y-2', 'opacity-0');
-          setTimeout(() => {
-            if (toast.parentNode) toast.parentNode.removeChild(toast);
-          }, 200);
+          toast.style.opacity = '0';
+          toast.style.transform = 'translateY(-6px)';
+          setTimeout(() => toast.remove(), 250);
         }, 3200);
       }
     };
 
-    window.onload = function() {
+    window.addEventListener('DOMContentLoaded', () => {
       app.init();
-    };
+    });
   </script>
 </body>
 </html>
