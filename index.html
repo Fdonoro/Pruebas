@@ -3,29 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Barre & Grace Studio | Reserva de Clases</title>
+  <title>Barre By Mich | Reserva de Clases & Gestión Boutique</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
   <script src="https://cdn.tailwindcss.com"></script>
-
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
             brand: {
-              rose: '#E8B4B8',
-              blush: '#F8EDEB',
               cream: '#FAF7F2',
-              sand: '#F2EDE4',
-              terracotta: '#C87A65',
-              terracottaHover: '#B26854',
-              charcoal: '#242120',
-              muted: '#716B67',
-              border: '#E8E1D9',
-              gold: '#D4AF37'
+              sand: '#F3EDE2',
+              blush: '#F5E6E0',
+              rose: '#E8C5BC',
+              terracotta: '#C17C68',
+              terracottaDark: '#A86452',
+              charcoal: '#2D2826',
+              muted: '#7A726E',
+              border: '#E8E0D5',
+              card: '#FFFFFF'
             }
           },
           fontFamily: {
@@ -34,52 +34,48 @@
           }
         }
       }
-    }
+    };
   </script>
-
   <style>
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: #FAF7F2;
-      color: #242120;
+      color: #2D2826;
+      -webkit-font-smoothing: antialiased;
     }
     .font-serif-title {
-      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-family: 'Cormorant Garamond', serif;
     }
-    .custom-scrollbar::-webkit-scrollbar {
+    .scrollbar-thin::-webkit-scrollbar {
       height: 6px;
       width: 6px;
     }
-    .custom-scrollbar::-webkit-scrollbar-track {
-      background: #F2EDE4;
+    .scrollbar-thin::-webkit-scrollbar-track {
+      background: #F3EDE2;
       border-radius: 9999px;
     }
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-      background: #E8B4B8;
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+      background: #E8C5BC;
       border-radius: 9999px;
+    }
+    .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+      background: #C17C68;
     }
     .modal-backdrop {
-      backdrop-filter: blur(5px);
-      background-color: rgba(36, 33, 32, 0.45);
-    }
-    @keyframes fadeInSlide {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .animate-card {
-      animation: fadeInSlide 0.25s ease-out forwards;
+      background-color: rgba(45, 40, 38, 0.55);
+      backdrop-filter: blur(4px);
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased selection:bg-brand-rose selection:text-brand-charcoal">
+<body class="min-h-screen flex flex-col bg-brand-cream text-brand-charcoal">
 
-  <header class="sticky top-0 z-40 bg-brand-cream/90 backdrop-blur-md border-b border-brand-border">
+  <header class="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-brand-border transition-all">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-20">
         
         <!-- Logo -->
-        <div class="flex items-center space-x-3 cursor-pointer" onclick="app.setTab('schedule')">
-          <div class="w-10 h-10 rounded-full bg-brand-terracotta flex items-center justify-center text-white shadow-sm">
+        <div class="flex items-center space-x-3 cursor-pointer select-none" onclick="app.setTab('schedule')">
+          <div class="w-11 h-11 rounded-full bg-brand-terracotta flex items-center justify-center text-white shadow-sm shadow-brand-terracotta/30">
             <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 2a4 4 0 0 0-4 4c0 2 2 3.5 4 6 2-2.5 4-4 4-6a4 4 0 0 0-4-4z"/>
               <path d="M7 16c2 1 3 2 5 2s3-1 5-2"/>
@@ -87,108 +83,58 @@
             </svg>
           </div>
           <div>
-            <span class="block text-2xl font-serif-title font-semibold tracking-wider text-brand-charcoal uppercase leading-none">Barre & Grace</span>
+            <span class="block text-2xl font-serif-title font-semibold tracking-wider text-brand-charcoal uppercase leading-none">Barre By Mich</span>
             <span class="text-[10px] tracking-widest text-brand-terracotta uppercase font-medium">Boutique Movement Studio</span>
           </div>
         </div>
 
-        <!-- Navigation Tabs (Desktop & Tablet) -->
-        <nav id="desktop-nav" class="hidden md:flex items-center space-x-2">
-          <button onclick="app.setTab('schedule')" id="nav-btn-schedule" class="px-4 py-2 rounded-full text-sm font-medium transition-all text-brand-terracotta bg-brand-blush">
-            Calendario & Clases
+        <!-- Navigation Tabs -->
+        <nav class="hidden md:flex items-center space-x-1 bg-brand-sand/60 p-1.5 rounded-full border border-brand-border/60">
+          <button id="nav-btn-schedule" onclick="app.setTab('schedule')" class="px-5 py-2 text-xs font-semibold rounded-full transition-all bg-white text-brand-charcoal shadow-xs">
+            Horario & Clases
           </button>
-          <button onclick="app.setTab('my-bookings')" id="nav-btn-my-bookings" class="px-4 py-2 rounded-full text-sm font-medium text-brand-muted hover:text-brand-charcoal transition-all">
+          <button id="nav-btn-my-bookings" onclick="app.setTab('my-bookings')" class="px-5 py-2 text-xs font-semibold rounded-full transition-all text-brand-muted hover:text-brand-charcoal">
             Mis Reservas (<span id="user-booking-count">0</span>)
           </button>
-          <button onclick="app.setTab('admin')" id="nav-btn-admin" class="hidden px-4 py-2 rounded-full text-sm font-medium text-brand-muted hover:text-brand-charcoal transition-all">
-            Panel Admin
+          <button id="nav-btn-admin" onclick="app.setTab('admin')" class="hidden px-5 py-2 text-xs font-semibold rounded-full transition-all text-brand-muted hover:text-brand-charcoal">
+            Panel Estudio ⚡
           </button>
         </nav>
 
-        <!-- User Controls / Auth Action -->
-        <div class="flex items-center space-x-3">
-          <div id="auth-logged-in" class="hidden items-center space-x-3">
-            <div class="text-right hidden sm:block">
-              <span id="header-username" class="block text-sm font-semibold text-brand-charcoal">Usuario</span>
-              <span id="header-user-role" class="block text-[11px] uppercase tracking-wider text-brand-terracotta font-medium">Socio</span>
-            </div>
-            <div class="w-9 h-9 rounded-full bg-brand-blush border border-brand-rose flex items-center justify-center font-serif text-brand-terracotta font-bold text-sm" id="user-avatar-initial">
-              U
-            </div>
-            <button onclick="app.logout()" title="Cerrar Sesión" class="p-2 text-brand-muted hover:text-brand-terracotta rounded-lg hover:bg-brand-sand transition-colors">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-              </svg>
-            </button>
-          </div>
-
-          <div id="auth-logged-out" class="flex items-center space-x-2">
-            <button onclick="app.openAuthModal('login')" class="px-4 py-2 text-xs sm:text-sm font-medium text-brand-charcoal hover:text-brand-terracotta transition-colors">
-              Iniciar Sesión
-            </button>
-            <button onclick="app.openAuthModal('register')" class="px-4 py-2 text-xs sm:text-sm font-medium bg-brand-terracotta text-white rounded-full hover:bg-brand-terracottaHover transition-all shadow-sm">
-              Crear Cuenta
-            </button>
-          </div>
+        <!-- User Controls / Auth Box -->
+        <div id="auth-header-container" class="flex items-center space-x-3">
+          <!-- Populated dynamically via JS -->
         </div>
 
       </div>
     </div>
 
-    <!-- Mobile Navigation Bar -->
-    <div class="md:hidden border-t border-brand-border bg-brand-cream px-4 py-2 flex justify-around">
-      <button onclick="app.setTab('schedule')" id="mobile-nav-schedule" class="text-xs font-medium text-brand-terracotta flex flex-col items-center">
-        <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-        </svg>
-        <span>Clases</span>
+    <!-- Mobile Sub-navigation Bar -->
+    <div class="md:hidden flex items-center justify-around border-t border-brand-border/70 bg-brand-sand/40 px-2 py-2 text-xs font-medium">
+      <button onclick="app.setTab('schedule')" id="mobile-nav-schedule" class="px-3 py-1.5 rounded-full bg-white shadow-xs font-semibold text-brand-charcoal">
+        Horario
       </button>
-      <button onclick="app.setTab('my-bookings')" id="mobile-nav-bookings" class="text-xs font-medium text-brand-muted flex flex-col items-center">
-        <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M5 13l4 4L19 7"/>
-        </svg>
-        <span>Mis Reservas</span>
+      <button onclick="app.setTab('my-bookings')" id="mobile-nav-my-bookings" class="px-3 py-1.5 rounded-full text-brand-muted">
+        Mis Reservas (<span id="mobile-booking-count">0</span>)
       </button>
-      <button onclick="app.setTab('admin')" id="mobile-nav-admin" class="hidden text-xs font-medium text-brand-muted flex flex-col items-center">
-        <svg class="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-        </svg>
-        <span>Admin</span>
+      <button onclick="app.setTab('admin')" id="mobile-nav-admin" class="hidden px-3 py-1.5 rounded-full text-brand-muted">
+        Admin
       </button>
     </div>
   </header>
 
-  <aside class="bg-brand-blush/70 border-b border-brand-rose/40 py-2.5 px-4">
-    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between text-xs text-brand-charcoal gap-2">
-      <div class="flex items-center space-x-2">
-        <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-brand-rose/60 text-brand-charcoal">
-          Modo Demo
-        </span>
-        <span class="hidden sm:inline">Prueba rápida con usuarios predefinidos:</span>
-      </div>
-      <div class="flex items-center space-x-2">
-        <button onclick="app.quickLogin('Admin', 'Admin')" class="px-2.5 py-1 bg-white border border-brand-rose rounded shadow-xs hover:bg-brand-rose/20 font-medium transition-colors">
-          🔑 Entrar como Admin (Admin)
-        </button>
-        <button onclick="app.quickLogin('user', 'user')" class="px-2.5 py-1 bg-white border border-brand-rose rounded shadow-xs hover:bg-brand-rose/20 font-medium transition-colors">
-          🧘 Entrar como Alumno (user)
-        </button>
-      </div>
-    </div>
-  </aside>
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
 
-  <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
-
-    <!-- ============================================== -->
-    <!-- VIEW 1: HORARIOS & CALENDARIO (CLIENT VIEW)   -->
-    <!-- ============================================== -->
-    <section id="view-schedule" class="space-y-8 animate-card">
+    <!-- TAB 1: SCHEDULE & BOOKINGS VIEW -->
+    <section id="tab-schedule" class="space-y-6">
       
-      <!-- Studio Intro Hero -->
+      <!-- Studio Intro Hero Banner -->
       <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-brand-sand via-brand-blush to-brand-cream border border-brand-border p-6 sm:p-10 shadow-xs">
         <div class="max-w-2xl space-y-3">
-          <span class="text-xs uppercase font-semibold tracking-widest text-brand-terracotta">Precisión & Fluidez</span>
+          <span class="inline-flex items-center gap-1.5 text-xs uppercase font-semibold tracking-widest text-brand-terracotta">
+            <span class="w-2 h-2 rounded-full bg-brand-terracotta animate-pulse"></span>
+            Barre By Mich • Precisión & Fluidez
+          </span>
           <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif-title font-medium text-brand-charcoal leading-tight">
             Esculpe, conecta y encuentra tu balance en la barra.
           </h1>
@@ -198,191 +144,222 @@
         </div>
       </div>
 
-      <!-- Date Strip & Controls -->
-      <div class="space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <h2 class="text-2xl font-serif-title font-semibold text-brand-charcoal" id="selected-date-heading">
-              Clases para Hoy
-            </h2>
-            <p class="text-xs sm:text-sm text-brand-muted" id="selected-date-subheading">
-              Selecciona un día en la barra inferior para consultar la disponibilidad en sala.
-            </p>
+      <div class="bg-white rounded-2xl p-4 sm:p-5 border border-brand-border shadow-xs space-y-4">
+        
+        <!-- Controls Bar -->
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-3 border-b border-brand-border/60">
+          
+          <!-- Month/Date Label & Full Calendar Button -->
+          <div class="flex items-center space-x-3">
+            <div>
+              <span id="current-month-label" class="block text-xs uppercase tracking-wider font-semibold text-brand-terracotta">Calendario</span>
+              <h2 id="current-selected-date-title" class="text-xl sm:text-2xl font-serif-title font-semibold text-brand-charcoal">Semana en Curso</h2>
+            </div>
+            <button onclick="app.openCalendarModal()" class="inline-flex items-center space-x-1.5 px-3 py-1.5 text-xs font-medium rounded-full bg-brand-sand hover:bg-brand-rose/40 text-brand-charcoal transition-all">
+              <svg class="w-3.5 h-3.5 text-brand-terracotta" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <rect x="3" y="4" width="18" height="18" rx="2" stroke-width="2"/>
+                <line x1="16" y1="2" x2="16" y2="6" stroke-width="2"/>
+                <line x1="8" y1="2" x2="8" y2="6" stroke-width="2"/>
+                <line x1="3" y1="10" x2="21" y2="10" stroke-width="2"/>
+              </svg>
+              <span>Elegir Día</span>
+            </button>
           </div>
 
-          <!-- Filters -->
-          <div class="flex flex-wrap items-center gap-2">
-            <select id="filter-level" onchange="app.renderClasses()" class="text-xs sm:text-sm bg-white border border-brand-border rounded-xl px-3 py-2 text-brand-charcoal focus:ring-1 focus:ring-brand-terracotta focus:outline-none">
-              <option value="all">Todos los niveles</option>
-              <option value="Iniciación">Iniciación</option>
-              <option value="Intermedio">Intermedio</option>
-              <option value="Avanzado">Avanzado</option>
-              <option value="Multinivel">Multinivel</option>
-            </select>
-            <select id="filter-instructor" onchange="app.renderClasses()" class="text-xs sm:text-sm bg-white border border-brand-border rounded-xl px-3 py-2 text-brand-charcoal focus:ring-1 focus:ring-brand-terracotta focus:outline-none">
+          <!-- Filters & Admin Class Creator -->
+          <div class="flex flex-wrap items-center gap-2.5">
+            <!-- Filter by Instructor -->
+            <select id="filter-instructor" onchange="app.applyFilters()" class="text-xs rounded-xl border border-brand-border bg-brand-cream/60 px-3 py-2 text-brand-charcoal focus:ring-1 focus:ring-brand-terracotta focus:outline-none">
               <option value="all">Todas las instructoras</option>
-              <!-- Dynamic instructors populated here -->
             </select>
-            <button onclick="app.openCalendarPickerModal()" class="flex items-center space-x-1.5 text-xs sm:text-sm bg-white border border-brand-border hover:border-brand-terracotta rounded-xl px-3 py-2 text-brand-charcoal transition-all">
-              <svg class="w-4 h-4 text-brand-terracotta" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+
+            <!-- Filter by Intensity/Type -->
+            <select id="filter-type" onchange="app.applyFilters()" class="text-xs rounded-xl border border-brand-border bg-brand-cream/60 px-3 py-2 text-brand-charcoal focus:ring-1 focus:ring-brand-terracotta focus:outline-none">
+              <option value="all">Todas las disciplinas</option>
+              <option value="Barre Sculpt">Barre Sculpt</option>
+              <option value="Barre Flow">Barre Flow</option>
+              <option value="Barre Classic">Barre Classic</option>
+              <option value="Power Barre">Power Barre</option>
+              <option value="Stretch & Restore">Stretch & Restore</option>
+            </select>
+
+            <!-- Admin Add Class Button -->
+            <button id="admin-add-class-btn" onclick="app.openClassModal()" class="hidden inline-flex items-center space-x-1.5 px-4 py-2 text-xs font-semibold rounded-xl bg-brand-terracotta hover:bg-brand-terracottaDark text-white shadow-xs transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <line x1="12" y1="5" x2="12" y2="19" stroke-width="2" stroke-linecap="round"/>
+                <line x1="5" y1="12" x2="19" y2="12" stroke-width="2" stroke-linecap="round"/>
               </svg>
-              <span>Ver Mes</span>
+              <span>+ Nueva Sesión</span>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- 7-Day Date Carousel Strip -->
+        <div id="date-strip-container" class="flex items-center space-x-2 overflow-x-auto pb-2 scrollbar-thin">
+          <!-- Filled by JS -->
+        </div>
+
+      </div>
+
+      <div>
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center space-x-2">
+            <h3 class="text-lg font-serif-title font-semibold text-brand-charcoal">Sesiones Disponibles</h3>
+            <span id="classes-count-badge" class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-brand-sand text-brand-muted">0 sesiones</span>
+          </div>
+          <div class="text-xs text-brand-muted">
+            Los créditos se reembolsan automáticamente al cancelar con anticipación.
+          </div>
+        </div>
+
+        <!-- Classes Grid Container -->
+        <div id="classes-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <!-- Class cards injected dynamically -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="no-classes-state" class="hidden text-center py-16 bg-white rounded-2xl border border-brand-border p-6">
+          <div class="w-16 h-16 rounded-full bg-brand-sand flex items-center justify-center mx-auto text-brand-terracotta mb-3">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <h4 class="text-xl font-serif-title font-medium text-brand-charcoal">No hay clases programadas para este filtro o fecha</h4>
+          <p class="text-xs text-brand-muted max-w-sm mx-auto mt-1">
+            Prueba seleccionando otro día en la barra superior o restableciendo los filtros de profesora y tipo.
+          </p>
+        </div>
+      </div>
+
+    </section>
+
+    <section id="tab-my-bookings" class="hidden space-y-6">
+      <div class="bg-white rounded-2xl p-6 border border-brand-border shadow-xs">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-brand-border/60 gap-3">
+          <div>
+            <span class="text-xs uppercase tracking-wider font-semibold text-brand-terracotta">Tu Itinerario</span>
+            <h2 class="text-2xl font-serif-title font-semibold text-brand-charcoal">Mis Reservas Activas</h2>
+          </div>
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-sand text-xs text-brand-charcoal">
+            <span>Saldo Disponible:</span>
+            <span id="my-bookings-credit-badge" class="font-bold text-brand-terracotta">✨ 5 Créditos</span>
+          </div>
+        </div>
+
+        <!-- Bookings list -->
+        <div id="my-bookings-container" class="mt-6 space-y-4">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Empty Bookings State -->
+        <div id="empty-my-bookings" class="hidden text-center py-16">
+          <div class="w-14 h-14 rounded-full bg-brand-blush flex items-center justify-center mx-auto text-brand-terracotta mb-3">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-serif-title font-medium text-brand-charcoal">Aún no tienes clases reservadas</h3>
+          <p class="text-xs text-brand-muted max-w-md mx-auto mt-1 mb-5">
+            Explora nuestro horario semanal, elige la sesión que mejor se adapte a ti y reserva tu lugar en la barra con tus créditos.
+          </p>
+          <button onclick="app.setTab('schedule')" class="px-5 py-2.5 rounded-full bg-brand-terracotta hover:bg-brand-terracottaDark text-white text-xs font-semibold shadow-xs transition-all">
+            Ver Horario de Clases
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-admin" class="hidden space-y-6">
+      
+      <!-- Studio KPI Overview -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-white rounded-2xl p-4 border border-brand-border shadow-xs">
+          <span class="text-[11px] font-semibold uppercase tracking-wider text-brand-muted">Total Clases</span>
+          <p id="kpi-total-classes" class="text-2xl font-serif-title font-semibold text-brand-charcoal mt-1">0</p>
+          <span class="text-[10px] text-brand-terracotta">En calendario activo</span>
+        </div>
+        <div class="bg-white rounded-2xl p-4 border border-brand-border shadow-xs">
+          <span class="text-[11px] font-semibold uppercase tracking-wider text-brand-muted">Reservas Totales</span>
+          <p id="kpi-total-reservations" class="text-2xl font-serif-title font-semibold text-brand-charcoal mt-1">0</p>
+          <span class="text-[10px] text-emerald-600">Alumnos inscritos</span>
+        </div>
+        <div class="bg-white rounded-2xl p-4 border border-brand-border shadow-xs">
+          <span class="text-[11px] font-semibold uppercase tracking-wider text-brand-muted">Usuarios Registrados</span>
+          <p id="kpi-total-users" class="text-2xl font-serif-title font-semibold text-brand-charcoal mt-1">0</p>
+          <span class="text-[10px] text-brand-terracotta">Clientes en base de datos</span>
+        </div>
+        <div class="bg-white rounded-2xl p-4 border border-brand-border shadow-xs">
+          <span class="text-[11px] font-semibold uppercase tracking-wider text-brand-muted">Créditos Circulantes</span>
+          <p id="kpi-total-credits" class="text-2xl font-serif-title font-semibold text-brand-charcoal mt-1">0</p>
+          <span class="text-[10px] text-amber-700">Saldo global disponible</span>
+        </div>
+      </div>
+
+      <!-- Admin Tabs: Registered Users & Instructor Roster -->
+      <div class="bg-white rounded-2xl p-6 border border-brand-border shadow-xs space-y-6">
+        
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-brand-border gap-4">
+          <div>
+            <span class="text-xs uppercase tracking-wider font-semibold text-brand-terracotta">Control Boutique</span>
+            <h2 class="text-2xl font-serif-title font-semibold text-brand-charcoal">Gestión de Usuarios & Saldo</h2>
+          </div>
+          <div class="flex items-center space-x-2">
+            <button onclick="app.openClassModal()" class="px-4 py-2 rounded-xl bg-brand-terracotta hover:bg-brand-terracottaDark text-white text-xs font-semibold shadow-xs">
+              + Nueva Sesión
+            </button>
+            <button onclick="app.setTab('schedule')" class="px-4 py-2 rounded-xl bg-brand-sand hover:bg-brand-rose/40 text-brand-charcoal text-xs font-medium">
+              Ver en Horario
             </button>
           </div>
         </div>
 
-        <!-- Horizontal Scrollable Day Strip -->
-        <div id="day-strip-container" class="flex space-x-2.5 overflow-x-auto pb-2 custom-scrollbar pt-1">
-          <!-- Day cards injected via JS -->
-        </div>
-      </div>
-
-      <!-- Classes Grid -->
-      <div id="classes-list-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        <!-- Class Cards dynamically rendered -->
-      </div>
-
-      <!-- Empty state when no classes match -->
-      <div id="no-classes-message" class="hidden text-center py-16 px-4 bg-white rounded-2xl border border-dashed border-brand-border">
-        <svg class="w-12 h-12 mx-auto text-brand-rose mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-        <h3 class="text-lg font-serif-title font-semibold text-brand-charcoal">No hay clases programadas</h3>
-        <p class="text-sm text-brand-muted mt-1 max-w-sm mx-auto">No se encontraron sesiones para la fecha y filtros seleccionados. Prueba con otro día o ajusta los filtros.</p>
-      </div>
-
-    </section>
-
-    <!-- ============================================== -->
-    <!-- VIEW 2: MIS RESERVAS (MY BOOKINGS VIEW)        -->
-    <!-- ============================================== -->
-    <section id="view-my-bookings" class="hidden space-y-6 animate-card">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-brand-border pb-4">
+        <!-- Users Table with Recharge Credits button -->
         <div>
-          <h2 class="text-3xl font-serif-title font-semibold text-brand-charcoal">Mis Clases Reservadas</h2>
-          <p class="text-sm text-brand-muted">Revisa tus próximas sesiones en el estudio, realiza cambios de horario o cancela si no puedes asistir.</p>
-        </div>
-        <div class="flex items-center space-x-2">
-          <span class="text-xs bg-brand-blush text-brand-terracotta border border-brand-rose px-3 py-1.5 rounded-full font-semibold">
-            Cancelaciones sin penalización hasta 4h antes
-          </span>
-        </div>
-      </div>
-
-      <div id="my-bookings-list" class="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <!-- Rendered dynamically -->
-      </div>
-
-      <div id="no-my-bookings" class="hidden text-center py-16 px-4 bg-white rounded-2xl border border-dashed border-brand-border">
-        <div class="w-16 h-16 rounded-full bg-brand-blush mx-auto flex items-center justify-center text-brand-terracotta mb-4">
-          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-          </svg>
-        </div>
-        <h3 class="text-xl font-serif-title font-semibold text-brand-charcoal">Aún no tienes clases agendadas</h3>
-        <p class="text-sm text-brand-muted mt-1 max-w-md mx-auto">Explora el calendario y reserva tu primera clase de barre para empezar a tonificar tu cuerpo.</p>
-        <button onclick="app.setTab('schedule')" class="mt-5 px-6 py-2.5 bg-brand-terracotta text-white rounded-full font-medium text-sm hover:bg-brand-terracottaHover transition-all shadow-sm">
-          Explorar Horarios Disponibles
-        </button>
-      </div>
-    </section>
-
-    <!-- ============================================== -->
-    <!-- VIEW 3: PANEL ADMINISTRADOR (ADMIN VIEW)      -->
-    <!-- ============================================== -->
-    <section id="view-admin" class="hidden space-y-8 animate-card">
-      
-      <!-- Admin Bar Header -->
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-brand-border pb-5">
-        <div>
-          <div class="flex items-center space-x-2">
-            <span class="px-2.5 py-0.5 rounded text-[11px] font-bold bg-brand-charcoal text-white uppercase tracking-wider">Administración</span>
-            <span class="text-xs text-brand-terracotta font-medium">Control Total del Estudio</span>
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-base font-serif-title font-semibold text-brand-charcoal">Alumnos y Credenciales Registradas</h3>
+            <span class="text-xs text-brand-muted">Puedes inyectar o ajustar créditos a cada cliente en tiempo real.</span>
           </div>
-          <h2 class="text-3xl font-serif-title font-semibold text-brand-charcoal mt-1">Gestión de Clases & Alumnos</h2>
-        </div>
-        <div class="flex items-center space-x-3">
-          <button onclick="app.openClassModal()" class="inline-flex items-center space-x-2 bg-brand-terracotta hover:bg-brand-terracottaHover text-white px-5 py-2.5 rounded-full text-sm font-medium transition-all shadow-sm">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-            </svg>
-            <span>Crear Nueva Clase</span>
-          </button>
-        </div>
-      </div>
 
-      <!-- Quick Metrics -->
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="bg-white p-5 rounded-2xl border border-brand-border">
-          <span class="text-xs font-medium text-brand-muted uppercase tracking-wider">Total Clases Activas</span>
-          <p id="stat-total-classes" class="text-3xl font-serif-title font-semibold text-brand-charcoal mt-1">0</p>
-        </div>
-        <div class="bg-white p-5 rounded-2xl border border-brand-border">
-          <span class="text-xs font-medium text-brand-muted uppercase tracking-wider">Reservas Totales</span>
-          <p id="stat-total-bookings" class="text-3xl font-serif-title font-semibold text-brand-terracotta mt-1">0</p>
-        </div>
-        <div class="bg-white p-5 rounded-2xl border border-brand-border">
-          <span class="text-xs font-medium text-brand-muted uppercase tracking-wider">Ocupación Promedio</span>
-          <p id="stat-occupancy-rate" class="text-3xl font-serif-title font-semibold text-brand-charcoal mt-1">0%</p>
-        </div>
-        <div class="bg-white p-5 rounded-2xl border border-brand-border">
-          <span class="text-xs font-medium text-brand-muted uppercase tracking-wider">Usuarios Registrados</span>
-          <p id="stat-total-users" class="text-3xl font-serif-title font-semibold text-brand-charcoal mt-1">0</p>
-        </div>
-      </div>
-
-      <!-- Admin Sub Navigation (Classes vs Users) -->
-      <div class="flex items-center space-x-2 border-b border-brand-border">
-        <button onclick="app.setAdminSubTab('classes')" id="admin-subtab-classes" class="pb-3 px-3 text-sm font-semibold border-b-2 border-brand-terracotta text-brand-terracotta transition-colors">
-          Programación de Clases
-        </button>
-        <button onclick="app.setAdminSubTab('users')" id="admin-subtab-users" class="pb-3 px-3 text-sm font-medium border-b-2 border-transparent text-brand-muted hover:text-brand-charcoal transition-colors">
-          Usuarios Registrados
-        </button>
-      </div>
-
-      <!-- Admin Tab: Classes Table -->
-      <div id="admin-section-classes" class="space-y-4">
-        <div class="bg-white rounded-2xl border border-brand-border overflow-hidden shadow-xs">
-          <div class="overflow-x-auto">
-            <table class="w-full text-left text-sm text-brand-charcoal">
-              <thead class="bg-brand-sand/50 text-xs font-semibold uppercase text-brand-muted tracking-wider border-b border-brand-border">
+          <div class="overflow-x-auto rounded-xl border border-brand-border">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-brand-sand/60 text-brand-charcoal uppercase tracking-wider text-[10px] font-semibold border-b border-brand-border">
                 <tr>
-                  <th class="px-5 py-4">Clase</th>
-                  <th class="px-5 py-4">Fecha & Hora</th>
-                  <th class="px-5 py-4">Instructora / Sala</th>
-                  <th class="px-5 py-4">Ocupación</th>
-                  <th class="px-5 py-4 text-right">Acciones</th>
+                  <th class="py-3 px-4">Usuario</th>
+                  <th class="py-3 px-4">Rol</th>
+                  <th class="py-3 px-4">Saldo Actual</th>
+                  <th class="py-3 px-4">Reservas Activas</th>
+                  <th class="py-3 px-4 text-right">Acción de Crédito</th>
                 </tr>
               </thead>
-              <tbody id="admin-classes-tbody" class="divide-y divide-brand-border">
-                <!-- Injected via JavaScript -->
+              <tbody id="admin-users-table-body" class="divide-y divide-brand-border/60">
+                <!-- Injected via JS -->
               </tbody>
             </table>
           </div>
         </div>
-      </div>
 
-      <!-- Admin Tab: Users Table -->
-      <div id="admin-section-users" class="hidden space-y-4">
-        <div class="bg-white rounded-2xl border border-brand-border overflow-hidden shadow-xs">
-          <div class="overflow-x-auto">
-            <table class="w-full text-left text-sm text-brand-charcoal">
-              <thead class="bg-brand-sand/50 text-xs font-semibold uppercase text-brand-muted tracking-wider border-b border-brand-border">
-                <tr>
-                  <th class="px-5 py-4">Usuario</th>
-                  <th class="px-5 py-4">Rol</th>
-                  <th class="px-5 py-4">Clases Reservadas</th>
-                  <th class="px-5 py-4 text-right">ID Cuenta</th>
-                </tr>
-              </thead>
-              <tbody id="admin-users-tbody" class="divide-y divide-brand-border">
-                <!-- Injected via JavaScript -->
-              </tbody>
-            </table>
+        <!-- Instructor Team Management Section -->
+        <div class="pt-6 border-t border-brand-border">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
+            <div>
+              <h3 class="text-base font-serif-title font-semibold text-brand-charcoal">Plantilla de Instructoras de Barre</h3>
+              <p class="text-xs text-brand-muted">Añade o retira profesoras del desplegable de creación de clases.</p>
+            </div>
+            
+            <div class="flex items-center space-x-2">
+              <input type="text" id="new-instructor-input" placeholder="Nombre de nueva instructora..." class="text-xs rounded-xl border border-brand-border px-3 py-2 bg-brand-cream/60 text-brand-charcoal focus:ring-1 focus:ring-brand-terracotta focus:outline-none w-56">
+              <button onclick="app.handleAddInstructorFromAdmin()" class="px-3.5 py-2 rounded-xl bg-brand-charcoal hover:bg-black text-white text-xs font-semibold">
+                + Agregar
+              </button>
+            </div>
+          </div>
+
+          <div id="instructors-pill-list" class="flex flex-wrap gap-2">
+            <!-- Populated via JS -->
           </div>
         </div>
+
       </div>
 
     </section>
@@ -392,167 +369,166 @@
   <footer class="bg-white border-t border-brand-border mt-auto py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-brand-muted gap-4">
       <div class="flex items-center space-x-2">
-        <span class="font-serif-title text-base font-semibold text-brand-charcoal">Barre & Grace Studio</span>
+        <span class="font-serif-title text-base font-semibold text-brand-charcoal">Barre By Mich</span>
         <span>•</span>
         <span>Calle de la Danza 14, Estudio Central</span>
       </div>
       <div>
-        <span>Desarrollado para gestión boutique de movimiento • Datos almacenados localmente</span>
+        <span>Desarrollado para gestión boutique de movimiento • Barre By Mich</span>
       </div>
     </div>
   </footer>
 
   <!-- ============================================== -->
-  <!-- MODAL: LOGIN & REGISTRO                        -->
+  <!-- MODAL: AUTHENTICATION (LOGIN / REGISTRATION)   -->
   <!-- ============================================== -->
   <div id="modal-auth" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-backdrop">
-    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-brand-border relative">
-      <button onclick="app.closeModal('modal-auth')" class="absolute top-5 right-5 text-brand-muted hover:text-brand-charcoal p-1">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 sm:p-8 shadow-xl border border-brand-border relative">
+      <button onclick="app.closeModal('modal-auth')" class="absolute top-4 right-4 text-brand-muted hover:text-brand-charcoal">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
         </svg>
       </button>
 
       <div class="text-center mb-6">
-        <span class="text-xs uppercase tracking-widest text-brand-terracotta font-semibold">Tu Espacio de Bienestar</span>
+        <span class="text-xs uppercase tracking-widest text-brand-terracotta font-semibold">Tu Espacio de Bienestar • Barre By Mich</span>
         <h3 id="auth-modal-title" class="text-2xl font-serif-title font-semibold text-brand-charcoal mt-1">Iniciar Sesión</h3>
       </div>
 
       <!-- Auth Tabs: Login vs Register -->
       <div class="flex border-b border-brand-border mb-6">
-        <button id="tab-auth-login" onclick="app.switchAuthMode('login')" class="flex-1 pb-3 text-sm font-semibold border-b-2 border-brand-terracotta text-brand-terracotta">
-          Iniciar Sesión
+        <button id="auth-tab-btn-login" onclick="app.setAuthMode('login')" class="w-1/2 pb-2 text-xs font-semibold border-b-2 border-brand-terracotta text-brand-charcoal">
+          Acceso Clientes / Admin
         </button>
-        <button id="tab-auth-register" onclick="app.switchAuthMode('register')" class="flex-1 pb-3 text-sm font-medium border-b-2 border-transparent text-brand-muted hover:text-brand-charcoal">
-          Crear Cuenta
+        <button id="auth-tab-btn-register" onclick="app.setAuthMode('register')" class="w-1/2 pb-2 text-xs font-semibold border-b-2 border-transparent text-brand-muted hover:text-brand-charcoal">
+          Crear Nueva Cuenta
         </button>
       </div>
 
       <form id="auth-form" onsubmit="app.handleAuthSubmit(event)" class="space-y-4">
         <div>
-          <label class="block text-xs font-semibold text-brand-charcoal uppercase tracking-wider mb-1">Nombre de Usuario</label>
-          <input type="text" id="auth-username" required placeholder="Ej. Sofia" class="w-full px-4 py-2.5 rounded-xl border border-brand-border focus:border-brand-terracotta focus:ring-1 focus:ring-brand-terracotta text-sm bg-brand-cream/40">
+          <label class="block text-xs font-semibold text-brand-charcoal mb-1">Nombre de Usuario</label>
+          <input type="text" id="auth-username" required placeholder="Ejemplo: user o Admin" class="w-full text-xs rounded-xl border border-brand-border bg-brand-cream/40 px-3.5 py-2.5 text-brand-charcoal focus:ring-1 focus:ring-brand-terracotta focus:outline-none">
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-brand-charcoal uppercase tracking-wider mb-1">Contraseña</label>
-          <input type="password" id="auth-password" required placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border border-brand-border focus:border-brand-terracotta focus:ring-1 focus:ring-brand-terracotta text-sm bg-brand-cream/40">
+          <label class="block text-xs font-semibold text-brand-charcoal mb-1">Contraseña</label>
+          <input type="password" id="auth-password" required placeholder="Tu contraseña..." class="w-full text-xs rounded-xl border border-brand-border bg-brand-cream/40 px-3.5 py-2.5 text-brand-charcoal focus:ring-1 focus:ring-brand-terracotta focus:outline-none">
         </div>
 
-        <button type="submit" id="auth-submit-btn" class="w-full py-3 bg-brand-terracotta hover:bg-brand-terracottaHover text-white rounded-xl font-medium text-sm transition-all shadow-sm mt-2">
-          Entrar a mi Cuenta
+        <p id="auth-hint-text" class="text-[11px] text-brand-muted">
+          Por defecto: <span class="font-mono text-brand-charcoal font-semibold">Admin / Admin</span> para gestión, o <span class="font-mono text-brand-charcoal font-semibold">user / user</span> para alumno con 5 créditos.
+        </p>
+
+        <button type="submit" id="auth-submit-btn" class="w-full py-2.5 rounded-xl bg-brand-terracotta hover:bg-brand-terracottaDark text-white text-xs font-semibold shadow-xs transition-all mt-2">
+          Entrar a Barre By Mich
         </button>
       </form>
-
-      <!-- Quick demo accounts hints inside modal -->
-      <div class="mt-6 pt-4 border-t border-brand-border/70 text-center">
-        <p class="text-xs text-brand-muted mb-2">Accesos rápidos de prueba:</p>
-        <div class="flex justify-center gap-2">
-          <button onclick="app.quickLogin('Admin', 'Admin')" class="text-xs px-2.5 py-1 bg-brand-sand rounded-lg hover:bg-brand-blush text-brand-charcoal font-medium">
-            Admin / Admin
-          </button>
-          <button onclick="app.quickLogin('user', 'user')" class="text-xs px-2.5 py-1 bg-brand-sand rounded-lg hover:bg-brand-blush text-brand-charcoal font-medium">
-            user / user
-          </button>
-        </div>
-      </div>
     </div>
   </div>
 
   <!-- ============================================== -->
-  <!-- MODAL: CREAR / EDITAR CLASE (ADMIN)            -->
+  <!-- MODAL: ADMIN CREATE / EDIT CLASS               -->
   <!-- ============================================== -->
-  <div id="modal-class-editor" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-backdrop">
-    <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-brand-border max-h-[90vh] overflow-y-auto custom-scrollbar relative">
-      <button onclick="app.closeModal('modal-class-editor')" class="absolute top-5 right-5 text-brand-muted hover:text-brand-charcoal p-1">
+  <div id="modal-class-form" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-backdrop">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-7 shadow-xl border border-brand-border relative max-h-[90vh] overflow-y-auto">
+      <button onclick="app.closeModal('modal-class-form')" class="absolute top-4 right-4 text-brand-muted hover:text-brand-charcoal">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
         </svg>
       </button>
 
       <div class="mb-5">
-        <span class="text-xs uppercase tracking-widest text-brand-terracotta font-semibold">Administración</span>
-        <h3 id="class-editor-title" class="text-2xl font-serif-title font-semibold text-brand-charcoal">Nueva Clase</h3>
+        <span class="text-xs uppercase tracking-wider font-semibold text-brand-terracotta">Administración Barre</span>
+        <h3 id="class-modal-title" class="text-2xl font-serif-title font-semibold text-brand-charcoal">Programar Sesión</h3>
       </div>
 
-      <form id="class-editor-form" onsubmit="app.handleSaveClass(event)" class="space-y-4">
+      <form id="class-form" onsubmit="app.handleClassFormSubmit(event)" class="space-y-4">
         <input type="hidden" id="edit-class-id">
 
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-brand-charcoal mb-1">Nombre de la Clase</label>
+            <input type="text" id="edit-title" required placeholder="Ej: Barre Sculpt & Tone" class="w-full text-xs rounded-xl border border-brand-border bg-brand-cream/40 px-3 py-2 text-brand-charcoal focus:ring-1 focus:ring-brand-terracotta focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-brand-charcoal mb-1">Modalidad / Estilo</label>
+            <select id="edit-type" required class="w-full text-xs rounded-xl border border-brand-border bg-brand-cream/40 px-3 py-2 text-brand-charcoal focus:ring-1 focus:ring-brand-terracotta focus:outline-none">
+              <option value="Barre Sculpt">Barre Sculpt</option>
+              <option value="Barre Flow">Barre Flow</option>
+              <option value="Barre Classic">Barre Classic</option>
+              <option value="Power Barre">Power Barre</option>
+              <option value="Stretch & Restore">Stretch & Restore</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Instructor Select Dropdown with quick add toggle -->
         <div>
-          <label class="block text-xs font-semibold text-brand-charcoal uppercase tracking-wider mb-1">Nombre de la Clase</label>
-          <input type="text" id="edit-title" required placeholder="Ej. Barre Signature & Tone" class="w-full px-4 py-2.5 rounded-xl border border-brand-border text-sm">
+          <div class="flex items-center justify-between mb-1">
+            <label class="block text-xs font-semibold text-brand-charcoal">Instructora Responsable</label>
+            <button type="button" onclick="app.toggleQuickAddInstructor()" class="text-[11px] text-brand-terracotta font-semibold hover:underline">
+              + Añadir nueva/o
+            </button>
+          </div>
+          <select id="edit-instructor" required class="w-full text-xs rounded-xl border border-brand-border bg-brand-cream/40 px-3 py-2 text-brand-charcoal focus:ring-1 focus:ring-brand-terracotta focus:outline-none">
+            <!-- Dynamically populated from instructor roster -->
+          </select>
+
+          <!-- Quick inline instructor creator -->
+          <div id="quick-add-instructor-box" class="hidden mt-2 p-2.5 rounded-xl bg-brand-sand/50 border border-brand-border flex items-center gap-2">
+            <input type="text" id="quick-instructor-name" placeholder="Nombre completo de la profesora..." class="flex-grow text-xs rounded-lg border border-brand-border px-2.5 py-1.5 bg-white text-brand-charcoal">
+            <button type="button" onclick="app.handleSaveQuickInstructor()" class="px-3 py-1.5 rounded-lg bg-brand-terracotta text-white text-xs font-semibold">
+              Guardar
+            </button>
+          </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <div class="flex items-center justify-between mb-1">
-              <label class="block text-xs font-semibold text-brand-charcoal uppercase tracking-wider">Instructora / Profesor</label>
-              <button type="button" onclick="app.toggleNewInstructorInput()" class="text-[11px] text-brand-terracotta hover:underline font-semibold">+ Añadir nuevo/a</button>
-            </div>
-            <select id="edit-instructor" required class="w-full px-4 py-2.5 rounded-xl border border-brand-border text-sm bg-white focus:border-brand-terracotta focus:ring-1 focus:ring-brand-terracotta">
-              <!-- Profesores cargados dinámicamente -->
-            </select>
-            
-            <!-- Campo desplegable para agregar un profesor nuevo al catálogo -->
-            <div id="new-instructor-box" class="hidden mt-2 p-2.5 bg-brand-sand/60 rounded-xl border border-brand-border">
-              <label class="block text-[10px] font-semibold text-brand-charcoal uppercase tracking-wider mb-1">Nombre del nuevo profesor/a:</label>
-              <div class="flex space-x-1.5">
-                <input type="text" id="new-instructor-name" placeholder="Ej. Martina Vega" class="flex-grow px-2.5 py-1.5 rounded-lg border border-brand-border text-xs bg-white focus:outline-none">
-                <button type="button" onclick="app.addNewInstructorFromInput()" class="px-3 py-1.5 bg-brand-terracotta text-white rounded-lg text-xs font-medium hover:bg-brand-terracottaHover transition-all">Guardar</button>
-              </div>
-            </div>
+            <label class="block text-xs font-semibold text-brand-charcoal mb-1">Fecha</label>
+            <input type="date" id="edit-date" required class="w-full text-xs rounded-xl border border-brand-border bg-brand-cream/40 px-3 py-2 text-brand-charcoal focus:ring-1 focus:ring-brand-terracotta focus:outline-none">
           </div>
+
           <div>
-            <label class="block text-xs font-semibold text-brand-charcoal uppercase tracking-wider mb-1">Sala</label>
-            <select id="edit-room" class="w-full px-4 py-2.5 rounded-xl border border-brand-border text-sm bg-white">
-              <option value="Studio A - Lumière">Studio A - Lumière</option>
-              <option value="Studio B - Harmony">Studio B - Harmony</option>
-            </select>
+            <label class="block text-xs font-semibold text-brand-charcoal mb-1">Hora de Inicio</label>
+            <input type="time" id="edit-time" required class="w-full text-xs rounded-xl border border-brand-border bg-brand-cream/40 px-3 py-2 text-brand-charcoal focus:ring-1 focus:ring-brand-terracotta focus:outline-none">
           </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="grid grid-cols-3 gap-3">
           <div>
-            <label class="block text-xs font-semibold text-brand-charcoal uppercase tracking-wider mb-1">Fecha</label>
-            <input type="date" id="edit-date" required class="w-full px-4 py-2.5 rounded-xl border border-brand-border text-sm">
+            <label class="block text-xs font-semibold text-brand-charcoal mb-1">Duración (min)</label>
+            <input type="number" id="edit-duration" min="30" max="120" step="5" value="50" required class="w-full text-xs rounded-xl border border-brand-border bg-brand-cream/40 px-3 py-2 text-brand-charcoal focus:ring-1 focus:ring-brand-terracotta focus:outline-none">
           </div>
-          <div>
-            <label class="block text-xs font-semibold text-brand-charcoal uppercase tracking-wider mb-1">Hora Inicio</label>
-            <input type="time" id="edit-time" required class="w-full px-4 py-2.5 rounded-xl border border-brand-border text-sm">
-          </div>
-        </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
-            <label class="block text-xs font-semibold text-brand-charcoal uppercase tracking-wider mb-1">Duración (min)</label>
-            <input type="number" id="edit-duration" value="50" min="20" max="120" required class="w-full px-4 py-2.5 rounded-xl border border-brand-border text-sm">
+            <label class="block text-xs font-semibold text-brand-charcoal mb-1">Capacidad Máx.</label>
+            <input type="number" id="edit-capacity" min="1" max="50" value="12" required class="w-full text-xs rounded-xl border border-brand-border bg-brand-cream/40 px-3 py-2 text-brand-charcoal focus:ring-1 focus:ring-brand-terracotta focus:outline-none">
           </div>
+
           <div>
-            <label class="block text-xs font-semibold text-brand-charcoal uppercase tracking-wider mb-1">Cupo Máx.</label>
-            <input type="number" id="edit-capacity" value="12" min="1" max="30" required class="w-full px-4 py-2.5 rounded-xl border border-brand-border text-sm">
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-brand-charcoal uppercase tracking-wider mb-1">Nivel</label>
-            <select id="edit-level" class="w-full px-4 py-2.5 rounded-xl border border-brand-border text-sm bg-white">
-              <option value="Iniciación">Iniciación</option>
-              <option value="Intermedio">Intermedio</option>
-              <option value="Avanzado">Avanzado</option>
-              <option value="Multinivel">Multinivel</option>
-            </select>
+            <label class="block text-xs font-semibold text-brand-charcoal mb-1">Coste (Créditos)</label>
+            <input type="number" id="edit-credits" min="1" max="10" value="1" required class="w-full text-xs rounded-xl border border-brand-border bg-brand-cream/40 px-3 py-2 text-brand-charcoal focus:ring-1 focus:ring-brand-terracotta focus:outline-none font-semibold text-brand-terracotta">
           </div>
         </div>
 
         <div>
-          <label class="block text-xs font-semibold text-brand-charcoal uppercase tracking-wider mb-1">Descripción Breve</label>
-          <textarea id="edit-description" rows="2" placeholder="Enfoque de la clase, accesorios requeridos (mancuernas ligeras, pelota, barra)..." class="w-full px-4 py-2.5 rounded-xl border border-brand-border text-sm"></textarea>
+          <label class="block text-xs font-semibold text-brand-charcoal mb-1">Sala / Estudio</label>
+          <select id="edit-room" class="w-full text-xs rounded-xl border border-brand-border bg-brand-cream/40 px-3 py-2 text-brand-charcoal focus:ring-1 focus:ring-brand-terracotta focus:outline-none">
+            <option value="Sala Principal Barre">Sala Principal Barre</option>
+            <option value="Estudio Zen Light">Estudio Zen Light</option>
+            <option value="Sala Privada Boutique">Sala Privada Boutique</option>
+          </select>
         </div>
 
-        <div class="flex items-center justify-end space-x-3 pt-3">
-          <button type="button" onclick="app.closeModal('modal-class-editor')" class="px-5 py-2.5 rounded-xl text-sm font-medium text-brand-muted hover:text-brand-charcoal border border-brand-border">
+        <div class="flex items-center justify-end space-x-3 pt-4 border-t border-brand-border">
+          <button type="button" onclick="app.closeModal('modal-class-form')" class="px-4 py-2 rounded-xl text-xs font-medium text-brand-muted hover:text-brand-charcoal">
             Cancelar
           </button>
-          <button type="submit" class="px-6 py-2.5 rounded-xl text-sm font-medium bg-brand-terracotta text-white hover:bg-brand-terracottaHover transition-all shadow-sm">
-            Guardar Clase
+          <button type="submit" class="px-5 py-2 rounded-xl bg-brand-terracotta hover:bg-brand-terracottaDark text-white text-xs font-semibold shadow-xs">
+            Guardar Sesión
           </button>
         </div>
       </form>
@@ -560,63 +536,70 @@
   </div>
 
   <!-- ============================================== -->
-  <!-- MODAL: GESTIONAR ALUMNOS DE UNA CLASE (ADMIN)  -->
+  <!-- MODAL: RECHARGE CREDITS (ADMIN ONLY)           -->
   <!-- ============================================== -->
-  <div id="modal-attendees" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-backdrop">
-    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-brand-border relative">
-      <button onclick="app.closeModal('modal-attendees')" class="absolute top-5 right-5 text-brand-muted hover:text-brand-charcoal p-1">
+  <div id="modal-recharge" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-backdrop">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-xl border border-brand-border relative">
+      <button onclick="app.closeModal('modal-recharge')" class="absolute top-4 right-4 text-brand-muted hover:text-brand-charcoal">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
         </svg>
       </button>
 
-      <span class="text-xs uppercase tracking-widest text-brand-terracotta font-semibold">Lista de Asistencia</span>
-      <h3 id="attendees-modal-title" class="text-xl font-serif-title font-semibold text-brand-charcoal mt-1">Alumnos Inscritos</h3>
-      <p id="attendees-modal-subtitle" class="text-xs text-brand-muted mb-4">Clase y horario</p>
-
-      <!-- Manual enroll form -->
-      <div class="bg-brand-sand/40 p-3 rounded-2xl border border-brand-border mb-4">
-        <label class="block text-[11px] font-semibold text-brand-charcoal uppercase tracking-wider mb-1">Añadir alumno manualmente:</label>
-        <div class="flex space-x-2">
-          <select id="attendees-add-select" class="flex-grow text-xs bg-white border border-brand-border rounded-xl px-3 py-2">
-            <!-- options inserted by js -->
-          </select>
-          <button onclick="app.manualEnrollUser()" class="px-3 py-2 bg-brand-terracotta text-white text-xs rounded-xl font-medium hover:bg-brand-terracottaHover">
-            Añadir
-          </button>
+      <div class="text-center mb-5">
+        <div class="w-12 h-12 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center mx-auto mb-2 text-xl">
+          ✨
         </div>
+        <h3 class="text-xl font-serif-title font-semibold text-brand-charcoal">Recargar Créditos</h3>
+        <p class="text-xs text-brand-muted mt-1">Usuario: <span id="recharge-user-target" class="font-bold text-brand-charcoal"></span></p>
       </div>
 
-      <!-- Attendees list -->
-      <div class="space-y-2 max-h-60 overflow-y-auto custom-scrollbar pr-1" id="attendees-list-container">
-        <!-- populated via js -->
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-brand-charcoal mb-2">Atajos Rápidos</label>
+          <div class="grid grid-cols-4 gap-2">
+            <button onclick="app.quickAddRecharge(1)" class="py-2 text-xs font-semibold rounded-xl bg-brand-sand hover:bg-brand-rose/40 text-brand-charcoal border border-brand-border">+1</button>
+            <button onclick="app.quickAddRecharge(3)" class="py-2 text-xs font-semibold rounded-xl bg-brand-sand hover:bg-brand-rose/40 text-brand-charcoal border border-brand-border">+3</button>
+            <button onclick="app.quickAddRecharge(5)" class="py-2 text-xs font-semibold rounded-xl bg-brand-sand hover:bg-brand-rose/40 text-brand-charcoal border border-brand-border">+5</button>
+            <button onclick="app.quickAddRecharge(10)" class="py-2 text-xs font-semibold rounded-xl bg-brand-sand hover:bg-brand-rose/40 text-brand-charcoal border border-brand-border">+10</button>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-brand-charcoal mb-1">Cantidad a ingresar</label>
+          <input type="number" id="recharge-amount-input" min="1" max="100" value="5" class="w-full text-center text-lg font-bold rounded-xl border border-brand-border bg-brand-cream/50 px-3 py-2 text-brand-terracotta focus:ring-1 focus:ring-brand-terracotta focus:outline-none">
+        </div>
+
+        <button onclick="app.confirmRechargeSubmit()" class="w-full py-2.5 rounded-xl bg-brand-terracotta hover:bg-brand-terracottaDark text-white text-xs font-semibold shadow-xs transition-all">
+          Añadir Créditos al Alumno
+        </button>
       </div>
     </div>
   </div>
 
   <!-- ============================================== -->
-  <!-- MODAL: MODIFICAR / CAMBIAR CLASE (USUARIO)     -->
+  <!-- MODAL: CHANGE / RELOCATE CLASS                 -->
   <!-- ============================================== -->
-  <div id="modal-modify-booking" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-backdrop">
-    <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-brand-border relative max-h-[85vh] flex flex-col">
-      <button onclick="app.closeModal('modal-modify-booking')" class="absolute top-5 right-5 text-brand-muted hover:text-brand-charcoal p-1">
+  <div id="modal-change-class" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-backdrop">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-brand-border relative max-h-[90vh] overflow-y-auto">
+      <button onclick="app.closeModal('modal-change-class')" class="absolute top-4 right-4 text-brand-muted hover:text-brand-charcoal">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
         </svg>
       </button>
 
-      <div>
-        <span class="text-xs uppercase tracking-widest text-brand-terracotta font-semibold">Cambio de Horario</span>
-        <h3 class="text-2xl font-serif-title font-semibold text-brand-charcoal mt-1">Reubicar mi Clase</h3>
-        <p class="text-xs text-brand-muted mt-1" id="modify-booking-current-info">Selecciona una nueva sesión disponible para cambiar tu reserva actual sin costo.</p>
+      <div class="mb-4">
+        <span class="text-xs uppercase tracking-wider font-semibold text-brand-terracotta">Flexibilidad Barre By Mich</span>
+        <h3 class="text-xl font-serif-title font-semibold text-brand-charcoal">Reubicar Mi Sesión</h3>
+        <p class="text-xs text-brand-muted mt-1" id="change-class-subtitle">Selecciona otra clase disponible para mover tu plaza sin perder tus créditos.</p>
       </div>
 
-      <div class="my-4 overflow-y-auto custom-scrollbar pr-1 flex-1 space-y-2.5" id="modify-booking-alternatives-list">
-        <!-- List of alternatives populated via JS -->
+      <div id="change-class-options" class="space-y-2.5 my-4">
+        <!-- Populated via JS -->
       </div>
 
       <div class="pt-3 border-t border-brand-border flex justify-end">
-        <button onclick="app.closeModal('modal-modify-booking')" class="px-5 py-2 rounded-xl text-sm font-medium text-brand-muted hover:text-brand-charcoal border border-brand-border">
+        <button onclick="app.closeModal('modal-change-class')" class="px-4 py-2 rounded-xl text-xs font-medium text-brand-muted hover:text-brand-charcoal">
           Cerrar
         </button>
       </div>
@@ -624,644 +607,519 @@
   </div>
 
   <!-- ============================================== -->
-  <!-- MODAL: CALENDARIO MENSUAL COMPLETO             -->
+  <!-- MODAL: VIEW CLASS ATTENDEES (ADMIN ONLY)       -->
   <!-- ============================================== -->
-  <div id="modal-month-picker" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-backdrop">
-    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-brand-border relative">
-      <button onclick="app.closeModal('modal-month-picker')" class="absolute top-5 right-5 text-brand-muted hover:text-brand-charcoal p-1">
+  <div id="modal-attendees" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-backdrop">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-brand-border relative max-h-[90vh] overflow-y-auto">
+      <button onclick="app.closeModal('modal-attendees')" class="absolute top-4 right-4 text-brand-muted hover:text-brand-charcoal">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
         </svg>
       </button>
 
-      <div class="flex items-center justify-between mb-6">
-        <div>
-          <span class="text-xs uppercase tracking-widest text-brand-terracotta font-semibold">Explorar Fechas</span>
-          <h3 id="month-picker-label" class="text-xl font-serif-title font-semibold text-brand-charcoal">Mes y Año</h3>
-        </div>
-        <div class="flex space-x-1">
-          <button onclick="app.prevMonth()" class="p-2 rounded-xl hover:bg-brand-sand text-brand-charcoal">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-          </button>
-          <button onclick="app.nextMonth()" class="p-2 rounded-xl hover:bg-brand-sand text-brand-charcoal">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      <div class="mb-4">
+        <span class="text-xs uppercase tracking-wider font-semibold text-brand-terracotta">Lista de Asistencia</span>
+        <h3 id="attendees-modal-title" class="text-xl font-serif-title font-semibold text-brand-charcoal">Alumnos Inscritos</h3>
+        <p id="attendees-modal-sub" class="text-xs text-brand-muted"></p>
+      </div>
+
+      <!-- Add manual student input for admin -->
+      <div class="mb-4 p-3 rounded-xl bg-brand-sand/50 border border-brand-border space-y-2">
+        <label class="block text-[11px] font-semibold text-brand-charcoal">Inscribir alumno manualmente:</label>
+        <div class="flex items-center gap-2">
+          <select id="manual-student-select" class="flex-grow text-xs rounded-lg border border-brand-border bg-white px-2.5 py-1.5 text-brand-charcoal">
+            <!-- Populated via JS -->
+          </select>
+          <button onclick="app.handleManualEnroll()" class="px-3 py-1.5 rounded-lg bg-brand-terracotta text-white text-xs font-semibold">
+            Inscribir
           </button>
         </div>
       </div>
 
-      <!-- Calendar Table Grid -->
-      <div class="grid grid-cols-7 gap-1 text-center text-xs font-semibold text-brand-muted mb-2">
-        <span>L</span><span>M</span><span>X</span><span>J</span><span>V</span><span>S</span><span>D</span>
-      </div>
-      <div id="month-days-grid" class="grid grid-cols-7 gap-1.5 text-center text-xs">
-        <!-- Rendered by JS -->
+      <div id="attendees-list-container" class="space-y-2 divide-y divide-brand-border/60">
+        <!-- Injected via JS -->
       </div>
     </div>
   </div>
 
   <!-- ============================================== -->
-  <!-- MODAL: CONFIRMACIÓN GENÉRICA                   -->
+  <!-- MODAL: DATE PICKER / MONTH VIEW                -->
+  <!-- ============================================== -->
+  <div id="modal-calendar-picker" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-backdrop">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-xl border border-brand-border relative">
+      <button onclick="app.closeModal('modal-calendar-picker')" class="absolute top-4 right-4 text-brand-muted hover:text-brand-charcoal">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+
+      <div class="text-center mb-4">
+        <h3 class="text-xl font-serif-title font-semibold text-brand-charcoal">Explorar Calendario</h3>
+        <p class="text-xs text-brand-muted">Selecciona cualquier fecha para ver y reservar clases</p>
+      </div>
+
+      <div class="space-y-3">
+        <input type="date" id="calendar-jump-date-input" class="w-full text-center text-sm font-semibold rounded-xl border border-brand-border bg-brand-cream/50 px-3 py-2.5 text-brand-charcoal">
+        <button onclick="app.applyCalendarJump()" class="w-full py-2.5 rounded-xl bg-brand-terracotta hover:bg-brand-terracottaDark text-white text-xs font-semibold shadow-xs">
+          Ir al Día Seleccionado
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- MODAL: CUSTOM CONFIRMATION DIALOG              -->
   <!-- ============================================== -->
   <div id="modal-confirm" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-backdrop">
-    <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-brand-border text-center">
-      <div class="w-12 h-12 rounded-full bg-brand-blush text-brand-terracotta mx-auto flex items-center justify-center mb-3">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-xl border border-brand-border relative text-center">
+      <div id="confirm-icon-box" class="w-12 h-12 rounded-full bg-brand-sand flex items-center justify-center mx-auto mb-3 text-brand-terracotta">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
         </svg>
       </div>
-      <h4 id="confirm-modal-title" class="text-lg font-serif-title font-semibold text-brand-charcoal">¿Estás seguro?</h4>
-      <p id="confirm-modal-message" class="text-xs text-brand-muted mt-1 leading-relaxed">Mensaje explicativo de la acción.</p>
-      
+      <h3 id="confirm-title" class="text-xl font-serif-title font-semibold text-brand-charcoal">¿Estás seguro/a?</h3>
+      <p id="confirm-message" class="text-xs text-brand-muted mt-2 leading-relaxed"></p>
+
       <div class="flex items-center justify-center space-x-3 mt-6">
-        <button id="confirm-modal-cancel" class="px-4 py-2 rounded-xl text-xs font-medium text-brand-muted hover:text-brand-charcoal border border-brand-border w-full">
+        <button id="confirm-cancel-btn" onclick="app.closeModal('modal-confirm')" class="px-4 py-2 rounded-xl text-xs font-medium text-brand-muted hover:text-brand-charcoal bg-brand-sand/60">
           Cancelar
         </button>
-        <button id="confirm-modal-ok" class="px-4 py-2 rounded-xl text-xs font-semibold bg-brand-terracotta text-white hover:bg-brand-terracottaHover w-full transition-all">
+        <button id="confirm-accept-btn" class="px-5 py-2 rounded-xl bg-brand-terracotta hover:bg-brand-terracottaDark text-white text-xs font-semibold shadow-xs">
           Confirmar
         </button>
       </div>
     </div>
   </div>
 
-  <!-- ============================================== -->
-  <!-- TOAST NOTIFICATIONS CONTAINER                  -->
-  <!-- ============================================== -->
   <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col space-y-2 pointer-events-none"></div>
 
   <script>
-    /* Barre & Grace Studio - Single File Architecture */
+    /* Barre By Mich - Clean Single File Core */
     const STORAGE_KEYS = {
-      USERS: 'bg_studio_users',
-      CLASSES: 'bg_studio_classes',
-      CURRENT_USER: 'bg_studio_active_user',
-      INSTRUCTORS: 'bg_studio_instructors'
+      USERS: 'bbm_studio_users',
+      CLASSES: 'bbm_studio_classes',
+      CURRENT_USER: 'bbm_studio_active_user',
+      INSTRUCTORS: 'bbm_studio_instructors'
     };
 
-    /* Helper: Format date string YYYY-MM-DD */
-    function formatDateIso(d) {
-      const year = d.getFullYear();
-      const month = String(d.getMonth() + 1).padStart(2, '0');
-      const day = String(d.getDate()).padStart(2, '0');
+    /* Date format utility YYYY-MM-DD */
+    function formatDateIso(dateObj) {
+      const year = dateObj.getFullYear();
+      const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+      const day = String(dateObj.getDate()).padStart(2, '0');
       return `${year}-${month}-${day}`;
     }
 
-    /* Helper: Pretty Date formatting */
-    function formatPrettyDate(isoStr) {
-      const parts = isoStr.split('-');
-      const d = new Date(parts[0], parts[1] - 1, parts[2]);
-      const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-      const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-      return `${days[d.getDay()]}, ${d.getDate()} de ${months[d.getMonth()]}`;
-    }
-
-    function getSeedData() {
-      const today = new Date();
-      const addDays = (n) => {
-        const d = new Date(today);
-        d.setDate(today.getDate() + n);
-        return formatDateIso(d);
-      };
-
-      const defaultUsers = [
-        { id: 'usr_admin', username: 'Admin', password: 'Admin', role: 'admin', createdAt: formatDateIso(today) },
-        { id: 'usr_user', username: 'user', password: 'user', role: 'user', createdAt: formatDateIso(today) },
-        { id: 'usr_camila', username: 'camila_m', password: 'user', role: 'user', createdAt: formatDateIso(today) },
-        { id: 'usr_lucia', username: 'lucia_p', password: 'user', role: 'user', createdAt: formatDateIso(today) }
-      ];
-
-      const defaultClasses = [
-        {
-          id: 'cls_1',
-          title: 'Barre Signature & Alignment',
-          instructor: 'Valeria Montes',
-          date: addDays(0),
-          time: '09:00',
-          duration: 50,
-          capacity: 12,
-          level: 'Multinivel',
-          room: 'Studio A - Lumière',
-          description: 'Nuestra clase insignia que combina trabajo isométrico en barra con pulsos profundos para estilizar y fortalecer.',
-          attendees: ['usr_user', 'usr_camila']
-        },
-        {
-          id: 'cls_2',
-          title: 'Barre Burn & Glutes',
-          instructor: 'Elena Soler',
-          date: addDays(0),
-          time: '11:30',
-          duration: 50,
-          capacity: 10,
-          level: 'Intermedio',
-          room: 'Studio B - Harmony',
-          description: 'Secuencias dinámicas con bandas de resistencia enfocadas en glúteos, cadera y estabilidad del core.',
-          attendees: ['usr_lucia']
-        },
-        {
-          id: 'cls_3',
-          title: 'Barre Stretch & Mindful Flow',
-          instructor: 'Camila Rossi',
-          date: addDays(0),
-          time: '19:00',
-          duration: 50,
-          capacity: 12,
-          level: 'Iniciación',
-          room: 'Studio A - Lumière',
-          description: 'Apertura de cadera, flexibilidad profunda en barra y relajación muscular para descomprimir el día.',
-          attendees: []
-        },
-        {
-          id: 'cls_4',
-          title: 'Barre Cardio Sculpt',
-          instructor: 'Sofía Mendoza',
-          date: addDays(1),
-          time: '08:30',
-          duration: 45,
-          capacity: 10,
-          level: 'Avanzado',
-          room: 'Studio A - Lumière',
-          description: 'Elevación de ritmo cardíaco con bajo impacto, intervalos rítmicos y trabajo muscular al ritmo de la música.',
-          attendees: ['usr_user']
-        },
-        {
-          id: 'cls_5',
-          title: 'Barre Core & Posture',
-          instructor: 'Valeria Montes',
-          date: addDays(1),
-          time: '18:00',
-          duration: 50,
-          capacity: 12,
-          level: 'Multinivel',
-          room: 'Studio B - Harmony',
-          description: 'Enfoque estricto en alineación de columna, suelo pélvico y activación del transverso abdominal.',
-          attendees: ['usr_camila', 'usr_lucia']
-        },
-        {
-          id: 'cls_6',
-          title: 'Barre Weekend Awakening',
-          instructor: 'Elena Soler',
-          date: addDays(2),
-          time: '10:00',
-          duration: 60,
-          capacity: 14,
-          level: 'Multinivel',
-          room: 'Studio A - Lumière',
-          description: 'Sesión especial de fin de semana con calentamiento extendido y secuencias fluidas al compás de la barra.',
-          attendees: []
-        },
-        {
-          id: 'cls_7',
-          title: 'Barre Signature Express',
-          instructor: 'Camila Rossi',
-          date: addDays(3),
-          time: '14:00',
-          duration: 45,
-          capacity: 12,
-          level: 'Intermedio',
-          room: 'Studio A - Lumière',
-          description: 'Intensidad concentrada para aprovechar el descanso de mediodía y tonificar con precisión.',
-          attendees: []
-        }
-      ];
-
-      return { users: defaultUsers, classes: defaultClasses };
-    }
-
-    class StudioApp {
-      constructor() {
-        this.users = [];
-        this.classes = [];
-        this.currentUser = null;
-        this.currentTab = 'schedule';
-        this.adminSubTab = 'classes';
-        
-        // Calendar & filter states
-        const today = new Date();
-        this.selectedDate = formatDateIso(today);
-        this.calendarViewYear = today.getFullYear();
-        this.calendarViewMonth = today.getMonth(); // 0-based
-        this.targetBookingIdToModify = null;
-
-        this.init();
-      }
+    /* Core Application Controller */
+    const app = {
+      users: [],
+      classes: [],
+      instructors: [],
+      currentUser: null,
+      activeTab: 'schedule',
+      selectedDate: formatDateIso(new Date()),
+      confirmCallback: null,
+      authMode: 'login',
+      rechargeTargetUser: null,
+      changeClassSourceId: null,
 
       init() {
         try {
-          const storedUsers = localStorage.getItem(STORAGE_KEYS.USERS);
-          const storedClasses = localStorage.getItem(STORAGE_KEYS.CLASSES);
-          const storedCurrentUser = localStorage.getItem(STORAGE_KEYS.CURRENT_USER);
+          // Backward compatibility check
+          const storedUsers = localStorage.getItem(STORAGE_KEYS.USERS) || localStorage.getItem('bg_studio_users');
+          const storedClasses = localStorage.getItem(STORAGE_KEYS.CLASSES) || localStorage.getItem('bg_studio_classes');
+          const storedCurrentUser = localStorage.getItem(STORAGE_KEYS.CURRENT_USER) || localStorage.getItem('bg_studio_active_user');
 
           if (!storedUsers || !storedClasses) {
-            const seed = getSeedData();
-            this.users = seed.users;
-            this.classes = seed.classes;
-            this.saveUsers();
-            this.saveClasses();
+            this.seedInitialData();
           } else {
             this.users = JSON.parse(storedUsers);
             this.classes = JSON.parse(storedClasses);
+            if (storedCurrentUser) {
+              this.currentUser = JSON.parse(storedCurrentUser);
+            }
           }
 
-          if (storedCurrentUser) {
-            this.currentUser = JSON.parse(storedCurrentUser);
-          }
-
-          const storedInstructors = localStorage.getItem(STORAGE_KEYS.INSTRUCTORS);
+          // Instructors list
+          const storedInstructors = localStorage.getItem(STORAGE_KEYS.INSTRUCTORS) || localStorage.getItem('bg_studio_instructors');
           if (storedInstructors) {
             this.instructors = JSON.parse(storedInstructors);
           } else {
-            this.instructors = ['Valeria Montes', 'Elena Soler', 'Camila Rossi', 'Sofía Mendoza'];
+            this.instructors = ['Mich (Directora)', 'Valeria Montes', 'Elena Soler', 'Camila Rossi', 'Sofía Mendoza'];
             this.saveInstructors();
           }
 
-          // Sincronizar profesores de clases existentes para garantizar consistencia
-          this.classes.forEach(c => {
-            if (c.instructor && !this.instructors.includes(c.instructor)) {
-              this.instructors.push(c.instructor);
-            }
-          });
-          this.saveInstructors();
-        } catch (e) {
-          console.error("Error al cargar localStorage:", e);
-          const seed = getSeedData();
-          this.users = seed.users;
-          this.classes = seed.classes;
-          this.instructors = ['Valeria Montes', 'Elena Soler', 'Camila Rossi', 'Sofía Mendoza'];
+          // If no logged in user, start as regular user by default
+          if (!this.currentUser) {
+            this.currentUser = this.users.find(u => u.username === 'user') || null;
+          }
+
+          this.updateAuthUI();
+          this.populateInstructorSelects();
+          this.renderDateStrip();
+          this.renderClasses();
+          this.updateKPIs();
+        } catch (err) {
+          console.error("Initialization error:", err);
+          this.seedInitialData();
         }
+      },
 
-        this.updateAuthUI();
-        this.populateInstructorSelects();
-        this.renderDayStrip();
-        this.renderClasses();
-      }
+      seedInitialData() {
+        this.users = [
+          { username: 'Admin', password: 'Admin', role: 'admin', credits: 99 },
+          { username: 'user', password: 'user', role: 'user', credits: 5 },
+          { username: 'clara', password: 'user', role: 'user', credits: 3 },
+          { username: 'lucia', password: 'user', role: 'user', credits: 4 }
+        ];
 
-      saveUsers() {
-        localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(this.users));
-      }
+        this.instructors = ['Mich (Directora)', 'Valeria Montes', 'Elena Soler', 'Camila Rossi', 'Sofía Mendoza'];
 
-      saveClasses() {
-        localStorage.setItem(STORAGE_KEYS.CLASSES, JSON.stringify(this.classes));
-      }
+        const today = new Date();
+        const d0 = formatDateIso(today);
+        const d1 = formatDateIso(new Date(Date.now() + 86400000));
+        const d2 = formatDateIso(new Date(Date.now() + 86400000 * 2));
+        const d3 = formatDateIso(new Date(Date.now() + 86400000 * 3));
+
+        this.classes = [
+          {
+            id: 'cls_' + Date.now() + '_1',
+            title: 'Barre Sculpt & Core',
+            type: 'Barre Sculpt',
+            instructor: 'Mich (Directora)',
+            date: d0,
+            time: '08:30',
+            duration: 50,
+            capacity: 12,
+            creditsCost: 1,
+            room: 'Sala Principal Barre',
+            students: ['user', 'clara']
+          },
+          {
+            id: 'cls_' + Date.now() + '_2',
+            title: 'Barre Flow & Alignment',
+            type: 'Barre Flow',
+            instructor: 'Valeria Montes',
+            date: d0,
+            time: '10:00',
+            duration: 50,
+            capacity: 10,
+            creditsCost: 1,
+            room: 'Estudio Zen Light',
+            students: ['lucia']
+          },
+          {
+            id: 'cls_' + Date.now() + '_3',
+            title: 'Power Barre Intensive',
+            type: 'Power Barre',
+            instructor: 'Elena Soler',
+            date: d0,
+            time: '18:30',
+            duration: 55,
+            capacity: 14,
+            creditsCost: 2,
+            room: 'Sala Principal Barre',
+            students: []
+          },
+          {
+            id: 'cls_' + Date.now() + '_4',
+            title: 'Barre Classic Elegance',
+            type: 'Barre Classic',
+            instructor: 'Mich (Directora)',
+            date: d1,
+            time: '09:00',
+            duration: 50,
+            capacity: 12,
+            creditsCost: 1,
+            room: 'Sala Principal Barre',
+            students: ['user']
+          },
+          {
+            id: 'cls_' + Date.now() + '_5',
+            title: 'Stretch & Restore Sound',
+            type: 'Stretch & Restore',
+            instructor: 'Camila Rossi',
+            date: d1,
+            time: '19:00',
+            duration: 50,
+            capacity: 12,
+            creditsCost: 1,
+            room: 'Estudio Zen Light',
+            students: []
+          },
+          {
+            id: 'cls_' + Date.now() + '_6',
+            title: 'Barre Cardio Boost',
+            type: 'Barre Sculpt',
+            instructor: 'Sofía Mendoza',
+            date: d2,
+            time: '08:00',
+            duration: 45,
+            capacity: 10,
+            creditsCost: 1,
+            room: 'Sala Principal Barre',
+            students: []
+          },
+          {
+            id: 'cls_' + Date.now() + '_7',
+            title: 'Master Barre Focus',
+            type: 'Power Barre',
+            instructor: 'Mich (Directora)',
+            date: d3,
+            time: '11:00',
+            duration: 60,
+            capacity: 8,
+            creditsCost: 2,
+            room: 'Sala Privada Boutique',
+            students: ['clara']
+          }
+        ];
+
+        this.currentUser = this.users[1]; // default 'user'
+        this.saveAll();
+      },
+
+      saveAll() {
+        try {
+          localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(this.users));
+          localStorage.setItem(STORAGE_KEYS.CLASSES, JSON.stringify(this.classes));
+          localStorage.setItem(STORAGE_KEYS.INSTRUCTORS, JSON.stringify(this.instructors));
+          if (this.currentUser) {
+            localStorage.setItem(STORAGE_KEYS.CURRENT_USER, JSON.stringify(this.currentUser));
+          } else {
+            localStorage.removeItem(STORAGE_KEYS.CURRENT_USER);
+          }
+        } catch (e) {
+          console.error("Storage save failed:", e);
+        }
+      },
 
       saveInstructors() {
         localStorage.setItem(STORAGE_KEYS.INSTRUCTORS, JSON.stringify(this.instructors));
-      }
+        this.populateInstructorSelects();
+      },
 
-      saveCurrentUser() {
-        if (this.currentUser) {
-          localStorage.setItem(STORAGE_KEYS.CURRENT_USER, JSON.stringify(this.currentUser));
-        } else {
-          localStorage.removeItem(STORAGE_KEYS.CURRENT_USER);
-        }
-      }
-
-      setTab(tab) {
-        if (tab === 'admin' && (!this.currentUser || this.currentUser.role !== 'admin')) {
-          this.showToast('Acceso restringido: debes ser Administrador', 'warning');
-          this.openAuthModal('login');
-          return;
-        }
-
-        this.currentTab = tab;
-
-        // Hide all views
-        document.getElementById('view-schedule').classList.add('hidden');
-        document.getElementById('view-my-bookings').classList.add('hidden');
-        document.getElementById('view-admin').classList.add('hidden');
-
-        // Reset nav styles
-        const tabs = ['schedule', 'my-bookings', 'admin'];
-        tabs.forEach(t => {
-          const btn = document.getElementById(`nav-btn-${t}`);
-          const mBtn = document.getElementById(`mobile-nav-${t === 'my-bookings' ? 'bookings' : t}`);
-          if (btn) {
-            btn.className = (t === tab)
-              ? 'px-4 py-2 rounded-full text-sm font-medium transition-all text-brand-terracotta bg-brand-blush'
-              : 'px-4 py-2 rounded-full text-sm font-medium text-brand-muted hover:text-brand-charcoal transition-all';
-          }
-          if (mBtn) {
-            mBtn.className = (t === tab)
-              ? 'text-xs font-medium text-brand-terracotta flex flex-col items-center'
-              : 'text-xs font-medium text-brand-muted flex flex-col items-center';
-          }
-        });
-
-        // Show selected view
-        if (tab === 'schedule') {
-          document.getElementById('view-schedule').classList.remove('hidden');
-          this.renderDayStrip();
-          this.renderClasses();
-        } else if (tab === 'my-bookings') {
-          document.getElementById('view-my-bookings').classList.remove('hidden');
-          this.renderMyBookings();
-        } else if (tab === 'admin') {
-          document.getElementById('view-admin').classList.remove('hidden');
-          this.renderAdminView();
-        }
-
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-
-      setAdminSubTab(subTab) {
-        this.adminSubTab = subTab;
-        const tabClasses = document.getElementById('admin-subtab-classes');
-        const tabUsers = document.getElementById('admin-subtab-users');
-        const secClasses = document.getElementById('admin-section-classes');
-        const secUsers = document.getElementById('admin-section-users');
-
-        if (subTab === 'classes') {
-          tabClasses.className = 'pb-3 px-3 text-sm font-semibold border-b-2 border-brand-terracotta text-brand-terracotta transition-colors';
-          tabUsers.className = 'pb-3 px-3 text-sm font-medium border-b-2 border-transparent text-brand-muted hover:text-brand-charcoal transition-colors';
-          secClasses.classList.remove('hidden');
-          secUsers.classList.add('hidden');
-          this.renderAdminClassesTable();
-        } else {
-          tabUsers.className = 'pb-3 px-3 text-sm font-semibold border-b-2 border-brand-terracotta text-brand-terracotta transition-colors';
-          tabClasses.className = 'pb-3 px-3 text-sm font-medium border-b-2 border-transparent text-brand-muted hover:text-brand-charcoal transition-colors';
-          secUsers.classList.remove('hidden');
-          secClasses.classList.add('hidden');
-          this.renderAdminUsersTable();
-        }
-      }
-
-      updateAuthUI() {
-        const loggedInContainer = document.getElementById('auth-logged-in');
-        const loggedOutContainer = document.getElementById('auth-logged-out');
-        const adminBtn = document.getElementById('nav-btn-admin');
-        const mobileAdminBtn = document.getElementById('mobile-nav-admin');
-        const countSpan = document.getElementById('user-booking-count');
-
-        let myBookingsCount = 0;
-        if (this.currentUser) {
-          myBookingsCount = this.classes.filter(c => c.attendees.includes(this.currentUser.id)).length;
-        }
-        if (countSpan) countSpan.textContent = myBookingsCount;
-
-        if (this.currentUser) {
-          loggedInContainer.classList.remove('hidden');
-          loggedInContainer.classList.add('flex');
-          loggedOutContainer.classList.add('hidden');
-
-          document.getElementById('header-username').textContent = this.currentUser.username;
-          document.getElementById('header-user-role').textContent = this.currentUser.role === 'admin' ? 'Administrador' : 'Alumna Barre';
-          document.getElementById('user-avatar-initial').textContent = this.currentUser.username.charAt(0).toUpperCase();
-
-          if (this.currentUser.role === 'admin') {
-            adminBtn.classList.remove('hidden');
-            mobileAdminBtn.classList.remove('hidden');
-          } else {
-            adminBtn.classList.add('hidden');
-            mobileAdminBtn.classList.add('hidden');
-          }
-        } else {
-          loggedInContainer.classList.add('hidden');
-          loggedInContainer.classList.remove('flex');
-          loggedOutContainer.classList.remove('hidden');
-          adminBtn.classList.add('hidden');
-          mobileAdminBtn.classList.add('hidden');
-        }
-      }
-
-      openModal(id) {
-        const el = document.getElementById(id);
-        if (el) el.classList.remove('hidden');
-      }
-
-      closeModal(id) {
-        const el = document.getElementById(id);
-        if (el) el.classList.add('hidden');
-      }
-
-      showToast(message, type = 'info') {
-        const container = document.getElementById('toast-container');
-        const toast = document.createElement('div');
-        toast.className = 'pointer-events-auto flex items-center space-x-3 px-4 py-3 rounded-2xl shadow-lg border text-sm transition-all duration-300 transform translate-y-2 opacity-0';
-
-        let bg = 'bg-white border-brand-border text-brand-charcoal';
-        let icon = '<svg class="w-5 h-5 text-brand-terracotta" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
-
-        if (type === 'success') {
-          bg = 'bg-[#FAFDF9] border-[#C2E0C6] text-[#22543D]';
-          icon = '<svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>';
-        } else if (type === 'warning') {
-          bg = 'bg-[#FFFDF5] border-[#FCE588] text-[#744210]';
-          icon = '<svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>';
-        } else if (type === 'error') {
-          bg = 'bg-[#FFF5F5] border-[#FEB2B2] text-[#9B2C2C]';
-          icon = '<svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>';
-        }
-
-        toast.className += ` ${bg}`;
-        toast.innerHTML = `${icon} <span class="font-medium">${message}</span>`;
-        container.appendChild(toast);
-
-        // Animate in
-        requestAnimationFrame(() => {
-          toast.classList.remove('translate-y-2', 'opacity-0');
-        });
-
-        // Auto remove
-        setTimeout(() => {
-          toast.classList.add('opacity-0', 'translate-y-2');
-          setTimeout(() => toast.remove(), 300);
-        }, 3800);
-      }
-
-      confirmAction({ title, message, onConfirm }) {
-        const modal = document.getElementById('modal-confirm');
-        document.getElementById('confirm-modal-title').textContent = title || '¿Confirmar acción?';
-        document.getElementById('confirm-modal-message').textContent = message || '';
-        
-        const okBtn = document.getElementById('confirm-modal-ok');
-        const cancelBtn = document.getElementById('confirm-modal-cancel');
-
-        const cleanup = () => {
-          modal.classList.add('hidden');
-          okBtn.onclick = null;
-          cancelBtn.onclick = null;
-        };
-
-        okBtn.onclick = () => {
-          cleanup();
-          if (onConfirm) onConfirm();
-        };
-
-        cancelBtn.onclick = () => {
-          cleanup();
-        };
-
-        modal.classList.remove('hidden');
-      }
-
-      openAuthModal(mode = 'login') {
-        this.switchAuthMode(mode);
-        this.openModal('modal-auth');
-      }
-
-      switchAuthMode(mode) {
+      setAuthMode(mode) {
         this.authMode = mode;
-        const title = document.getElementById('auth-modal-title');
+        const loginBtn = document.getElementById('auth-tab-btn-login');
+        const regBtn = document.getElementById('auth-tab-btn-register');
         const submitBtn = document.getElementById('auth-submit-btn');
-        const tabLogin = document.getElementById('tab-auth-login');
-        const tabReg = document.getElementById('tab-auth-register');
+        const title = document.getElementById('auth-modal-title');
+        const hint = document.getElementById('auth-hint-text');
 
         if (mode === 'login') {
+          loginBtn.className = 'w-1/2 pb-2 text-xs font-semibold border-b-2 border-brand-terracotta text-brand-charcoal';
+          regBtn.className = 'w-1/2 pb-2 text-xs font-semibold border-b-2 border-transparent text-brand-muted hover:text-brand-charcoal';
+          submitBtn.textContent = 'Entrar a Barre By Mich';
           title.textContent = 'Iniciar Sesión';
-          submitBtn.textContent = 'Entrar a mi Cuenta';
-          tabLogin.className = 'flex-1 pb-3 text-sm font-semibold border-b-2 border-brand-terracotta text-brand-terracotta';
-          tabReg.className = 'flex-1 pb-3 text-sm font-medium border-b-2 border-transparent text-brand-muted hover:text-brand-charcoal';
+          hint.classList.remove('hidden');
         } else {
-          title.textContent = 'Crear Cuenta';
-          submitBtn.textContent = 'Completar Registro';
-          tabReg.className = 'flex-1 pb-3 text-sm font-semibold border-b-2 border-brand-terracotta text-brand-terracotta';
-          tabLogin.className = 'flex-1 pb-3 text-sm font-medium border-b-2 border-transparent text-brand-muted hover:text-brand-charcoal';
+          regBtn.className = 'w-1/2 pb-2 text-xs font-semibold border-b-2 border-brand-terracotta text-brand-charcoal';
+          loginBtn.className = 'w-1/2 pb-2 text-xs font-semibold border-b-2 border-transparent text-brand-muted hover:text-brand-charcoal';
+          submitBtn.textContent = 'Crear Cuenta y Recibir 5 Créditos';
+          title.textContent = 'Nuevo Registro';
+          hint.classList.add('hidden');
         }
-      }
+      },
 
-      handleAuthSubmit(e) {
-        e.preventDefault();
+      handleAuthSubmit(event) {
+        event.preventDefault();
         const username = document.getElementById('auth-username').value.trim();
-        const password = document.getElementById('auth-password').value;
+        const password = document.getElementById('auth-password').value.trim();
 
         if (!username || !password) {
-          this.showToast('Por favor completa usuario y contraseña', 'warning');
+          this.showToast('Por favor completa todos los campos', 'error');
           return;
         }
 
         if (this.authMode === 'login') {
           const user = this.users.find(u => u.username.toLowerCase() === username.toLowerCase() && u.password === password);
           if (!user) {
-            this.showToast('Credenciales incorrectas. Verifica usuario o contraseña.', 'error');
+            this.showToast('Credenciales incorrectas. Verifica usuario y contraseña.', 'error');
             return;
           }
           this.currentUser = user;
-          this.saveCurrentUser();
+          this.saveAll();
           this.closeModal('modal-auth');
           this.updateAuthUI();
-          this.showToast(`¡Bienvenida/o, ${user.username}!`, 'success');
-          
-          if (user.role === 'admin') {
-            this.setTab('admin');
-          } else {
-            this.renderClasses();
-          }
+          this.showToast(`¡Bienvenida/o de nuevo, ${user.username}!`, 'success');
+          this.renderClasses();
+          this.renderMyBookings();
         } else {
           // Register
-          const exists = this.users.some(u => u.username.toLowerCase() === username.toLowerCase());
-          if (exists) {
-            this.showToast('El nombre de usuario ya está en uso', 'warning');
+          const existing = this.users.find(u => u.username.toLowerCase() === username.toLowerCase());
+          if (existing) {
+            this.showToast('Ese nombre de usuario ya está registrado', 'error');
             return;
           }
-
           const newUser = {
-            id: 'usr_' + Date.now(),
             username: username,
             password: password,
-            role: 'user',
-            createdAt: formatDateIso(new Date())
+            role: username.toLowerCase() === 'admin' ? 'admin' : 'user',
+            credits: 5 // Welcome credits
           };
-
           this.users.push(newUser);
-          this.saveUsers();
           this.currentUser = newUser;
-          this.saveCurrentUser();
+          this.saveAll();
           this.closeModal('modal-auth');
           this.updateAuthUI();
-          this.showToast('¡Cuenta creada exitosamente!', 'success');
+          this.showToast('¡Bienvenida/o a Barre By Mich! Tienes 5 créditos de bienvenida.', 'success');
           this.renderClasses();
         }
 
         document.getElementById('auth-form').reset();
-      }
-
-      quickLogin(username, password) {
-        const user = this.users.find(u => u.username === username && u.password === password);
-        if (user) {
-          this.currentUser = user;
-          this.saveCurrentUser();
-          this.closeModal('modal-auth');
-          this.updateAuthUI();
-          this.showToast(`Sesión iniciada como ${user.username} (${user.role})`, 'success');
-          if (user.role === 'admin') {
-            this.setTab('admin');
-          } else {
-            this.setTab('schedule');
-          }
-        } else {
-          this.showToast('Usuario demo no encontrado', 'error');
-        }
-      }
+      },
 
       logout() {
         this.currentUser = null;
-        this.saveCurrentUser();
+        localStorage.removeItem(STORAGE_KEYS.CURRENT_USER);
         this.updateAuthUI();
-        this.showToast('Has cerrado sesión correctamente', 'info');
         this.setTab('schedule');
-      }
+        this.renderClasses();
+        this.showToast('Sesión finalizada', 'info');
+      },
 
-      renderDayStrip() {
-        const container = document.getElementById('day-strip-container');
-        container.innerHTML = '';
-
-        const today = new Date();
-        const daysOfWeek = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
-        const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
-
-        // Render 14 consecutive days starting today
-        for (let i = 0; i < 14; i++) {
-          const d = new Date(today);
-          d.setDate(today.getDate() + i);
-          const iso = formatDateIso(d);
-          const isSelected = (iso === this.selectedDate);
-
-          const btn = document.createElement('button');
-          btn.className = `flex flex-col items-center justify-center min-w-[70px] sm:min-w-[80px] py-3 px-2 rounded-2xl border text-center transition-all ${
-            isSelected
-              ? 'bg-brand-terracotta text-white border-brand-terracotta shadow-sm scale-102'
-              : 'bg-white text-brand-charcoal border-brand-border hover:border-brand-rose'
-          }`;
-
-          const dayLabel = (i === 0) ? 'Hoy' : (i === 1 ? 'Mañana' : daysOfWeek[d.getDay()]);
-          
-          btn.innerHTML = `
-            <span class="text-[11px] uppercase tracking-wider font-semibold ${isSelected ? 'text-brand-blush' : 'text-brand-muted'}">${dayLabel}</span>
-            <span class="text-xl font-bold font-serif-title my-0.5 leading-none">${d.getDate()}</span>
-            <span class="text-[10px] ${isSelected ? 'text-brand-blush' : 'text-brand-muted'}">${months[d.getMonth()]}</span>
-          `;
-
-          btn.onclick = () => {
-            this.selectedDate = iso;
-            this.renderDayStrip();
-            this.renderClasses();
-          };
-
-          container.appendChild(btn);
-        }
-
-        // Update headings
-        const todayIso = formatDateIso(today);
-        const heading = document.getElementById('selected-date-heading');
-        const subheading = document.getElementById('selected-date-subheading');
-        
-        if (this.selectedDate === todayIso) {
-          heading.textContent = 'Clases para Hoy';
+      quickLogin(type) {
+        if (type === 'admin') {
+          let adm = this.users.find(u => u.username === 'Admin');
+          if (!adm) {
+            adm = { username: 'Admin', password: 'Admin', role: 'admin', credits: 99 };
+            this.users.push(adm);
+          }
+          this.currentUser = adm;
         } else {
-          heading.textContent = `Clases para el ${formatPrettyDate(this.selectedDate)}`;
+          let usr = this.users.find(u => u.username === 'user');
+          if (!usr) {
+            usr = { username: 'user', password: 'user', role: 'user', credits: 5 };
+            this.users.push(usr);
+          }
+          this.currentUser = usr;
         }
-        subheading.textContent = `Mostrando sesiones disponibles para el día seleccionado.`;
-      }
+        this.saveAll();
+        this.updateAuthUI();
+        this.renderClasses();
+        this.renderMyBookings();
+        this.showToast(`Conectado en modo ${this.currentUser.role === 'admin' ? 'Administrador' : 'Alumno'}`, 'success');
+      },
 
-      populateInstructorFilter() {
-        this.populateInstructorSelects();
-      }
+      updateAuthUI() {
+        const container = document.getElementById('auth-header-container');
+        const adminNav = document.getElementById('nav-btn-admin');
+        const mobileAdminNav = document.getElementById('mobile-nav-admin');
+        const adminAddClassBtn = document.getElementById('admin-add-class-btn');
+
+        if (this.currentUser) {
+          const isAdmin = this.currentUser.role === 'admin';
+          if (isAdmin) {
+            adminNav.classList.remove('hidden');
+            mobileAdminNav.classList.remove('hidden');
+            adminAddClassBtn.classList.remove('hidden');
+          } else {
+            adminNav.classList.add('hidden');
+            mobileAdminNav.classList.add('hidden');
+            adminAddClassBtn.classList.add('hidden');
+            if (this.activeTab === 'admin') this.setTab('schedule');
+          }
+
+          // Balance badge
+          const creditLabel = isAdmin ? 'Admin' : `✨ ${this.currentUser.credits || 0} créditos`;
+
+          container.innerHTML = `
+            <div class="flex items-center space-x-2">
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${isAdmin ? 'bg-amber-100 text-amber-900 border border-amber-300' : 'bg-brand-sand text-brand-charcoal border border-brand-border'}">
+                ${creditLabel}
+              </span>
+              <div class="hidden sm:flex flex-col text-right">
+                <span class="text-xs font-semibold text-brand-charcoal">${this.currentUser.username}</span>
+                <span class="text-[10px] text-brand-muted uppercase">${this.currentUser.role}</span>
+              </div>
+              <button onclick="app.logout()" title="Cerrar sesión" class="p-2 rounded-xl text-brand-muted hover:text-brand-charcoal hover:bg-brand-sand transition-all">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                </svg>
+              </button>
+            </div>
+          `;
+        } else {
+          adminNav.classList.add('hidden');
+          mobileAdminNav.classList.add('hidden');
+          adminAddClassBtn.classList.add('hidden');
+
+          container.innerHTML = `
+            <div class="flex items-center space-x-2">
+              <button onclick="app.quickLogin('user')" class="hidden sm:inline-block px-2.5 py-1.5 text-[11px] font-medium rounded-lg bg-brand-sand text-brand-charcoal hover:bg-brand-rose/40">
+                Demo Alumno
+              </button>
+              <button onclick="app.quickLogin('admin')" class="hidden sm:inline-block px-2.5 py-1.5 text-[11px] font-semibold rounded-lg bg-amber-100 text-amber-900 hover:bg-amber-200">
+                Demo Admin
+              </button>
+              <button onclick="app.openAuthModal('login')" class="px-4 py-2 text-xs font-semibold rounded-full bg-brand-terracotta text-white hover:bg-brand-terracottaDark shadow-xs transition-all">
+                Acceso
+              </button>
+            </div>
+          `;
+        }
+
+        this.updateUserBookingCounter();
+      },
+
+      updateUserBookingCounter() {
+        let count = 0;
+        if (this.currentUser) {
+          count = this.classes.filter(c => c.students && c.students.includes(this.currentUser.username)).length;
+        }
+        document.getElementById('user-booking-count').textContent = count;
+        document.getElementById('mobile-booking-count').textContent = count;
+
+        const creditBadge = document.getElementById('my-bookings-credit-badge');
+        if (creditBadge) {
+          creditBadge.textContent = this.currentUser ? `✨ ${this.currentUser.credits || 0} Créditos` : 'Inicia Sesión';
+        }
+      },
+
+      setTab(tab) {
+        this.activeTab = tab;
+        const tabs = ['schedule', 'my-bookings', 'admin'];
+        tabs.forEach(t => {
+          const el = document.getElementById(`tab-${t}`);
+          const btn = document.getElementById(`nav-btn-${t}`);
+          const mobBtn = document.getElementById(`mobile-nav-${t}`);
+
+          if (t === tab) {
+            el.classList.remove('hidden');
+            if (btn) {
+              btn.className = 'px-5 py-2 text-xs font-semibold rounded-full transition-all bg-white text-brand-charcoal shadow-xs';
+            }
+            if (mobBtn) {
+              mobBtn.className = 'px-3 py-1.5 rounded-full bg-white shadow-xs font-semibold text-brand-charcoal';
+            }
+          } else {
+            el.classList.add('hidden');
+            if (btn) {
+              btn.className = 'px-5 py-2 text-xs font-semibold rounded-full transition-all text-brand-muted hover:text-brand-charcoal';
+            }
+            if (mobBtn) {
+              mobBtn.className = 'px-3 py-1.5 rounded-full text-brand-muted';
+            }
+          }
+        });
+
+        if (tab === 'schedule') this.renderClasses();
+        if (tab === 'my-bookings') this.renderMyBookings();
+        if (tab === 'admin') this.renderAdminDashboard();
+      },
 
       populateInstructorSelects() {
         const filterSelect = document.getElementById('filter-instructor');
         const editSelect = document.getElementById('edit-instructor');
+        const listContainer = document.getElementById('instructors-pill-list');
 
-        // Actualizar selector de filtro del calendario
+        // Preserve current values if any
+        const currentFilter = filterSelect ? filterSelect.value : 'all';
+        const currentEdit = editSelect ? editSelect.value : '';
+
+        // Filter select
         if (filterSelect) {
-          const currentFilter = filterSelect.value || 'all';
           filterSelect.innerHTML = '<option value="all">Todas las instructoras</option>';
           this.instructors.forEach(inst => {
             const opt = document.createElement('option');
@@ -1269,14 +1127,11 @@
             opt.textContent = inst;
             filterSelect.appendChild(opt);
           });
-          if (this.instructors.includes(currentFilter) || currentFilter === 'all') {
-            filterSelect.value = currentFilter;
-          }
+          filterSelect.value = currentFilter;
         }
 
-        // Actualizar selector del modal de crear / editar clase
+        // Modal edit select
         if (editSelect) {
-          const currentVal = editSelect.value;
           editSelect.innerHTML = '';
           this.instructors.forEach(inst => {
             const opt = document.createElement('option');
@@ -1284,192 +1139,310 @@
             opt.textContent = inst;
             editSelect.appendChild(opt);
           });
-          if (currentVal && this.instructors.includes(currentVal)) {
-            editSelect.value = currentVal;
+          if (currentEdit && this.instructors.includes(currentEdit)) {
+            editSelect.value = currentEdit;
           }
         }
-      }
 
-      toggleNewInstructorInput() {
-        const box = document.getElementById('new-instructor-box');
-        if (box) {
-          box.classList.toggle('hidden');
-          if (!box.classList.contains('hidden')) {
-            const input = document.getElementById('new-instructor-name');
-            if (input) input.focus();
-          }
+        // Pill list in admin section
+        if (listContainer) {
+          listContainer.innerHTML = '';
+          this.instructors.forEach((inst, idx) => {
+            const pill = document.createElement('div');
+            pill.className = 'inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-brand-sand border border-brand-border text-xs text-brand-charcoal';
+            pill.innerHTML = `
+              <span class="w-2 h-2 rounded-full bg-brand-terracotta"></span>
+              <span class="font-medium">${inst}</span>
+              ${this.instructors.length > 1 ? `
+                <button onclick="app.removeInstructor('${inst}')" class="text-brand-muted hover:text-red-600 ml-1">
+                  &times;
+                </button>
+              ` : ''}
+            `;
+            listContainer.appendChild(pill);
+          });
         }
-      }
+      },
 
-      addNewInstructorFromInput() {
-        const input = document.getElementById('new-instructor-name');
-        const name = input ? input.value.trim() : '';
-
-        if (!name) {
-          this.showToast('Por favor escribe el nombre del profesor/a', 'warning');
+      handleAddInstructorFromAdmin() {
+        const input = document.getElementById('new-instructor-input');
+        const name = input.value.trim();
+        if (!name) return;
+        if (this.instructors.includes(name)) {
+          this.showToast('Esta instructora ya existe en la plantilla', 'info');
           return;
         }
-
-        if (this.instructors.some(inst => inst.toLowerCase() === name.toLowerCase())) {
-          this.showToast('Ese profesor/a ya existe en la lista', 'info');
-          return;
-        }
-
         this.instructors.push(name);
         this.saveInstructors();
-        this.populateInstructorSelects();
+        input.value = '';
+        this.showToast(`Instructora "${name}" incorporada con éxito`, 'success');
+      },
 
-        const editSelect = document.getElementById('edit-instructor');
-        if (editSelect) editSelect.value = name;
+      removeInstructor(name) {
+        if (this.instructors.length <= 1) {
+          this.showToast('Debe haber al menos una instructora en el estudio', 'error');
+          return;
+        }
+        this.showConfirm(
+          'Eliminar instructora',
+          `¿Deseas retirar a ${name} de la plantilla activa? Las clases existentes conservarán su registro.`,
+          () => {
+            this.instructors = this.instructors.filter(i => i !== name);
+            this.saveInstructors();
+            this.showToast(`Instructora eliminada`, 'info');
+          }
+        );
+      },
 
-        if (input) input.value = '';
-        this.toggleNewInstructorInput();
-        this.showToast(`Profesor/a "${name}" añadido a la plantilla`, 'success');
-      }
+      toggleQuickAddInstructor() {
+        const box = document.getElementById('quick-add-instructor-box');
+        box.classList.toggle('hidden');
+      },
 
-      renderClasses() {
-        const container = document.getElementById('classes-list-container');
-        const emptyState = document.getElementById('no-classes-message');
+      handleSaveQuickInstructor() {
+        const input = document.getElementById('quick-instructor-name');
+        const name = input.value.trim();
+        if (!name) return;
+        if (!this.instructors.includes(name)) {
+          this.instructors.push(name);
+          this.saveInstructors();
+          document.getElementById('edit-instructor').value = name;
+        }
+        input.value = '';
+        document.getElementById('quick-add-instructor-box').classList.add('hidden');
+        this.showToast(`Instructora ${name} agregada`, 'success');
+      },
+
+      renderDateStrip() {
+        const container = document.getElementById('date-strip-container');
+        if (!container) return;
         container.innerHTML = '';
 
-        const filterLevel = document.getElementById('filter-level').value;
-        const filterInstructor = document.getElementById('filter-instructor').value;
+        const days = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+        const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
 
-        // Filter classes
-        const filtered = this.classes.filter(c => {
-          const dateMatch = c.date === this.selectedDate;
-          const levelMatch = filterLevel === 'all' || c.level === filterLevel;
-          const instructorMatch = filterInstructor === 'all' || c.instructor === filterInstructor;
-          return dateMatch && levelMatch && instructorMatch;
-        });
+        // Show 14 days starting from selected date or today
+        const start = new Date(this.selectedDate + 'T00:00:00');
+        const stripStart = new Date(start);
+        stripStart.setDate(stripStart.getDate() - 1); // include day before for perspective
+
+        for (let i = 0; i < 10; i++) {
+          const current = new Date(stripStart);
+          current.setDate(current.getDate() + i);
+          const dateStr = formatDateIso(current);
+          const isSelected = dateStr === this.selectedDate;
+
+          const dayName = days[current.getDay()];
+          const dayNum = current.getDate();
+          const monthName = months[current.getMonth()];
+
+          // Count classes for badge
+          const count = this.classes.filter(c => c.date === dateStr).length;
+
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.onclick = () => {
+            this.selectedDate = dateStr;
+            this.renderDateStrip();
+            this.renderClasses();
+          };
+
+          btn.className = `flex-shrink-0 flex flex-col items-center justify-center w-16 py-3 px-2 rounded-2xl border transition-all ${
+            isSelected 
+              ? 'bg-brand-charcoal text-white border-brand-charcoal shadow-sm' 
+              : 'bg-white hover:bg-brand-sand/50 text-brand-charcoal border-brand-border'
+          }`;
+
+          btn.innerHTML = `
+            <span class="text-[10px] uppercase font-semibold ${isSelected ? 'text-brand-rose' : 'text-brand-muted'}">${dayName}</span>
+            <span class="text-xl font-serif-title font-bold leading-tight my-0.5">${dayNum}</span>
+            <span class="text-[9px] ${isSelected ? 'text-gray-300' : 'text-brand-muted'}">${monthName}</span>
+            ${count > 0 ? `
+              <span class="mt-1 w-1.5 h-1.5 rounded-full ${isSelected ? 'bg-brand-rose' : 'bg-brand-terracotta'}"></span>
+            ` : `<span class="mt-1 w-1.5 h-1.5"></span>`}
+          `;
+
+          container.appendChild(btn);
+        }
+
+        // Title text
+        const curr = new Date(this.selectedDate + 'T00:00:00');
+        document.getElementById('current-selected-date-title').textContent = `${days[curr.getDay()]}, ${curr.getDate()} de ${months[curr.getMonth()]}`;
+      },
+
+      renderClasses() {
+        const grid = document.getElementById('classes-grid');
+        const emptyState = document.getElementById('no-classes-state');
+        const badge = document.getElementById('classes-count-badge');
+        if (!grid) return;
+
+        const instructorFilter = document.getElementById('filter-instructor')?.value || 'all';
+        const typeFilter = document.getElementById('filter-type')?.value || 'all';
+
+        let filtered = this.classes.filter(c => c.date === this.selectedDate);
+
+        if (instructorFilter !== 'all') {
+          filtered = filtered.filter(c => c.instructor === instructorFilter);
+        }
+        if (typeFilter !== 'all') {
+          filtered = filtered.filter(c => c.type === typeFilter);
+        }
 
         // Sort by time
         filtered.sort((a, b) => a.time.localeCompare(b.time));
 
+        badge.textContent = `${filtered.length} ${filtered.length === 1 ? 'sesión' : 'sesiones'}`;
+
         if (filtered.length === 0) {
+          grid.innerHTML = '';
           emptyState.classList.remove('hidden');
           return;
-        } else {
-          emptyState.classList.add('hidden');
         }
+
+        emptyState.classList.add('hidden');
+        grid.innerHTML = '';
+
+        const currentUser = this.currentUser;
+        const isAdmin = currentUser && currentUser.role === 'admin';
 
         filtered.forEach(cls => {
-          const totalBooked = cls.attendees.length;
-          const spotsLeft = Math.max(0, cls.capacity - totalBooked);
-          const isFull = spotsLeft <= 0;
-          const isUserBooked = this.currentUser && cls.attendees.includes(this.currentUser.id);
-          const occupancyPercent = Math.min(100, Math.round((totalBooked / cls.capacity) * 100));
+          const bookedCount = cls.students ? cls.students.length : 0;
+          const isFull = bookedCount >= cls.capacity;
+          const isBooked = currentUser && cls.students && cls.students.includes(currentUser.username);
+          const percent = Math.min(100, Math.round((bookedCount / cls.capacity) * 100));
 
           const card = document.createElement('div');
-          card.className = 'bg-white rounded-3xl p-6 border border-brand-border hover:border-brand-rose/60 transition-all shadow-xs flex flex-col justify-between';
+          card.className = 'group relative flex flex-col justify-between bg-white rounded-2xl p-5 border border-brand-border shadow-xs hover:shadow-md transition-all';
 
-          // Level badge color
-          let levelBadgeColor = 'bg-brand-sand text-brand-charcoal';
-          if (cls.level === 'Iniciación') levelBadgeColor = 'bg-[#EEF7F2] text-[#2C6E49]';
-          if (cls.level === 'Intermedio') levelBadgeColor = 'bg-[#FDF6E2] text-[#8D6B19]';
-          if (cls.level === 'Avanzado') levelBadgeColor = 'bg-brand-blush text-brand-terracotta';
-
+          // Card markup
           card.innerHTML = `
             <div>
-              <!-- Top Row: Time, Room & Level -->
-              <div class="flex items-center justify-between gap-2 mb-3">
-                <div class="flex items-center space-x-2">
-                  <span class="text-xl font-bold font-serif-title text-brand-charcoal">${cls.time}</span>
-                  <span class="text-xs text-brand-muted">(${cls.duration} min)</span>
-                </div>
+              <!-- Header & Tag -->
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-semibold tracking-wide uppercase bg-brand-sand text-brand-charcoal">
+                  ${cls.type}
+                </span>
+                <span class="inline-flex items-center text-xs font-bold text-brand-terracotta">
+                  ✨ ${cls.creditsCost || 1} ${(cls.creditsCost || 1) === 1 ? 'crédito' : 'créditos'}
+                </span>
+              </div>
+
+              <!-- Title & Instructor -->
+              <h4 class="text-xl font-serif-title font-semibold text-brand-charcoal group-hover:text-brand-terracotta transition-colors">
+                ${cls.title}
+              </h4>
+              <p class="text-xs text-brand-muted mt-0.5">
+                Con <span class="font-medium text-brand-charcoal">${cls.instructor}</span>
+              </p>
+
+              <!-- Time, Duration & Room -->
+              <div class="mt-4 pt-3 border-t border-brand-border/60 flex items-center justify-between text-xs text-brand-charcoal">
                 <div class="flex items-center space-x-1.5">
-                  <span class="text-[11px] font-semibold px-2.5 py-1 rounded-full ${levelBadgeColor}">
-                    ${cls.level}
-                  </span>
+                  <svg class="w-4 h-4 text-brand-terracotta" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" stroke-width="1.8"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 6v6l4 2"/>
+                  </svg>
+                  <span class="font-semibold">${cls.time}</span>
+                  <span class="text-brand-muted">(${cls.duration} min)</span>
+                </div>
+                <div class="text-[11px] text-brand-muted truncate max-w-[130px]">
+                  📍 ${cls.room}
                 </div>
               </div>
 
-              <!-- Title & Description -->
-              <h3 class="text-lg font-serif-title font-semibold text-brand-charcoal leading-snug mb-1">${cls.title}</h3>
-              <p class="text-xs text-brand-muted line-clamp-2 mb-4">${cls.description || 'Sesión de barre diseñada para fuerza isométrica y flexibilidad.'}</p>
-
-              <!-- Instructor & Room Details -->
-              <div class="flex items-center justify-between text-xs text-brand-charcoal py-2.5 px-3 bg-brand-cream/60 rounded-xl mb-4 border border-brand-border/60">
-                <div class="flex items-center space-x-2">
-                  <div class="w-6 h-6 rounded-full bg-brand-terracotta/20 text-brand-terracotta font-serif font-bold flex items-center justify-center text-[11px]">
-                    ${cls.instructor.charAt(0)}
-                  </div>
-                  <span class="font-medium">${cls.instructor}</span>
-                </div>
-                <span class="text-[11px] text-brand-muted font-medium">${cls.room}</span>
-              </div>
-
-              <!-- Capacity & Spots Bar -->
-              <div class="space-y-1.5 mb-5">
-                <div class="flex items-center justify-between text-xs">
-                  <span class="font-medium ${isFull ? 'text-rose-600 font-semibold' : 'text-brand-muted'}">
-                    ${isFull ? 'Clase Completa' : `${spotsLeft} ${spotsLeft === 1 ? 'plaza disponible' : 'plazas disponibles'}`}
+              <!-- Capacity Bar -->
+              <div class="mt-4">
+                <div class="flex items-center justify-between text-[11px] mb-1">
+                  <span class="text-brand-muted">Ocupación de barra:</span>
+                  <span class="font-semibold ${isFull ? 'text-red-600' : 'text-brand-charcoal'}">
+                    ${bookedCount} / ${cls.capacity} plazas
                   </span>
-                  <span class="text-brand-muted text-[11px]">${totalBooked} / ${cls.capacity}</span>
                 </div>
                 <div class="w-full h-1.5 bg-brand-sand rounded-full overflow-hidden">
-                  <div class="h-full ${isFull ? 'bg-rose-400' : 'bg-brand-terracotta'} rounded-full transition-all" style="width: ${occupancyPercent}%"></div>
+                  <div class="h-full rounded-full transition-all ${isFull ? 'bg-red-500' : 'bg-brand-terracotta'}" style="width: ${percent}%"></div>
                 </div>
               </div>
             </div>
 
-            <!-- Action Button Area -->
-            <div class="pt-2 border-t border-brand-border/60 flex items-center justify-between gap-2">
-              ${this.renderBookingButton(cls, isUserBooked, isFull)}
-              ${this.currentUser && this.currentUser.role === 'admin' ? `
-                <div class="flex items-center space-x-1">
-                  <button onclick="app.openAttendeesModal('${cls.id}')" title="Ver Alumnos" class="p-2 text-brand-muted hover:text-brand-charcoal rounded-lg hover:bg-brand-sand">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                  </button>
-                  <button onclick="app.editClass('${cls.id}')" title="Editar Clase" class="p-2 text-brand-muted hover:text-brand-charcoal rounded-lg hover:bg-brand-sand">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-                  </button>
-                </div>
-              ` : ''}
+            <!-- Card Actions -->
+            <div class="mt-5 pt-4 border-t border-brand-border/60 space-y-2">
+              ${this.renderCardButtons(cls, isBooked, isFull, isAdmin)}
             </div>
           `;
 
-          container.appendChild(card);
+          grid.appendChild(card);
         });
-      }
+      },
 
-      renderBookingButton(cls, isUserBooked, isFull) {
+      renderCardButtons(cls, isBooked, isFull, isAdmin) {
+        let studentBtn = '';
+
         if (!this.currentUser) {
-          return `
-            <button onclick="app.openAuthModal('login')" class="w-full py-2.5 px-4 bg-brand-charcoal text-white rounded-xl text-xs font-semibold hover:bg-black transition-colors">
-              Iniciar Sesión para Reservar
+          studentBtn = `
+            <button onclick="app.openAuthModal('login')" class="w-full py-2.5 rounded-xl bg-brand-sand hover:bg-brand-rose/40 text-brand-charcoal text-xs font-semibold transition-all">
+              Inicia Sesión para Reservar
             </button>
           `;
-        }
-
-        if (isUserBooked) {
-          return `
-            <div class="flex items-center space-x-2 w-full">
-              <span class="inline-flex items-center justify-center flex-1 py-2 px-3 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-xl text-xs font-semibold">
-                <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                Tu Plaza Está Reservada
-              </span>
-              <button onclick="app.cancelBooking('${cls.id}')" title="Cancelar Reserva" class="p-2 text-rose-500 hover:bg-rose-50 rounded-xl border border-rose-200">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+        } else if (isAdmin) {
+          // Admin viewing
+          studentBtn = `
+            <div class="flex items-center space-x-1.5">
+              <button onclick="app.openAttendeesModal('${cls.id}')" class="flex-1 py-2 rounded-xl bg-brand-sand hover:bg-brand-rose/40 text-brand-charcoal text-xs font-medium transition-all">
+                Alumnos (${cls.students ? cls.students.length : 0})
+              </button>
+              <button onclick="app.openClassModal('${cls.id}')" class="p-2 rounded-xl border border-brand-border hover:bg-brand-sand text-brand-muted hover:text-brand-charcoal transition-all" title="Editar">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                </svg>
+              </button>
+              <button onclick="app.deleteClass('${cls.id}')" class="p-2 rounded-xl border border-red-200 hover:bg-red-50 text-red-500 transition-all" title="Eliminar clase">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                </svg>
               </button>
             </div>
           `;
-        }
-
-        if (isFull) {
-          return `
-            <button disabled class="w-full py-2.5 px-4 bg-gray-100 text-gray-400 rounded-xl text-xs font-semibold cursor-not-allowed">
-              Clase Completa
+        } else if (isBooked) {
+          studentBtn = `
+            <div class="flex items-center space-x-2">
+              <span class="flex-1 py-2 text-center rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-semibold flex items-center justify-center space-x-1">
+                <span>✓ Reservada</span>
+              </span>
+              <button onclick="app.cancelBooking('${cls.id}')" class="px-3 py-2 rounded-xl text-xs font-medium text-red-600 hover:bg-red-50 border border-red-200" title="Cancelar plaza">
+                Cancelar
+              </button>
+            </div>
+          `;
+        } else if (isFull) {
+          studentBtn = `
+            <button disabled class="w-full py-2.5 rounded-xl bg-gray-100 text-gray-400 text-xs font-semibold cursor-not-allowed">
+              Plazas Agotadas
             </button>
           `;
+        } else {
+          // Normal booking button
+          const userCredits = this.currentUser.credits || 0;
+          const cost = cls.creditsCost || 1;
+          const hasCredits = userCredits >= cost;
+
+          if (hasCredits) {
+            studentBtn = `
+              <button onclick="app.bookClass('${cls.id}')" class="w-full py-2.5 rounded-xl bg-brand-terracotta hover:bg-brand-terracottaDark text-white text-xs font-semibold shadow-xs transition-all flex items-center justify-center space-x-1.5">
+                <span>Reservar Clase</span>
+                <span class="text-white/80">(${cost} ${cost === 1 ? 'crédito' : 'créditos'})</span>
+              </button>
+            `;
+          } else {
+            studentBtn = `
+              <button onclick="app.showToast('Saldo insuficiente. Solicita una recarga al administrador.', 'error')" class="w-full py-2.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs font-semibold transition-all">
+                Requiere ${cost} créditos (Tienes ${userCredits})
+              </button>
+            `;
+          }
         }
 
-        return `
-          <button onclick="app.bookClass('${cls.id}')" class="w-full py-2.5 px-4 bg-brand-terracotta hover:bg-brand-terracottaHover text-white rounded-xl text-xs font-semibold transition-all shadow-xs flex items-center justify-center space-x-1">
-            <span>Reservar Plaza</span>
-          </button>
-        `;
-      }
+        return studentBtn;
+      },
 
       bookClass(classId) {
         if (!this.currentUser) {
@@ -1480,582 +1453,588 @@
         const cls = this.classes.find(c => c.id === classId);
         if (!cls) return;
 
-        if (cls.attendees.includes(this.currentUser.id)) {
-          this.showToast('Ya estás inscrito/a en esta clase', 'info');
+        if (!cls.students) cls.students = [];
+
+        if (cls.students.includes(this.currentUser.username)) {
+          this.showToast('Ya tienes una plaza reservada en esta sesión', 'info');
           return;
         }
 
-        if (cls.attendees.length >= cls.capacity) {
-          this.showToast('Lo sentimos, la clase ya se ha llenado', 'warning');
+        if (cls.students.length >= cls.capacity) {
+          this.showToast('Lo sentimos, esta clase acaba de completarse', 'error');
           return;
         }
 
-        cls.attendees.push(this.currentUser.id);
-        this.saveClasses();
+        const cost = cls.creditsCost || 1;
+        const user = this.users.find(u => u.username === this.currentUser.username);
+
+        if (!user || user.credits < cost) {
+          this.showToast(`Saldo insuficiente. Esta clase cuesta ${cost} créditos.`, 'error');
+          return;
+        }
+
+        // Deduct credits & enroll
+        user.credits -= cost;
+        cls.students.push(user.username);
+        this.currentUser.credits = user.credits;
+
+        this.saveAll();
         this.updateAuthUI();
         this.renderClasses();
-        if (this.currentTab === 'my-bookings') this.renderMyBookings();
-        this.showToast(`¡Reserva confirmada para ${cls.title}!`, 'success');
-      }
+        this.renderMyBookings();
+        this.showToast(`¡Plaza confirmada en "${cls.title}"! Se descontó ${cost} crédito.`, 'success');
+      },
 
       cancelBooking(classId) {
-        const cls = this.classes.find(c => c.id === classId);
-        if (!cls) return;
+        if (!this.currentUser) return;
 
-        this.confirmAction({
-          title: '¿Cancelar Reserva?',
-          message: `¿Deseas anular tu plaza para "${cls.title}" el ${formatPrettyDate(cls.date)} a las ${cls.time}? Tu cupo quedará libre para otra alumna.`,
-          onConfirm: () => {
-            cls.attendees = cls.attendees.filter(id => id !== this.currentUser.id);
-            this.saveClasses();
+        const cls = this.classes.find(c => c.id === classId);
+        if (!cls || !cls.students) return;
+
+        this.showConfirm(
+          'Cancelar Reserva',
+          `¿Deseas cancelar tu reserva para "${cls.title}"? Se te reembolsará(n) de inmediato ${cls.creditsCost || 1} crédito(s).`,
+          () => {
+            cls.students = cls.students.filter(s => s !== this.currentUser.username);
+            
+            // Refund credit
+            const refund = cls.creditsCost || 1;
+            const user = this.users.find(u => u.username === this.currentUser.username);
+            if (user) {
+              user.credits = (user.credits || 0) + refund;
+              this.currentUser.credits = user.credits;
+            }
+
+            this.saveAll();
             this.updateAuthUI();
             this.renderClasses();
-            if (this.currentTab === 'my-bookings') this.renderMyBookings();
-            this.showToast('Tu reserva ha sido cancelada correctamente', 'info');
+            this.renderMyBookings();
+            this.showToast(`Reserva cancelada y ${refund} crédito(s) reembolsado(s).`, 'info');
           }
-        });
-      }
+        );
+      },
 
       renderMyBookings() {
-        const container = document.getElementById('my-bookings-list');
-        const emptyState = document.getElementById('no-my-bookings');
-        container.innerHTML = '';
+        const container = document.getElementById('my-bookings-container');
+        const emptyState = document.getElementById('empty-my-bookings');
+        if (!container) return;
 
         if (!this.currentUser) {
-          emptyState.classList.remove('hidden');
+          container.innerHTML = `
+            <div class="text-center py-10">
+              <p class="text-xs text-brand-muted mb-3">Inicia sesión para gestionar tus reservas activas.</p>
+              <button onclick="app.openAuthModal('login')" class="px-5 py-2 rounded-full bg-brand-terracotta text-white text-xs font-semibold">Iniciar Sesión</button>
+            </div>
+          `;
+          emptyState.classList.add('hidden');
           return;
         }
 
-        const myClasses = this.classes.filter(c => c.attendees.includes(this.currentUser.id));
+        const myClasses = this.classes.filter(c => c.students && c.students.includes(this.currentUser.username));
+
+        // Sort by date and time
         myClasses.sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
 
         if (myClasses.length === 0) {
+          container.innerHTML = '';
           emptyState.classList.remove('hidden');
           return;
-        } else {
-          emptyState.classList.add('hidden');
         }
 
-        myClasses.forEach(cls => {
-          const card = document.createElement('div');
-          card.className = 'bg-white rounded-3xl p-6 border border-brand-border shadow-xs hover:border-brand-rose transition-all flex flex-col justify-between';
+        emptyState.classList.add('hidden');
+        container.innerHTML = '';
 
-          card.innerHTML = `
-            <div>
-              <div class="flex items-center justify-between text-xs mb-2">
-                <span class="font-semibold text-brand-terracotta">${formatPrettyDate(cls.date)}</span>
-                <span class="px-2.5 py-0.5 rounded-full bg-brand-blush text-brand-charcoal text-[11px] font-medium">${cls.room}</span>
+        myClasses.forEach(cls => {
+          const item = document.createElement('div');
+          item.className = 'flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl border border-brand-border bg-brand-cream/30 hover:bg-white transition-all gap-4';
+
+          item.innerHTML = `
+            <div class="flex items-start space-x-3">
+              <div class="w-10 h-10 rounded-xl bg-brand-sand flex flex-col items-center justify-center text-brand-charcoal flex-shrink-0">
+                <span class="text-[10px] font-bold uppercase leading-none">${cls.date.split('-')[1]}/${cls.date.split('-')[2]}</span>
+                <span class="text-xs font-semibold mt-0.5">${cls.time}</span>
               </div>
-              <h3 class="text-xl font-serif-title font-semibold text-brand-charcoal mb-1">${cls.title}</h3>
-              <p class="text-xs text-brand-muted mb-4">Instructora: <span class="font-semibold text-brand-charcoal">${cls.instructor}</span> • Nivel: ${cls.level}</p>
-              
-              <div class="bg-brand-cream/50 p-3 rounded-2xl border border-brand-border/60 flex items-center space-x-3 mb-4">
-                <div class="w-10 h-10 rounded-xl bg-brand-terracotta/10 text-brand-terracotta flex items-center justify-center font-bold text-sm">
-                  ${cls.time}
+              <div>
+                <div class="flex items-center space-x-2">
+                  <span class="text-xs font-semibold text-brand-charcoal">${cls.title}</span>
+                  <span class="text-[10px] px-2 py-0.5 rounded-full bg-brand-blush text-brand-terracotta font-medium">${cls.type}</span>
                 </div>
-                <div>
-                  <span class="text-xs font-semibold text-brand-charcoal block">Horario Confirmado</span>
-                  <span class="text-[11px] text-brand-muted">Duración: ${cls.duration} minutos</span>
-                </div>
+                <p class="text-[11px] text-brand-muted mt-0.5">
+                  Instructora: <span class="text-brand-charcoal">${cls.instructor}</span> • Sala: ${cls.room}
+                </p>
+                <span class="text-[10px] text-amber-700 font-semibold mt-1 inline-block">
+                  ✨ Coste: ${cls.creditsCost || 1} crédito
+                </span>
               </div>
             </div>
 
-            <div class="flex items-center justify-end space-x-2 pt-3 border-t border-brand-border/60">
-              <button onclick="app.openModifyModal('${cls.id}')" class="px-4 py-2 bg-brand-sand hover:bg-brand-blush text-brand-charcoal text-xs font-semibold rounded-xl transition-colors">
-                Modificar Horario
+            <!-- Modificar & Cancelar -->
+            <div class="flex items-center space-x-2 self-end sm:self-center">
+              <button onclick="app.openChangeClassModal('${cls.id}')" class="px-3 py-1.5 rounded-xl border border-brand-border bg-white hover:bg-brand-sand text-xs font-medium text-brand-charcoal transition-all">
+                Reubicar Clase
               </button>
-              <button onclick="app.cancelBooking('${cls.id}')" class="px-4 py-2 border border-rose-200 text-rose-600 hover:bg-rose-50 text-xs font-semibold rounded-xl transition-colors">
-                Cancelar Clase
+              <button onclick="app.cancelBooking('${cls.id}')" class="px-3 py-1.5 rounded-xl text-xs font-medium text-red-600 hover:bg-red-50 border border-red-200 transition-all">
+                Cancelar
               </button>
             </div>
           `;
 
-          container.appendChild(card);
+          container.appendChild(item);
         });
-      }
+      },
 
-      openModifyModal(classId) {
-        this.targetBookingIdToModify = classId;
-        const currentClass = this.classes.find(c => c.id === classId);
+      openChangeClassModal(currentClassId) {
+        this.changeClassSourceId = currentClassId;
+        const currentClass = this.classes.find(c => c.id === currentClassId);
         if (!currentClass) return;
 
-        document.getElementById('modify-booking-current-info').textContent = 
-          `Reserva actual: ${currentClass.title} (${formatPrettyDate(currentClass.date)} a las ${currentClass.time}). Elige otra sesión disponible para reubicarte:`;
+        document.getElementById('change-class-subtitle').textContent = `Mover tu plaza de "${currentClass.title}" (${currentClass.date} - ${currentClass.time}) a otra sesión.`;
 
-        const container = document.getElementById('modify-booking-alternatives-list');
-        container.innerHTML = '';
+        const optionsContainer = document.getElementById('change-class-options');
+        optionsContainer.innerHTML = '';
 
-        // Alternative classes: must not be the same class, must have spots, must not already have this user
-        const todayIso = formatDateIso(new Date());
+        // Available alternative classes
         const alternatives = this.classes.filter(c => 
-          c.id !== classId && 
-          c.date >= todayIso && 
-          c.attendees.length < c.capacity &&
-          !c.attendees.includes(this.currentUser.id)
+          c.id !== currentClassId && 
+          (!c.students || !c.students.includes(this.currentUser.username)) &&
+          (!c.students || c.students.length < c.capacity)
         );
 
-        alternatives.sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
-
         if (alternatives.length === 0) {
-          container.innerHTML = '<p class="text-xs text-brand-muted text-center py-8">No hay otras clases con cupos disponibles actualmente para realizar el cambio.</p>';
+          optionsContainer.innerHTML = `
+            <div class="p-4 text-center text-xs text-brand-muted">
+              No hay otras clases con plazas libres disponibles en este momento.
+            </div>
+          `;
         } else {
           alternatives.forEach(alt => {
+            const costDiff = (alt.creditsCost || 1) - (currentClass.creditsCost || 1);
+            let diffLabel = '';
+            if (costDiff > 0) diffLabel = `(+${costDiff} crédito req.)`;
+            else if (costDiff < 0) diffLabel = `(${costDiff} reembolso)`;
+            else diffLabel = `(mismo coste)`;
+
             const row = document.createElement('div');
-            row.className = 'p-3 bg-brand-cream/60 hover:bg-brand-blush/60 border border-brand-border rounded-2xl flex items-center justify-between gap-3 transition-colors';
-            
+            row.className = 'flex items-center justify-between p-3 rounded-xl border border-brand-border hover:border-brand-terracotta bg-brand-cream/30 transition-all';
             row.innerHTML = `
               <div>
-                <span class="text-xs font-semibold text-brand-terracotta">${formatPrettyDate(alt.date)} - ${alt.time}</span>
-                <h4 class="text-sm font-serif-title font-semibold text-brand-charcoal">${alt.title}</h4>
-                <p class="text-[11px] text-brand-muted">${alt.instructor} • ${alt.capacity - alt.attendees.length} plazas libres</p>
+                <div class="text-xs font-semibold text-brand-charcoal">${alt.title}</div>
+                <div class="text-[11px] text-brand-muted">
+                  ${alt.date} • ${alt.time} (${alt.duration} min) • Prof: ${alt.instructor}
+                </div>
+                <span class="text-[10px] text-brand-terracotta font-medium">${diffLabel}</span>
               </div>
-              <button onclick="app.executeBookingModification('${alt.id}')" class="px-3.5 py-1.5 bg-brand-terracotta hover:bg-brand-terracottaHover text-white text-xs font-medium rounded-xl transition-all shadow-xs">
-                Mover a esta clase
+              <button onclick="app.confirmChangeClass('${alt.id}')" class="px-3 py-1.5 rounded-lg bg-brand-terracotta text-white text-xs font-semibold hover:bg-brand-terracottaDark">
+                Seleccionar
+              </button>
+            `;
+            optionsContainer.appendChild(row);
+          });
+        }
+
+        this.openModal('modal-change-class');
+      },
+
+      confirmChangeClass(newClassId) {
+        const oldClass = this.classes.find(c => c.id === this.changeClassSourceId);
+        const newClass = this.classes.find(c => c.id === newClassId);
+        if (!oldClass || !newClass || !this.currentUser) return;
+
+        const user = this.users.find(u => u.username === this.currentUser.username);
+        const diff = (newClass.creditsCost || 1) - (oldClass.creditsCost || 1);
+
+        if (diff > 0 && user.credits < diff) {
+          this.showToast(`Necesitas ${diff} crédito adicional para esta clase`, 'error');
+          return;
+        }
+
+        // Adjust credit difference
+        user.credits -= diff;
+        this.currentUser.credits = user.credits;
+
+        // Swap bookings
+        oldClass.students = oldClass.students.filter(s => s !== this.currentUser.username);
+        if (!newClass.students) newClass.students = [];
+        newClass.students.push(this.currentUser.username);
+
+        this.saveAll();
+        this.closeModal('modal-change-class');
+        this.updateAuthUI();
+        this.renderClasses();
+        this.renderMyBookings();
+        this.showToast(`Tu clase ha sido reubicada a "${newClass.title}" con éxito.`, 'success');
+      },
+
+      renderAdminDashboard() {
+        if (!this.currentUser || this.currentUser.role !== 'admin') return;
+
+        this.updateKPIs();
+        this.populateInstructorSelects();
+
+        const tableBody = document.getElementById('admin-users-table-body');
+        if (!tableBody) return;
+        tableBody.innerHTML = '';
+
+        this.users.forEach(usr => {
+          const userBookings = this.classes.filter(c => c.students && c.students.includes(usr.username)).length;
+          const tr = document.createElement('tr');
+          tr.className = 'hover:bg-brand-sand/30 transition-all';
+
+          tr.innerHTML = `
+            <td class="py-3 px-4 font-semibold text-brand-charcoal">${usr.username}</td>
+            <td class="py-3 px-4">
+              <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold ${usr.role === 'admin' ? 'bg-amber-100 text-amber-800' : 'bg-brand-sand text-brand-charcoal'}">
+                ${usr.role}
+              </span>
+            </td>
+            <td class="py-3 px-4 font-bold text-brand-terracotta">
+              ✨ ${usr.credits !== undefined ? usr.credits : 0}
+            </td>
+            <td class="py-3 px-4 text-brand-muted">${userBookings} clases</td>
+            <td class="py-3 px-4 text-right">
+              <button onclick="app.openRechargeModal('${usr.username}')" class="px-2.5 py-1 text-xs font-semibold rounded-lg bg-brand-terracotta text-white hover:bg-brand-terracottaDark transition-all">
+                + Recargar
+              </button>
+            </td>
+          `;
+
+          tableBody.appendChild(tr);
+        });
+      },
+
+      updateKPIs() {
+        const totalClasses = this.classes.length;
+        let totalReservations = 0;
+        this.classes.forEach(c => {
+          if (c.students) totalReservations += c.students.length;
+        });
+        const totalUsers = this.users.length;
+        let totalCredits = 0;
+        this.users.forEach(u => {
+          totalCredits += (u.credits || 0);
+        });
+
+        const kpiClasses = document.getElementById('kpi-total-classes');
+        const kpiRes = document.getElementById('kpi-total-reservations');
+        const kpiUsers = document.getElementById('kpi-total-users');
+        const kpiCredits = document.getElementById('kpi-total-credits');
+
+        if (kpiClasses) kpiClasses.textContent = totalClasses;
+        if (kpiRes) kpiRes.textContent = totalReservations;
+        if (kpiUsers) kpiUsers.textContent = totalUsers;
+        if (kpiCredits) kpiCredits.textContent = totalCredits;
+      },
+
+      openRechargeModal(username) {
+        this.rechargeTargetUser = username;
+        document.getElementById('recharge-user-target').textContent = username;
+        document.getElementById('recharge-amount-input').value = 5;
+        this.openModal('modal-recharge');
+      },
+
+      quickAddRecharge(amt) {
+        document.getElementById('recharge-amount-input').value = amt;
+      },
+
+      confirmRechargeSubmit() {
+        const amt = parseInt(document.getElementById('recharge-amount-input').value, 10);
+        if (isNaN(amt) || amt <= 0) {
+          this.showToast('Por favor introduce una cantidad válida', 'error');
+          return;
+        }
+
+        const user = this.users.find(u => u.username === this.rechargeTargetUser);
+        if (!user) return;
+
+        user.credits = (user.credits || 0) + amt;
+
+        if (this.currentUser && this.currentUser.username === user.username) {
+          this.currentUser.credits = user.credits;
+        }
+
+        this.saveAll();
+        this.closeModal('modal-recharge');
+        this.updateAuthUI();
+        this.renderAdminDashboard();
+        this.showToast(`Se han añadido +${amt} créditos a ${user.username}`, 'success');
+      },
+
+      openClassModal(classId = null) {
+        this.populateInstructorSelects();
+        const form = document.getElementById('class-form');
+        form.reset();
+
+        document.getElementById('quick-add-instructor-box').classList.add('hidden');
+
+        if (classId) {
+          const cls = this.classes.find(c => c.id === classId);
+          if (!cls) return;
+          document.getElementById('class-modal-title').textContent = 'Editar Sesión';
+          document.getElementById('edit-class-id').value = cls.id;
+          document.getElementById('edit-title').value = cls.title;
+          document.getElementById('edit-type').value = cls.type;
+          document.getElementById('edit-instructor').value = cls.instructor;
+          document.getElementById('edit-date').value = cls.date;
+          document.getElementById('edit-time').value = cls.time;
+          document.getElementById('edit-duration').value = cls.duration;
+          document.getElementById('edit-capacity').value = cls.capacity;
+          document.getElementById('edit-credits').value = cls.creditsCost || 1;
+          document.getElementById('edit-room').value = cls.room;
+        } else {
+          document.getElementById('class-modal-title').textContent = 'Programar Nueva Sesión';
+          document.getElementById('edit-class-id').value = '';
+          document.getElementById('edit-date').value = this.selectedDate;
+          document.getElementById('edit-time').value = '09:00';
+          document.getElementById('edit-duration').value = 50;
+          document.getElementById('edit-capacity').value = 12;
+          document.getElementById('edit-credits').value = 1;
+        }
+
+        this.openModal('modal-class-form');
+      },
+
+      handleClassFormSubmit(event) {
+        event.preventDefault();
+        const id = document.getElementById('edit-class-id').value;
+        const title = document.getElementById('edit-title').value.trim();
+        const type = document.getElementById('edit-type').value;
+        const instructor = document.getElementById('edit-instructor').value;
+        const date = document.getElementById('edit-date').value;
+        const time = document.getElementById('edit-time').value;
+        const duration = parseInt(document.getElementById('edit-duration').value, 10);
+        const capacity = parseInt(document.getElementById('edit-capacity').value, 10);
+        const creditsCost = parseInt(document.getElementById('edit-credits').value, 10) || 1;
+        const room = document.getElementById('edit-room').value;
+
+        if (id) {
+          // Edit existing class
+          const cls = this.classes.find(c => c.id === id);
+          if (cls) {
+            cls.title = title;
+            cls.type = type;
+            cls.instructor = instructor;
+            cls.date = date;
+            cls.time = time;
+            cls.duration = duration;
+            cls.capacity = capacity;
+            cls.creditsCost = creditsCost;
+            cls.room = room;
+            this.showToast('Sesión actualizada correctamente', 'success');
+          }
+        } else {
+          // Create new class
+          const newClass = {
+            id: 'cls_' + Date.now(),
+            title,
+            type,
+            instructor,
+            date,
+            time,
+            duration,
+            capacity,
+            creditsCost,
+            room,
+            students: []
+          };
+          this.classes.push(newClass);
+          this.showToast('Nueva sesión de Barre añadida al horario', 'success');
+        }
+
+        this.saveAll();
+        this.closeModal('modal-class-form');
+        this.renderDateStrip();
+        this.renderClasses();
+        this.updateKPIs();
+      },
+
+      deleteClass(classId) {
+        const cls = this.classes.find(c => c.id === classId);
+        if (!cls) return;
+
+        this.showConfirm(
+          'Eliminar Clase',
+          `¿Seguro/a que deseas eliminar permanentemente "${cls.title}"? Si hay alumnos inscritos se les reembolsará su crédito automáticamente.`,
+          () => {
+            // Refund enrolled students
+            if (cls.students && cls.students.length > 0) {
+              const refund = cls.creditsCost || 1;
+              cls.students.forEach(studentUsername => {
+                const u = this.users.find(usr => usr.username === studentUsername);
+                if (u) u.credits = (u.credits || 0) + refund;
+              });
+            }
+
+            this.classes = this.classes.filter(c => c.id !== classId);
+            this.saveAll();
+            this.updateAuthUI();
+            this.renderClasses();
+            this.updateKPIs();
+            this.showToast('Clase eliminada del horario', 'info');
+          }
+        );
+      },
+
+      openAttendeesModal(classId) {
+        const cls = this.classes.find(c => c.id === classId);
+        if (!cls) return;
+
+        document.getElementById('attendees-modal-sub').textContent = `${cls.title} • ${cls.date} - ${cls.time}`;
+        
+        // Manual student select dropdown
+        const select = document.getElementById('manual-student-select');
+        select.innerHTML = '';
+        this.users.filter(u => u.role !== 'admin' && (!cls.students || !cls.students.includes(u.username))).forEach(u => {
+          const opt = document.createElement('option');
+          opt.value = u.username;
+          opt.textContent = `${u.username} (Saldo: ${u.credits || 0} cr)`;
+          select.appendChild(opt);
+        });
+
+        // Store class ID on select element for reference
+        select.dataset.classId = classId;
+
+        const container = document.getElementById('attendees-list-container');
+        container.innerHTML = '';
+
+        if (!cls.students || cls.students.length === 0) {
+          container.innerHTML = '<div class="py-6 text-center text-xs text-brand-muted">No hay alumnos inscritos en esta clase aún.</div>';
+        } else {
+          cls.students.forEach(st => {
+            const row = document.createElement('div');
+            row.className = 'flex items-center justify-between py-2 text-xs';
+            row.innerHTML = `
+              <div class="flex items-center space-x-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <span class="font-semibold text-brand-charcoal">${st}</span>
+              </div>
+              <button onclick="app.removeAttendee('${classId}', '${st}')" class="text-[11px] text-red-500 hover:text-red-700">
+                Retirar & Reembolsar
               </button>
             `;
             container.appendChild(row);
           });
         }
 
-        this.openModal('modal-modify-booking');
-      }
-
-      executeBookingModification(newClassId) {
-        const oldClass = this.classes.find(c => c.id === this.targetBookingIdToModify);
-        const newClass = this.classes.find(c => c.id === newClassId);
-
-        if (!oldClass || !newClass || !this.currentUser) return;
-
-        if (newClass.attendees.length >= newClass.capacity) {
-          this.showToast('Esa clase acaba de completarse. Por favor elige otra.', 'warning');
-          return;
-        }
-
-        // Atomic swap
-        oldClass.attendees = oldClass.attendees.filter(id => id !== this.currentUser.id);
-        newClass.attendees.push(this.currentUser.id);
-
-        this.saveClasses();
-        this.closeModal('modal-modify-booking');
-        this.updateAuthUI();
-        this.renderMyBookings();
-        this.renderClasses();
-        this.showToast(`Tu reserva se movió exitosamente a ${newClass.title} (${newClass.time})`, 'success');
-      }
-
-      renderAdminView() {
-        if (!this.currentUser || this.currentUser.role !== 'admin') return;
-
-        // Calculate statistics
-        const totalClasses = this.classes.length;
-        let totalBookings = 0;
-        let totalCapacity = 0;
-
-        this.classes.forEach(c => {
-          totalBookings += c.attendees.length;
-          totalCapacity += c.capacity;
-        });
-
-        const avgOccupancy = totalCapacity > 0 ? Math.round((totalBookings / totalCapacity) * 100) : 0;
-        const totalUsers = this.users.length;
-
-        document.getElementById('stat-total-classes').textContent = totalClasses;
-        document.getElementById('stat-total-bookings').textContent = totalBookings;
-        document.getElementById('stat-occupancy-rate').textContent = `${avgOccupancy}%`;
-        document.getElementById('stat-total-users').textContent = totalUsers;
-
-        if (this.adminSubTab === 'classes') {
-          this.renderAdminClassesTable();
-        } else {
-          this.renderAdminUsersTable();
-        }
-      }
-
-      renderAdminClassesTable() {
-        const tbody = document.getElementById('admin-classes-tbody');
-        tbody.innerHTML = '';
-
-        const sorted = [...this.classes].sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
-
-        sorted.forEach(cls => {
-          const tr = document.createElement('tr');
-          tr.className = 'hover:bg-brand-cream/40 transition-colors';
-
-          const spotsLeft = cls.capacity - cls.attendees.length;
-
-          tr.innerHTML = `
-            <td class="px-5 py-4">
-              <span class="font-semibold text-brand-charcoal block">${cls.title}</span>
-              <span class="text-xs text-brand-muted">${cls.level} • ${cls.duration} min</span>
-            </td>
-            <td class="px-5 py-4 whitespace-nowrap">
-              <span class="font-medium block">${cls.date}</span>
-              <span class="text-xs text-brand-terracotta font-semibold">${cls.time} h</span>
-            </td>
-            <td class="px-5 py-4">
-              <span class="font-medium text-brand-charcoal block">${cls.instructor}</span>
-              <span class="text-xs text-brand-muted">${cls.room}</span>
-            </td>
-            <td class="px-5 py-4 whitespace-nowrap">
-              <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold ${
-                spotsLeft === 0 ? 'bg-rose-100 text-rose-800' : 'bg-brand-sand text-brand-charcoal'
-              }">
-                ${cls.attendees.length} / ${cls.capacity} (${spotsLeft} libres)
-              </span>
-            </td>
-            <td class="px-5 py-4 text-right whitespace-nowrap">
-              <button onclick="app.openAttendeesModal('${cls.id}')" class="text-xs px-2.5 py-1.5 bg-brand-blush hover:bg-brand-rose/40 text-brand-charcoal font-semibold rounded-lg mr-1 transition-colors">
-                Alumnos (${cls.attendees.length})
-              </button>
-              <button onclick="app.editClass('${cls.id}')" class="text-xs px-2.5 py-1.5 bg-brand-sand hover:bg-brand-border text-brand-charcoal font-medium rounded-lg mr-1 transition-colors">
-                Editar
-              </button>
-              <button onclick="app.deleteClass('${cls.id}')" class="text-xs px-2.5 py-1.5 border border-rose-200 text-rose-600 hover:bg-rose-50 font-medium rounded-lg transition-colors">
-                Borrar
-              </button>
-            </td>
-          `;
-
-          tbody.appendChild(tr);
-        });
-      }
-
-      renderAdminUsersTable() {
-        const tbody = document.getElementById('admin-users-tbody');
-        tbody.innerHTML = '';
-
-        this.users.forEach(u => {
-          const userBookings = this.classes.filter(c => c.attendees.includes(u.id));
-          const tr = document.createElement('tr');
-          tr.className = 'hover:bg-brand-cream/40 transition-colors';
-
-          tr.innerHTML = `
-            <td class="px-5 py-4">
-              <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 rounded-full bg-brand-blush border border-brand-rose flex items-center justify-center font-bold text-xs text-brand-terracotta">
-                  ${u.username.charAt(0).toUpperCase()}
-                </div>
-                <div>
-                  <span class="font-semibold text-brand-charcoal block">${u.username}</span>
-                  <span class="text-xs text-brand-muted">Alta: ${u.createdAt || 'Inicial'}</span>
-                </div>
-              </div>
-            </td>
-            <td class="px-5 py-4">
-              <span class="px-2.5 py-1 text-xs rounded-full font-semibold ${
-                u.role === 'admin' ? 'bg-brand-charcoal text-white' : 'bg-brand-sand text-brand-charcoal'
-              }">
-                ${u.role}
-              </span>
-            </td>
-            <td class="px-5 py-4 font-semibold text-brand-terracotta">
-              ${userBookings.length} reservas activas
-            </td>
-            <td class="px-5 py-4 text-right text-xs text-brand-muted font-mono">
-              ${u.id}
-            </td>
-          `;
-
-          tbody.appendChild(tr);
-        });
-      }
-
-      openClassModal(cls = null) {
-        const form = document.getElementById('class-editor-form');
-        form.reset();
-
-        const newBox = document.getElementById('new-instructor-box');
-        if (newBox) newBox.classList.add('hidden');
-
-        this.populateInstructorSelects();
-
-        const titleHeader = document.getElementById('class-editor-title');
-        const idInput = document.getElementById('edit-class-id');
-        const instructorSelect = document.getElementById('edit-instructor');
-
-        if (cls) {
-          titleHeader.textContent = 'Editar Clase';
-          idInput.value = cls.id;
-          document.getElementById('edit-title').value = cls.title;
-
-          // Si el instructor no está en el listado, agregarlo
-          if (cls.instructor && !this.instructors.includes(cls.instructor)) {
-            this.instructors.push(cls.instructor);
-            this.saveInstructors();
-            this.populateInstructorSelects();
-          }
-          if (instructorSelect) instructorSelect.value = cls.instructor;
-
-          document.getElementById('edit-room').value = cls.room;
-          document.getElementById('edit-date').value = cls.date;
-          document.getElementById('edit-time').value = cls.time;
-          document.getElementById('edit-duration').value = cls.duration;
-          document.getElementById('edit-capacity').value = cls.capacity;
-          document.getElementById('edit-level').value = cls.level;
-          document.getElementById('edit-description').value = cls.description || '';
-        } else {
-          titleHeader.textContent = 'Crear Nueva Clase';
-          idInput.value = '';
-          if (instructorSelect && this.instructors.length > 0) {
-            instructorSelect.value = this.instructors[0];
-          }
-          document.getElementById('edit-date').value = this.selectedDate;
-          document.getElementById('edit-time').value = '10:00';
-          document.getElementById('edit-duration').value = '50';
-          document.getElementById('edit-capacity').value = '12';
-        }
-
-        this.openModal('modal-class-editor');
-      }
-
-      editClass(classId) {
-        const cls = this.classes.find(c => c.id === classId);
-        if (cls) this.openClassModal(cls);
-      }
-
-      handleSaveClass(e) {
-        e.preventDefault();
-        const id = document.getElementById('edit-class-id').value;
-        const title = document.getElementById('edit-title').value.trim();
-        const instructor = document.getElementById('edit-instructor').value.trim();
-        const room = document.getElementById('edit-room').value;
-        const date = document.getElementById('edit-date').value;
-        const time = document.getElementById('edit-time').value;
-        const duration = parseInt(document.getElementById('edit-duration').value, 10);
-        const capacity = parseInt(document.getElementById('edit-capacity').value, 10);
-        const level = document.getElementById('edit-level').value;
-        const description = document.getElementById('edit-description').value.trim();
-
-        if (id) {
-          // Update existing
-          const cls = this.classes.find(c => c.id === id);
-          if (cls) {
-            cls.title = title;
-            cls.instructor = instructor;
-            cls.room = room;
-            cls.date = date;
-            cls.time = time;
-            cls.duration = duration;
-            cls.capacity = capacity;
-            cls.level = level;
-            cls.description = description;
-            this.showToast('Clase actualizada correctamente', 'success');
-          }
-        } else {
-          // Create new
-          const newClass = {
-            id: 'cls_' + Date.now(),
-            title,
-            instructor,
-            room,
-            date,
-            time,
-            duration,
-            capacity,
-            level,
-            description,
-            attendees: []
-          };
-          this.classes.push(newClass);
-          this.showToast('Nueva clase programada en el calendario', 'success');
-        }
-
-        this.saveClasses();
-        this.populateInstructorFilter();
-        this.closeModal('modal-class-editor');
-        this.renderClasses();
-        if (this.currentTab === 'admin') this.renderAdminView();
-      }
-
-      deleteClass(classId) {
-        const cls = this.classes.find(c => c.id === classId);
-        if (!cls) return;
-
-        this.confirmAction({
-          title: '¿Eliminar Clase?',
-          message: `¿Estás segura/o de borrar la clase "${cls.title}" del ${cls.date}? Se cancelarán todas las reservas asociadas.`,
-          onConfirm: () => {
-            this.classes = this.classes.filter(c => c.id !== classId);
-            this.saveClasses();
-            this.populateInstructorFilter();
-            this.renderClasses();
-            if (this.currentTab === 'admin') this.renderAdminView();
-            if (this.currentTab === 'my-bookings') this.renderMyBookings();
-            this.showToast('Clase eliminada del sistema', 'info');
-          }
-        });
-      }
-
-      openAttendeesModal(classId) {
-        this.activeClassForAttendees = classId;
-        const cls = this.classes.find(c => c.id === classId);
-        if (!cls) return;
-
-        document.getElementById('attendees-modal-title').textContent = cls.title;
-        document.getElementById('attendees-modal-subtitle').textContent = 
-          `${formatPrettyDate(cls.date)} • ${cls.time} • Ocupación: ${cls.attendees.length}/${cls.capacity}`;
-
-        // Populate Add Select with registered users who are not yet enrolled
-        const select = document.getElementById('attendees-add-select');
-        select.innerHTML = '';
-        const nonAttendees = this.users.filter(u => !cls.attendees.includes(u.id));
-
-        if (nonAttendees.length === 0) {
-          select.innerHTML = '<option disabled>Todos los usuarios inscritos</option>';
-        } else {
-          nonAttendees.forEach(u => {
-            const opt = document.createElement('option');
-            opt.value = u.id;
-            opt.textContent = `${u.username} (${u.role})`;
-            select.appendChild(opt);
-          });
-        }
-
-        // Render attendees list
-        const list = document.getElementById('attendees-list-container');
-        list.innerHTML = '';
-
-        if (cls.attendees.length === 0) {
-          list.innerHTML = '<p class="text-xs text-brand-muted text-center py-4">No hay alumnos inscritos todavía en esta clase.</p>';
-        } else {
-          cls.attendees.forEach(userId => {
-            const userObj = this.users.find(u => u.id === userId) || { username: 'Usuario desconocido', id: userId };
-            const row = document.createElement('div');
-            row.className = 'flex items-center justify-between p-2.5 rounded-xl bg-brand-cream/50 border border-brand-border text-xs';
-            row.innerHTML = `
-              <div class="flex items-center space-x-2">
-                <div class="w-7 h-7 rounded-full bg-brand-sand font-bold flex items-center justify-center text-brand-charcoal text-[11px]">
-                  ${userObj.username.charAt(0).toUpperCase()}
-                </div>
-                <span class="font-semibold text-brand-charcoal">${userObj.username}</span>
-              </div>
-              <button onclick="app.removeAttendeeFromClass('${cls.id}', '${userId}')" class="text-rose-500 hover:text-rose-700 font-medium text-[11px] p-1">
-                Quitar
-              </button>
-            `;
-            list.appendChild(row);
-          });
-        }
-
         this.openModal('modal-attendees');
-      }
+      },
 
-      manualEnrollUser() {
-        const select = document.getElementById('attendees-add-select');
-        const userId = select.value;
-        if (!userId) return;
+      handleManualEnroll() {
+        const select = document.getElementById('manual-student-select');
+        const username = select.value;
+        const classId = select.dataset.classId;
+        if (!username || !classId) return;
 
-        const cls = this.classes.find(c => c.id === this.activeClassForAttendees);
-        if (!cls) return;
-
-        if (cls.attendees.length >= cls.capacity) {
-          this.showToast('La clase ya alcanzó su aforo máximo', 'warning');
-          return;
-        }
-
-        cls.attendees.push(userId);
-        this.saveClasses();
-        this.updateAuthUI();
-        this.openAttendeesModal(cls.id);
-        this.renderClasses();
-        if (this.currentTab === 'admin') this.renderAdminView();
-        this.showToast('Alumno inscrito manualmente', 'success');
-      }
-
-      removeAttendeeFromClass(classId, userId) {
         const cls = this.classes.find(c => c.id === classId);
         if (!cls) return;
 
-        cls.attendees = cls.attendees.filter(id => id !== userId);
-        this.saveClasses();
-        this.updateAuthUI();
+        if (!cls.students) cls.students = [];
+        cls.students.push(username);
+
+        this.saveAll();
         this.openAttendeesModal(classId);
         this.renderClasses();
-        if (this.currentTab === 'admin') this.renderAdminView();
-        this.showToast('Alumno retirado de la clase', 'info');
-      }
+        this.showToast(`Alumno ${username} inscrito manualmente`, 'success');
+      },
 
-      openCalendarPickerModal() {
-        this.renderMonthPickerGrid();
-        this.openModal('modal-month-picker');
-      }
+      removeAttendee(classId, username) {
+        const cls = this.classes.find(c => c.id === classId);
+        if (!cls || !cls.students) return;
 
-      prevMonth() {
-        this.calendarViewMonth--;
-        if (this.calendarViewMonth < 0) {
-          this.calendarViewMonth = 11;
-          this.calendarViewYear--;
-        }
-        this.renderMonthPickerGrid();
-      }
+        cls.students = cls.students.filter(s => s !== username);
 
-      nextMonth() {
-        this.calendarViewMonth++;
-        if (this.calendarViewMonth > 11) {
-          this.calendarViewMonth = 0;
-          this.calendarViewYear++;
-        }
-        this.renderMonthPickerGrid();
-      }
-
-      renderMonthPickerGrid() {
-        const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-        document.getElementById('month-picker-label').textContent = `${monthNames[this.calendarViewMonth]} ${this.calendarViewYear}`;
-
-        const grid = document.getElementById('month-days-grid');
-        grid.innerHTML = '';
-
-        const firstDayOfMonth = new Date(this.calendarViewYear, this.calendarViewMonth, 1);
-        const lastDayOfMonth = new Date(this.calendarViewYear, this.calendarViewMonth + 1, 0);
-
-        // Monday start (0=Sun, 1=Mon, ..., 6=Sat)
-        let startingDay = firstDayOfMonth.getDay() - 1;
-        if (startingDay === -1) startingDay = 6;
-
-        // Empty slots for previous month
-        for (let i = 0; i < startingDay; i++) {
-          const empty = document.createElement('div');
-          empty.className = 'py-2';
-          grid.appendChild(empty);
+        // Refund credits
+        const u = this.users.find(usr => usr.username === username);
+        if (u) {
+          u.credits = (u.credits || 0) + (cls.creditsCost || 1);
         }
 
-        const todayIso = formatDateIso(new Date());
+        this.saveAll();
+        this.openAttendeesModal(classId);
+        this.renderClasses();
+        this.showToast(`Alumno retirado y crédito devuelto`, 'info');
+      },
 
-        for (let day = 1; day <= lastDayOfMonth.getDate(); day++) {
-          const d = new Date(this.calendarViewYear, this.calendarViewMonth, day);
-          const iso = formatDateIso(d);
-          const isSelected = (iso === this.selectedDate);
-          const hasClasses = this.classes.some(c => c.date === iso);
+      openCalendarModal() {
+        document.getElementById('calendar-jump-date-input').value = this.selectedDate;
+        this.openModal('modal-calendar-picker');
+      },
 
-          const btn = document.createElement('button');
-          btn.className = `py-2 rounded-xl flex flex-col items-center justify-center font-medium transition-colors ${
-            isSelected
-              ? 'bg-brand-terracotta text-white font-bold'
-              : 'hover:bg-brand-sand text-brand-charcoal'
-          }`;
+      applyCalendarJump() {
+        const val = document.getElementById('calendar-jump-date-input').value;
+        if (!val) return;
+        this.selectedDate = val;
+        this.closeModal('modal-calendar-picker');
+        this.renderDateStrip();
+        this.renderClasses();
+      },
 
-          btn.innerHTML = `
-            <span>${day}</span>
-            <span class="w-1 h-1 rounded-full mt-0.5 ${hasClasses ? (isSelected ? 'bg-white' : 'bg-brand-terracotta') : 'bg-transparent'}"></span>
-          `;
+      applyFilters() {
+        this.renderClasses();
+      },
 
-          btn.onclick = () => {
-            this.selectedDate = iso;
-            this.closeModal('modal-month-picker');
-            this.renderDayStrip();
-            this.renderClasses();
-          };
+      openModal(modalId) {
+        const m = document.getElementById(modalId);
+        if (m) m.classList.remove('hidden');
+      },
 
-          grid.appendChild(btn);
-        }
+      closeModal(modalId) {
+        const m = document.getElementById(modalId);
+        if (m) m.classList.add('hidden');
+      },
+
+      openAuthModal(mode = 'login') {
+        this.setAuthMode(mode);
+        this.openModal('modal-auth');
+      },
+
+      showConfirm(title, message, onConfirm) {
+        document.getElementById('confirm-title').textContent = title;
+        document.getElementById('confirm-message').textContent = message;
+        
+        const acceptBtn = document.getElementById('confirm-accept-btn');
+        acceptBtn.onclick = () => {
+          this.closeModal('modal-confirm');
+          if (onConfirm) onConfirm();
+        };
+
+        this.openModal('modal-confirm');
+      },
+
+      showToast(message, type = 'info') {
+        const container = document.getElementById('toast-container');
+        if (!container) return;
+
+        const toast = document.createElement('div');
+        toast.className = `pointer-events-auto flex items-center space-x-2 px-4 py-3 rounded-2xl text-xs font-semibold shadow-lg transition-all transform translate-y-2 opacity-0 duration-200 ${
+          type === 'success' ? 'bg-emerald-800 text-white' :
+          type === 'error' ? 'bg-red-800 text-white' :
+          'bg-brand-charcoal text-white'
+        }`;
+
+        let icon = 'ℹ️';
+        if (type === 'success') icon = '✓';
+        if (type === 'error') icon = '⚠️';
+
+        toast.innerHTML = `<span>${icon}</span><span>${message}</span>`;
+        container.appendChild(toast);
+
+        // Animate entrance
+        requestAnimationFrame(() => {
+          toast.classList.remove('translate-y-2', 'opacity-0');
+        });
+
+        setTimeout(() => {
+          toast.classList.add('translate-y-2', 'opacity-0');
+          setTimeout(() => {
+            if (toast.parentNode) toast.parentNode.removeChild(toast);
+          }, 200);
+        }, 3200);
       }
-    }
+    };
 
-    // Instantiate app when DOM is ready
-    let app;
-    window.addEventListener('DOMContentLoaded', () => {
-      app = new StudioApp();
-    });
+    window.onload = function() {
+      app.init();
+    };
   </script>
 </body>
 </html>
